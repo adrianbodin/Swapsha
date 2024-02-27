@@ -1,0 +1,6 @@
+@Swapsha.Api_HostAddress = http://localhost:5049
+
+GET {{Swapsha.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
