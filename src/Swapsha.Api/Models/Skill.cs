@@ -11,4 +11,5 @@ public class Skill
     public List<CustomUser> Users { get; } = [];
 
     public List<SubSkill> SubSkills { get; } = [];
+
 }

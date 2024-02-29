@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.EndPointDetails;
-using Swapsha.Api.Models;
+using Swapsha.Api.Models.Dtos;
+using Swapsha.Api.Models.Extensions;
 
 namespace Swapsha.Api.EndPoints;
 
@@ -17,51 +17,31 @@ public static class Skills
         group.MapGet("/{id:int}", GetById)
              .WithOpenApi(SkillsMetaData.GetSkillById);
 
+
         return group;
     }
 
-
-
-    static async Task<IResult> GetById(AppDbContext db, [FromRoute]int id, [FromQuery] string? include)
+    static async Task<IResult> GetAll(AppDbContext db, [FromQuery]bool includeSubSkills = false)
     {
-        if (!(id >= 1))
-            return TypedResults.BadRequest("The id has to be more than 1");
-
-        var skillsQuery = include == "subskills" ? db.Skills.AsNoTracking().Include(s => s.SubSkills)
-                                                 : db.Skills.AsNoTracking();
-
         try
         {
-            var result = await skillsQuery.FirstOrDefaultAsync(s => s.Id == id);
+            var skillsQuery = db.Skills.AsNoTracking();
 
-            if (result is null)
-                return TypedResults.NotFound($"The skill with the Id:{id} could not be found");
+            var result = await skillsQuery
+                .Select(s => new SkillDto
+                (
+                    s.Id,
+                    s.Name,
+                    s.Description,
+                    includeSubSkills
+                        ? s.SubSkills.Select(ss => new SubSkillDto(ss.Name, ss.Description))
+                        : null!
+                ))
+                .ToListAsync();
 
-            return TypedResults.Ok(result);
-        }
-        catch(Exception ex)
-        {
-            return TypedResults.Problem("An error occurred while retrieving the skill.");
-        }
-
-    }
-
-
-    static async Task<IResult> GetAll(AppDbContext db, [FromQuery] string? include)
-    {
-
-        bool includeSubSkills = include == "subskills";
-
-        var skillsQuery = db.Skills.AsNoTracking();
-
-        if (includeSubSkills)
-        {
-            skillsQuery = skillsQuery.Include(s => s.SubSkills);
-        }
-
-        try
-        {
-            return TypedResults.Ok(await skillsQuery.ToListAsync());
+            return result.Count == 0
+                ? TypedResults.NotFound($"The skills could not be found")
+                : TypedResults.Ok(result);
         }
         catch (Exception ex)
         {
@@ -69,5 +49,36 @@ public static class Skills
         }
     }
 
+    //doing it this way because then i only query the data and the columns that i need
+    static async Task<IResult> GetById(AppDbContext db, [FromRoute]int id, [FromQuery]bool includeSubSkills = false)
+    {
+        if (!(id >= 1))
+            return TypedResults.BadRequest("The id has to be more than 1");
 
+        var skillsQuery = db.Skills.AsNoTracking();
+
+        try
+        {
+            var result = await skillsQuery
+                .Where(s => s.Id == id)
+                .Select(s => new SkillDto
+                (
+                    s.Id,
+                    s.Name,
+                    s.Description,
+                    includeSubSkills
+                        ? s.SubSkills.Select(ss => new SubSkillDto(ss.Name, ss.Description))
+                        : null!
+                ))
+                .FirstOrDefaultAsync();
+
+            return result is null
+                ? TypedResults.NotFound($"The skill with the Id:{id} could not be found")
+                : TypedResults.Ok(result);
+        }
+        catch(Exception ex)
+        {
+            return TypedResults.Problem("An error occurred while retrieving the skill.");
+        }
+    }
 }

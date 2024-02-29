@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.EndPoints;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddAuthorization();
 
@@ -40,6 +42,10 @@ app.UseHttpsRedirection();
 app.MapGroup("/api/v1/skills")
     .MapSkills()
     .WithTags("Skills");
+
+app.MapGroup("/api/v1/subskills")
+    .MapSubSkills()
+    .WithTags("SubSkills");
 
 app.MapIdentityApi<CustomUser>();
 

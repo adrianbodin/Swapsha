@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Swapsha.Api.Models;
+﻿namespace Swapsha.Api.Models;
 
 public class SubSkill
 {
@@ -12,6 +10,5 @@ public class SubSkill
 
     public int SkillId { get; set; }
 
-    [JsonIgnore]
     public Skill Skill { get; set; }
 }
