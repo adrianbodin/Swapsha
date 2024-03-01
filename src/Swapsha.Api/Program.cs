@@ -4,6 +4,7 @@ using Swapsha.Api.Data;
 using Swapsha.Api.EndPoints;
 using Swapsha.Api.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -52,3 +53,8 @@ app.MapIdentityApi<CustomUser>();
 app.UseAuthorization();
 
 app.Run();
+
+public partial class Program
+{
+
+}

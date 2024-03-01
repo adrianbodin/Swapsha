@@ -1,3 +1,3 @@
 ﻿namespace Swapsha.Api.Models.Dtos;
 
-public record SubSkillDto(string Name, string Description);
+public record SubSkillDto(int Id, string Name, string Description);

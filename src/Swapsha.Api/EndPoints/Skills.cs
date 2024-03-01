@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.EndPointDetails;
 using Swapsha.Api.Models.Dtos;
-using Swapsha.Api.Models.Extensions;
 
 namespace Swapsha.Api.EndPoints;
 
@@ -12,30 +11,27 @@ public static class Skills
     public static RouteGroupBuilder MapSkills(this RouteGroupBuilder group)
     {
         group.MapGet("", GetAll)
-             .WithOpenApi(SkillsMetaData.GetAllSkills);
+            .WithOpenApi(SkillsMetaData.GetAllSkills);
 
         group.MapGet("/{id:int}", GetById)
-             .WithOpenApi(SkillsMetaData.GetSkillById);
+            .WithOpenApi(SkillsMetaData.GetSkillById);
 
 
         return group;
     }
 
-    static async Task<IResult> GetAll(AppDbContext db, [FromQuery]bool includeSubSkills = false)
+    static async Task<IResult> GetAll(AppDbContext db)
     {
         try
         {
-            var skillsQuery = db.Skills.AsNoTracking();
-
-            var result = await skillsQuery
+            var result = await db.Skills
+                .AsNoTracking()
                 .Select(s => new SkillDto
                 (
                     s.Id,
                     s.Name,
                     s.Description,
-                    includeSubSkills
-                        ? s.SubSkills.Select(ss => new SubSkillDto(ss.Name, ss.Description))
-                        : null!
+                    s.SubSkills.Select(ss => new SubSkillDto(ss.Id, ss.Name, ss.Description)).ToList()
                 ))
                 .ToListAsync();
 
@@ -50,25 +46,22 @@ public static class Skills
     }
 
     //doing it this way because then i only query the data and the columns that i need
-    static async Task<IResult> GetById(AppDbContext db, [FromRoute]int id, [FromQuery]bool includeSubSkills = false)
+    static async Task<IResult> GetById(AppDbContext db, [FromRoute]int id)
     {
         if (!(id >= 1))
             return TypedResults.BadRequest("The id has to be more than 1");
 
-        var skillsQuery = db.Skills.AsNoTracking();
-
         try
         {
-            var result = await skillsQuery
+            var result = await db.Skills
+                .AsNoTracking()
                 .Where(s => s.Id == id)
                 .Select(s => new SkillDto
                 (
                     s.Id,
                     s.Name,
                     s.Description,
-                    includeSubSkills
-                        ? s.SubSkills.Select(ss => new SubSkillDto(ss.Name, ss.Description))
-                        : null!
+                    s.SubSkills.Select(ss => new SubSkillDto(ss.Id, ss.Name, ss.Description)).ToList()
                 ))
                 .FirstOrDefaultAsync();
 
