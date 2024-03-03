@@ -2,17 +2,18 @@
 using Swapsha.Api.Models.Dtos;
 using Swapsha.Api.Tests.Fixtures;
 
-namespace Swapsha.Api.Tests.Tests;
+namespace Swapsha.Api.Tests.EndPoints;
 
-public class SkillsTests: IClassFixture<DockerWebApplicationFactoryFixture>
+[Collection("TestCollection")]
+public class SkillsTests : IAsyncLifetime
 {
-    private readonly DockerWebApplicationFactoryFixture _factory;
     private readonly HttpClient _client;
+    private readonly Func<Task> _resetDatabase;
 
-    public SkillsTests(DockerWebApplicationFactoryFixture factory)
+    public SkillsTests(ApiFactory factory)
     {
-        _factory = factory;
-        _client = _factory.CreateClient();
+        _client = factory.HttpClient;
+        _resetDatabase = factory.ResetDatabaseAsync;
     }
 
     [Fact]
@@ -25,4 +26,8 @@ public class SkillsTests: IClassFixture<DockerWebApplicationFactoryFixture>
 
         result.Should().BeOfType<List<SkillDto>>();
     }
+
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public Task DisposeAsync() => _resetDatabase();
 }

@@ -27,7 +27,7 @@ public static class SubSkills
 
         try
         {
-            var result = db.SubSkills
+            var result = await db.SubSkills
                 .AsNoTracking()
                 .Select(ss => new SubSkillDto
                 (
