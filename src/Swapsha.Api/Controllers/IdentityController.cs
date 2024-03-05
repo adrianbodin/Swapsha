@@ -21,7 +21,7 @@ public class IdentityController : ControllerBase
         _addUserNamesValidator = validator;
     }
 
-    //This is good
+
     [Authorize]
     [HttpPost("usernames")]
     [SwaggerOperation(
