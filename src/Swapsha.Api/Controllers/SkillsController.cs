@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.Models.Dtos;
+using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Swapsha.Api.Controllers;
 
@@ -17,7 +22,14 @@ public class SkillsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    [SwaggerOperation(
+        Summary = "Gets all skills",
+        Description = "Get all skills and its subskills.",
+        OperationId = "GetAllSkills")]
+    [SwaggerResponse(200, "Returns a list of SkillDto objects", typeof(IEnumerable<SkillDto>))]
+    [SwaggerResponse(404, "The skills could not be found")]
+    [SwaggerResponse(500, "An error occurred while retrieving the skills")]
+    public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll()
     {
         try
         {
@@ -43,37 +55,15 @@ public class SkillsController : ControllerBase
     }
 
 
-    /// <summary>
-    /// This endpoint returns a skill by its id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns>
-    /// <example>
-    /// GET /api/v1/skills/1
-    ///
-    /// {
-    ///     id: 1,
-    ///     name: "C#",
-    ///     description: "C# is a programming language",
-    ///     subSkills: [
-    ///         {
-    ///             id: 1,
-    ///             name: "C# Basics",
-    ///             description: "C# basics"
-    ///         },
-    ///     ]
-    /// }
-    /// </example>
-    /// </returns>
-    /// <response code="200">Returns a SkillDto object</response>
-    /// <response code="400">If the request route is not a valid number</response>
-    /// <response code="500">If there is a internal server error</response>
-    /// <response code="404">If the skill could not be found by the id</response>
     [HttpGet("{id:int}")]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SkillDto))]
+    [SwaggerOperation(
+        Summary = "Get a skill by its id",
+        Description = "Get a skill by its it and its subskills.",
+        OperationId = "GetSkillById")]
+    [SwaggerResponse(200, "Returns a SkillDto object", typeof(SkillDto))]
+    [SwaggerResponse(400, "The id has to be more than 1")]
+    [SwaggerResponse(404, "The skill with the Id:{id} could not be found")]
+    [SwaggerResponse(500, "An error occurred while retrieving the skill.")]
     public async Task<ActionResult<SkillDto>> GetById(int id)
     {
         if (!(id >= 1))

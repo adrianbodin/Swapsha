@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Swapsha.Api.Data.Seed;
 using Swapsha.Api.Models;
 
 namespace Swapsha.Api.Data;
@@ -25,6 +26,9 @@ public class AppDbContext : IdentityDbContext<CustomUser>
 
 private void ConfigureCustomUserEntity(ModelBuilder modelBuilder)
 {
+
+    modelBuilder.Entity<CustomUser>().HasData(UserSeed.SeedUsers());
+
     modelBuilder.Entity<CustomUser>()
         .Property(b => b.FirstName)
         .HasMaxLength(100);
@@ -80,33 +84,7 @@ private void ConfigureCustomUserEntity(ModelBuilder modelBuilder)
 
 private void ConfigureSkillEntity(ModelBuilder modelBuilder)
 {
-    //Seed data for skills
-    modelBuilder.Entity<Skill>().HasData(
-        new Skill
-        {
-            Id = 1,
-            Name = "Programmering",
-            Description = "Kunskaper inom programmering",
-        },
-        new Skill
-        {
-            Id = 2,
-            Name = "Svenska",
-            Description = "Kunskaper inom svenska",
-        },
-        new Skill
-        {
-            Id = 3,
-            Name = "Engelska",
-            Description = "Kunskaper inom engelska",
-        },
-        new Skill
-        {
-            Id = 4,
-            Name = "Matematik",
-            Description = "Kunskaper inom matematik",
-        }
-    );
+    modelBuilder.Entity<Skill>().HasData(SkillSeed.SeedSkills());
 
     modelBuilder.Entity<Skill>()
         .HasMany(s => s.SubSkills)
@@ -128,85 +106,7 @@ private void ConfigureSkillEntity(ModelBuilder modelBuilder)
 private void ConfigureSubSkillEntity(ModelBuilder modelBuilder)
 {
     //Seed data for subskills
-    modelBuilder.Entity<SubSkill>().HasData(
-            new SubSkill
-            {
-                Id = 1,
-                Name = "C#",
-                Description = "Kunskaper inom C#",
-                SkillId = 1
-            },
-            new SubSkill
-            {
-                Id = 2,
-                Name = "Java",
-                Description = "Kunskaper inom Java",
-                SkillId = 1
-            },
-            new SubSkill
-            {
-                Id = 3,
-                Name = "Python",
-                Description = "Kunskaper inom Python",
-                SkillId = 1
-            },
-            new SubSkill
-            {
-                Id = 4,
-                Name = "Grammatik",
-                Description = "Kunskaper inom grammatik",
-                SkillId = 2
-            },
-            new SubSkill
-            {
-                Id = 5,
-                Name = "Ordförråd",
-                Description = "Kunskaper inom ordförråd",
-                SkillId = 2
-            },
-            new SubSkill
-            {
-                Id = 6,
-                Name = "Stavning",
-                Description = "Kunskaper inom stavning",
-                SkillId = 2
-            },
-            new SubSkill
-            {
-                Id = 7,
-                Name = "Amerikansk engelska",
-                Description = "Kunskaper inom amerikansk engelska",
-                SkillId = 3
-            },
-            new SubSkill
-            {
-                Id = 8,
-                Name = "Brittisk engelska",
-                Description = "Kunskaper inom brittisk engelska",
-                SkillId = 3
-            },
-            new SubSkill
-            {
-                Id = 9,
-                Name = "Matematik 1",
-                Description = "Kunskaper inom matematik 1",
-                SkillId = 4
-            },
-            new SubSkill
-            {
-                Id = 10,
-                Name = "Matematik 2",
-                Description = "Kunskaper inom matematik 2",
-                SkillId = 4
-            },
-            new SubSkill
-            {
-                Id = 11,
-                Name = "Matematik 3",
-                Description = "Kunskaper inom matematik 3",
-                SkillId = 4
-            }
-        );
+    modelBuilder.Entity<SubSkill>().HasData(SubSkillSeed.SeedSubSkills());
 
     modelBuilder.Entity<SubSkill>()
         .HasKey(s => s.Id);
