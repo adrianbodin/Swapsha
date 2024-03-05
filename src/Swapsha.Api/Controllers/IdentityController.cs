@@ -22,7 +22,6 @@ public class IdentityController : ControllerBase
     }
 
     //This is good
-    //Hloooooooooo
     [Authorize]
     [HttpPost("usernames")]
     [SwaggerOperation(
