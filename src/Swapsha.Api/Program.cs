@@ -1,7 +1,8 @@
+using System.Reflection;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
-using Swapsha.Api.EndPoints;
 using Swapsha.Api.Models;
 
 
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddControllers();
 
 builder.Services.AddIdentityApiEndpoints<CustomUser>(options =>
     {
@@ -28,7 +31,18 @@ builder.Services.AddIdentityApiEndpoints<CustomUser>(options =>
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Swapsha Api",
+        Description = "An api for Swapsha application"
+    });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 var app = builder.Build();
 
@@ -40,15 +54,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGroup("/api/v1/skills")
-    .MapSkills()
-    .WithTags("Skills");
+app.MapControllers();
 
-app.MapGroup("/api/v1/subskills")
-    .MapSubSkills()
-    .WithTags("SubSkills");
-
-app.MapIdentityApi<CustomUser>();
+app.MapGroup("/api/v1/identity")
+    .MapIdentityApi<CustomUser>();
 
 app.UseAuthorization();
 
