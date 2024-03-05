@@ -21,6 +21,7 @@ public class IdentityController : ControllerBase
         _addUserNamesValidator = validator;
     }
 
+    //This is good
     [Authorize]
     [HttpPost("usernames")]
     [SwaggerOperation(
@@ -36,7 +37,8 @@ public class IdentityController : ControllerBase
         var validationResult = _addUserNamesValidator.Validate(dto);
         if (!validationResult.IsValid)
         {
-            return BadRequest(validationResult.Errors);
+            var errors = new { errors = validationResult.Errors.Select(e => e.ErrorMessage) };
+            return BadRequest(errors);
         }
 
         var user = await _userManager.GetUserAsync(User);
