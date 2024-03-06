@@ -3,7 +3,7 @@ using Swapsha.Api.Models.Dtos;
 
 namespace Swapsha.Api.Validations.IdentityValidations;
 
-public class AddUserNamesDtoValidation : AbstractValidator<AddUserNamesDto>
+public class AddUserNamesDtoValidation : AbstractValidator<UserNamesDto>
 {
     public AddUserNamesDtoValidation()
     {
