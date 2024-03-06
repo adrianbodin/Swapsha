@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Swapsha.Api.Tests.Fixtures;
 
-namespace Swapsha.Api.Tests.EndPoints;
+namespace Swapsha.Api.Tests.IntegrationTests.Controllers;
 
 [Collection("TestCollection")]
 public class SubSkillsTests : IAsyncLifetime

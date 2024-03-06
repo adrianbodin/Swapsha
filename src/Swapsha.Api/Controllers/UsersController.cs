@@ -10,12 +10,12 @@ namespace Swapsha.Api.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
-public class IdentityController : ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly UserManager<CustomUser> _userManager;
     private readonly IValidator<AddUserNamesDto> _addUserNamesValidator;
 
-    public IdentityController(UserManager<CustomUser> userManager, IValidator<AddUserNamesDto> validator)
+    public UsersController(UserManager<CustomUser> userManager, IValidator<AddUserNamesDto> validator)
     {
         _userManager = userManager;
         _addUserNamesValidator = validator;
@@ -23,7 +23,7 @@ public class IdentityController : ControllerBase
 
 
     [Authorize]
-    [HttpPost("usernames")]
+    [HttpPost("{id}/names")]
     [SwaggerOperation(
         Summary = "Add user names",
         Description = "Add the firstname, middlename, and lastname to the user.",
@@ -32,27 +32,29 @@ public class IdentityController : ControllerBase
     [SwaggerResponse(400, "The user names could not be updated")]
     [SwaggerResponse(401, "You are not authorized to perform this action")]
     [SwaggerResponse(500, "An error occurred while adding the user names")]
-    public async Task<IActionResult> AddUserNames([FromBody] AddUserNamesDto dto)
+    public async Task<IActionResult> AddUserNames([FromBody] AddUserNamesDto dto, string id)
     {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null || user.Id != id)
+            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+
         var validationResult = _addUserNamesValidator.Validate(dto);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors);
         }
 
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null)
-            return Unauthorized("You are not authorized to perform this action");
-
         user.FirstName = dto.FirstName;
         user.MiddleName = dto.MiddleName;
         user.LastName = dto.LastName;
 
         var result = await _userManager.UpdateAsync(user);
+        //TODO better return type
         if (result.Succeeded)
             return Ok("The user names have been updated");
 
-        return BadRequest("The user names could not be updated");
+        //TODO better return type
+        return Problem(statusCode: 500, detail:"An error occurred while adding the user names");
     }
 
 }

@@ -23,6 +23,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 
+builder.Services.AddProblemDetails();
+
 builder.Services.AddIdentityApiEndpoints<CustomUser>(options =>
     {
         if (builder.Environment.IsDevelopment())
@@ -70,6 +72,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 app.MapControllers();
 

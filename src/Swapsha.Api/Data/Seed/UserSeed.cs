@@ -8,8 +8,8 @@ public class UserSeed
     public static List<CustomUser> SeedUsers()
     {
 
-        var userId1 = Guid.NewGuid().ToString();
-        var userId2 = Guid.NewGuid().ToString();
+        var userId1 = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
+        var userId2 = "4bb59df8-7452-4f98-a399-56fd7eabc66a";
 
             var appUser1 = new CustomUser
             {

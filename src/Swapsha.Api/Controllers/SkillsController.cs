@@ -44,7 +44,7 @@ public class SkillsController : ControllerBase
                 ))
                 .ToListAsync();
 
-            return result.Count == 0
+            return result is null
                 ? NotFound("The skills could not be found")
                 : Ok(result);
         }
@@ -67,11 +67,9 @@ public class SkillsController : ControllerBase
     public async Task<ActionResult<SkillDto>> GetById(int id)
     {
         if (!(id >= 1))
-            return BadRequest("The id has to be more than 1");
+            return Problem(statusCode: 400, detail: "The id has to be more than 1");
 
-        try
-        {
-            var result = await _db.Skills
+        var result = await _db.Skills
                 .AsNoTracking()
                 .Where(s => s.Id == id)
                 .Select(s => new SkillDto
@@ -83,13 +81,9 @@ public class SkillsController : ControllerBase
                 ))
                 .FirstOrDefaultAsync();
 
-            return result is null
-                ? NotFound($"The skill with the Id:{id} could not be found")
-                : Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return Problem("An error occurred while retrieving the skill.");
-        }
+
+        return result is null
+            ? Problem(statusCode:404, detail:"The skill with the Id:{id} could not be found")
+            : Ok(result);
     }
 }
