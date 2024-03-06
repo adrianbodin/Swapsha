@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
     [SwaggerOperation(
         Summary = "Add user names",
         Description = "Add the firstname, middlename, and lastname to the user.",
-        OperationId = "AddUserNames")]
+        OperationId = "PostNames")]
     [SwaggerResponse(200, "The user names have been updated")]
     [SwaggerResponse(400, "The user names could not be updated")]
     [SwaggerResponse(401, "You are not authorized to perform this action")]
@@ -55,12 +55,18 @@ public class UsersController : ControllerBase
         var result = await _userManager.UpdateAsync(user);
         //TODO better return type
         if (result.Succeeded)
-            return Ok("The user names have been updated");
+            return Ok();
 
         //TODO better return type
         return Problem(statusCode: 500, detail:"An error occurred while adding the user names");
     }
 
+    [SwaggerOperation(
+        Summary = "Get names for a specific user",
+        Description = "Get firstname, middlename and lastname from the userid passed as the route parameter",
+        OperationId = "GetNames")]
+    [SwaggerResponse(200, "Returning the names if the operation was successful")]
+    [SwaggerResponse(404, "The user could not be found from the id passed")]
     [HttpGet("{id}/names")]
     public async Task<ActionResult<UserNamesDto>> GetNames(string id)
     {
@@ -80,6 +86,12 @@ public class UsersController : ControllerBase
         return Ok(names);
     }
 
+    [SwaggerOperation(
+        Summary = "Get the firstname of a specific user",
+        Description = "Gets the firstname of a specific user based on the id in the route",
+        OperationId = "GetFirstName")]
+    [SwaggerResponse(404, "If the route id could not match with a user in the database")]
+    [SwaggerResponse(200, "Returns the firstname if successful")]
     [HttpGet("{id}/firstname")]
     public async Task<ActionResult<UserNamesDto>> GetFirstName(string id)
     {
@@ -91,8 +103,17 @@ public class UsersController : ControllerBase
         return Ok(new { user.FirstName });
     }
 
+
     [Authorize]
     [HttpPost("{id}/firstname")]
+    [SwaggerOperation(
+        Summary = "Posts a new firstname for a user",
+        Description = "Posts a new firstname of the user, only the user hitting the endpoint can change it",
+        OperationId = "PostFirstName")]
+    [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
+    [SwaggerResponse(400, "If the validation of the Dto was not passed")]
+    [SwaggerResponse(201, "Returns the firstname if successful")]
+    [SwaggerResponse(500, "If the usermanager returns a not successful result")]
     public async Task<IActionResult> PostFirstName(string id, [FromBody] UserFirstNameDto dto)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -111,7 +132,7 @@ public class UsersController : ControllerBase
         var result = await _userManager.UpdateAsync(user);
         //TODO better return type
         if (result.Succeeded)
-            return Ok();
+            Created();
 
         //TODO better return type
         return Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
