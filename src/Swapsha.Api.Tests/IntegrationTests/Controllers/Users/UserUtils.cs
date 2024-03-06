@@ -7,14 +7,24 @@ namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 public static class UserUtils
 {
-    internal static UserNamesDto ValidAddUserNamesDto()
+    internal static UserNamesDto ValidUserNamesDto()
     {
         return new UserNamesDto("John", "Doe", "Smith");
     }
 
-    internal static UserNamesDto InvalidAddUserNamesDto()
+    internal static UserNamesDto InvalidUserNamesDto()
     {
         return new UserNamesDto("John", "Doe", "");
+    }
+
+    internal static UserFirstNameDto ValidFirstNameDto()
+    {
+        return new UserFirstNameDto("Adrian");
+    }
+
+    internal static UserFirstNameDto InvalidFirstNameDto()
+    {
+        return new UserFirstNameDto("");
     }
 
     internal static async Task AuthenticateUser(HttpClient client, CustomUser validUser)

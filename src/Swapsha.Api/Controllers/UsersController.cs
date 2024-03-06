@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
+using Swapsha.Api.Validations.UserValidations;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Swapsha.Api.Controllers;
@@ -13,12 +14,15 @@ namespace Swapsha.Api.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly UserManager<CustomUser> _userManager;
-    private readonly IValidator<UserNamesDto> _addUserNamesValidator;
+    private readonly IValidator<UserNamesDto> _unValidator;
+    private readonly IValidator<UserFirstNameDto> _fnValidator;
 
-    public UsersController(UserManager<CustomUser> userManager, IValidator<UserNamesDto> validator)
+    public UsersController(UserManager<CustomUser> userManager, IValidator<UserNamesDto> unValidator,
+        IValidator<UserFirstNameDto> fnValidator)
     {
         _userManager = userManager;
-        _addUserNamesValidator = validator;
+        _unValidator = unValidator;
+        _fnValidator = fnValidator;
     }
 
 
@@ -38,7 +42,7 @@ public class UsersController : ControllerBase
         if (user == null || user.Id != id)
             return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
 
-        var validationResult = _addUserNamesValidator.Validate(dto);
+        var validationResult = _unValidator.Validate(dto);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors);
@@ -60,6 +64,7 @@ public class UsersController : ControllerBase
     [HttpGet("{id}/names")]
     public async Task<ActionResult<UserNamesDto>> GetNames(string id)
     {
+
         var user = await _userManager.FindByIdAsync(id);
 
         if (user is null)
@@ -84,6 +89,32 @@ public class UsersController : ControllerBase
             return Problem(statusCode: 404, detail: $"The user could not be found with id: {id}");
 
         return Ok(new { user.FirstName });
+    }
+
+    [Authorize]
+    [HttpPost("{id}/firstname")]
+    public async Task<IActionResult> PostFirstName(string id, [FromBody] UserFirstNameDto dto)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null || user.Id != id)
+            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+
+
+        var validationResult = _fnValidator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        user.FirstName = dto.FirstName;
+
+        var result = await _userManager.UpdateAsync(user);
+        //TODO better return type
+        if (result.Succeeded)
+            return Ok();
+
+        //TODO better return type
+        return Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
     }
 
 }

@@ -6,7 +6,7 @@ using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
-using Swapsha.Api.Validations.IdentityValidations;
+using Swapsha.Api.Validations.UserValidations;
 using Swashbuckle.AspNetCore.Filters;
 
 
@@ -15,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddTransient<IValidator<UserNamesDto>, AddUserNamesDtoValidation>();
+builder.Services.AddTransient<IValidator<UserFirstNameDto>, UserFirstNameValidation>();
+builder.Services.AddTransient<IValidator<UserNamesDto>, UserNamesDtoValidation>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

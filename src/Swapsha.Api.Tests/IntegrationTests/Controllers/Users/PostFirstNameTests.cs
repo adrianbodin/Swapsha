@@ -7,12 +7,12 @@ using static Swapsha.Api.Tests.IntegrationTests.Controllers.Users.UserUtils;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class PostNamesTests : IAsyncLifetime
+public class PostFirstNameTests : IAsyncLifetime
 {
     private readonly HttpClient _client;
     private readonly Func<Task> _resetDatabase;
 
-    public PostNamesTests(ApiFactory factory)
+    public PostFirstNameTests(ApiFactory factory)
     {
         _client = factory.HttpClient;
         _resetDatabase = factory.ResetDatabaseAsync;
@@ -22,7 +22,7 @@ public class PostNamesTests : IAsyncLifetime
     public async Task ShouldGive401_WhenNotAuthenticated()
     {
         //Act
-        var response = await _client.PostAsJsonAsync("/api/v1/users/1/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync("/api/v1/users/1/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -37,7 +37,7 @@ public class PostNamesTests : IAsyncLifetime
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id}/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -51,7 +51,7 @@ public class PostNamesTests : IAsyncLifetime
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id}/names", InvalidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id}/firstname", InvalidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -62,10 +62,10 @@ public class PostNamesTests : IAsyncLifetime
     {
         // Arrange
         var validUser = UserSeed.SeedUsers().First();
-        await UserUtils.AuthenticateUser(_client, validUser);
+        await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id + 1}/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id + 1}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
