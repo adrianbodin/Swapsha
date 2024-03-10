@@ -17,7 +17,7 @@ public class GetNamesTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task ShouldGive200_WhenGettingNames()
+    public async Task OK_When_Getting_Names()
     {
         // Arrange
         var validUser = UserSeed.SeedUsers().First();
@@ -30,7 +30,7 @@ public class GetNamesTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task ShouldGive404_WhenRouteIdIsNotUserId()
+    public async Task NotFound_When_RouteId_Is_Not_UserId()
     {
         var response = await _client.GetAsync($"/api/v1/users/546489/names");
 

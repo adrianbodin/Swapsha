@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Swapsha.Api.Models;
@@ -132,7 +133,7 @@ public class UsersController : ControllerBase
         var result = await _userManager.UpdateAsync(user);
         //TODO better return type
         if (result.Succeeded)
-            Created();
+            return Ok();
 
         //TODO better return type
         return Problem(statusCode: 500, detail:"An error occurred while adding the firstname");

@@ -30,7 +30,7 @@ public class PostNamesTests : IAsyncLifetime
 
 
     [Fact]
-    public async Task ShouldGive200_WhenAuthenticated()
+    public async Task OK_When_Authenticated()
     {
         // Arrange
         var validUser = UserSeed.SeedUsers().First();
@@ -44,7 +44,7 @@ public class PostNamesTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task ShouldGive400_WhenInvalidData()
+    public async Task BadRequest_When_Invalid_Data()
     {
         // Arrange
         var validUser = UserSeed.SeedUsers().First();
@@ -58,11 +58,11 @@ public class PostNamesTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task ShouldGive401_WhenRouteIdDoesNotMatchUserId()
+    public async Task Unauthorized_When_RouteId_Does_Not_Match_UserId()
     {
         // Arrange
         var validUser = UserSeed.SeedUsers().First();
-        await UserUtils.AuthenticateUser(_client, validUser);
+        await AuthenticateUser(_client, validUser);
 
         //Act
         var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id + 1}/names", ValidUserNamesDto());
