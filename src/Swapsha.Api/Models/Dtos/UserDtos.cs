@@ -7,3 +7,4 @@ public record LoginResultDto(string TokenType, string AccessToken, int ExpiresIn
 public record UserNamesDto(string FirstName, string MiddleName, string LastName);
 
 public record UserFirstNameDto(string FirstName);
+

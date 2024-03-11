@@ -2,21 +2,32 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
+using Swapsha.Api.Services;
 using Swapsha.Api.Validations.UserValidations;
 using Swashbuckle.AspNetCore.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+var sqlConnection = builder.Configuration["ConnectionStrings:Swapsha:SqlDb"];
+var blobStorageConnection = builder.Configuration["ConnectionStrings:Swapsha:BlobStorage"];
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(sqlConnection));
+
+builder.Services.AddAzureClients(azureBuilder =>
+{
+    azureBuilder.AddBlobServiceClient(blobStorageConnection);
+});
 
 builder.Services.AddTransient<IValidator<UserFirstNameDto>, UserFirstNameValidation>();
 builder.Services.AddTransient<IValidator<UserNamesDto>, UserNamesDtoValidation>();
+builder.Services.AddSingleton<IImageService, ImageService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

@@ -1,11 +1,14 @@
-﻿using FluentValidation;
+﻿using System.Security.Cryptography;
+using Azure.Storage.Blobs.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Swapsha.Api.Data;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
-using Swapsha.Api.Validations.UserValidations;
+using Swapsha.Api.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Swapsha.Api.Controllers;
@@ -17,13 +20,21 @@ public class UsersController : ControllerBase
     private readonly UserManager<CustomUser> _userManager;
     private readonly IValidator<UserNamesDto> _unValidator;
     private readonly IValidator<UserFirstNameDto> _fnValidator;
+    private readonly AppDbContext _db;
+    private readonly IImageService _imageService;
 
-    public UsersController(UserManager<CustomUser> userManager, IValidator<UserNamesDto> unValidator,
-        IValidator<UserFirstNameDto> fnValidator)
+    public UsersController(
+        UserManager<CustomUser> userManager,
+        IValidator<UserNamesDto> unValidator,
+        IValidator<UserFirstNameDto> fnValidator,
+        AppDbContext db,
+        IImageService imageService)
     {
         _userManager = userManager;
         _unValidator = unValidator;
         _fnValidator = fnValidator;
+        _db = db;
+        _imageService = imageService;
     }
 
 
@@ -139,4 +150,55 @@ public class UsersController : ControllerBase
         return Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
     }
 
+
+    //firstname
+    //lastname
+    //profile pic
+    //List of skills
+    //pagination
+    [HttpGet]
+    public async Task<ActionResult<GetAllUsersResponse>> GetAllUsers()
+    {
+        var userQuery = _db.Users.AsNoTracking();
+
+        var users = userQuery
+            .Select(u => new GetAllUsersResponse
+            (
+                u.FirstName,
+                u.LastName,
+                u.ProfilePictureUrl,
+                u.Skills.Select(s => new GetAllUsersSkills
+                (
+                    s.Name,
+                    s.Description
+                ))
+            ))
+            .ToListAsync();
+
+        return Ok(users);
+
+    }
+
+    public record GetAllUsersResponse
+        (string FirstName, string LastName, string ProfilePictureUrl, IEnumerable<GetAllUsersSkills> skills);
+
+    public record GetAllUsersSkills
+        (string Name, string Description);
+
+    [Authorize]
+    [HttpPost("{id}/profilepic")]
+    public async Task<ActionResult<string>> PostProfilePic(string id, IFormFile image)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null || user.Id != id)
+            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+
+        var result = await _imageService.AddProfilePic(user.Id, image);
+
+        user.ProfilePictureUrl = result;
+
+        await _userManager.UpdateAsync(user);
+
+        return Created();
+    }
 }
