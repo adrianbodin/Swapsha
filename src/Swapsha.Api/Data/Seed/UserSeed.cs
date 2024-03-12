@@ -51,6 +51,7 @@ public class UserSeed
         appUser1.PasswordHash = hasher.HashPassword(appUser1, "Admin123!");
         appUser2.PasswordHash = hasher.HashPassword(appUser2, "Admin123!");
 
+
         return new List<CustomUser>
         {
             appUser1,

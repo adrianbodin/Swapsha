@@ -150,43 +150,37 @@ public class UsersController : ControllerBase
         return Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
     }
 
-
-    //firstname
-    //lastname
-    //profile pic
-    //List of skills
-    //pagination
     [HttpGet]
-    public async Task<ActionResult<GetAllUsersResponse>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<GetAllUsersResponse>>> GetAllUsers()
     {
-        var userQuery = _db.Users.AsNoTracking();
-
-        var users = userQuery
+        var users = await _db.Users
             .Select(u => new GetAllUsersResponse
             (
                 u.FirstName,
                 u.LastName,
-                u.ProfilePictureUrl,
-                u.Skills.Select(s => new GetAllUsersSkills
-                (
-                    s.Name,
-                    s.Description
-                ))
+                u.ProfilePictureUrl
             ))
             .ToListAsync();
 
         return Ok(users);
-
     }
 
     public record GetAllUsersResponse
-        (string FirstName, string LastName, string ProfilePictureUrl, IEnumerable<GetAllUsersSkills> skills);
+        (string? FirstName, string? LastName, string? ProfilePictureUrl);
 
     public record GetAllUsersSkills
         (string Name, string Description);
 
     [Authorize]
     [HttpPost("{id}/profilepic")]
+    [SwaggerOperation(
+        Summary = "Posts a new profile picture for a specific user",
+        Description = @"This endpoint is for adding OR overriding the current picture.
+                        Only the user logged in can hit this endpoint and change their picture",
+        OperationId = "PostProfilePic")]
+    [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
+    [SwaggerResponse(201, "If the profile picture has been updated/added successfully")]
+    [SwaggerResponse(500, "If there was a internal server error")]
     public async Task<ActionResult<string>> PostProfilePic(string id, IFormFile image)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -199,6 +193,36 @@ public class UsersController : ControllerBase
 
         await _userManager.UpdateAsync(user);
 
-        return Created();
+        return Created(new Uri(user.ProfilePictureUrl), result);
     }
+
+    [HttpGet("{id}/profilepic")]
+    [SwaggerOperation(
+        Summary = "Gets the profile picture url for a specific user",
+        Description = @"Gets the url where you can access the profile picture of the user,
+                        from the id passed in the route of the request",
+        OperationId = "GetProfilePic")]
+    [SwaggerResponse(404, "The user could not be found by the id from the route")]
+    [SwaggerResponse(200, "Returns the id of the user and the Url to the profile picture")]
+    [SwaggerResponse(500, "If there was a internal server error")]
+    public async Task<ActionResult<GetProfilePicResponse>> GetProfilePic(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+
+        if (user is null)
+            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
+
+        var response = new GetProfilePicResponse
+        (
+            user.Id,
+            user.ProfilePictureUrl ?? null
+        );
+
+        return Ok(response);
+    }
+
+    public record GetProfilePicResponse(string UserId, string ProfilePicUrl);
+
+
+    //Add a skill to a user
 }

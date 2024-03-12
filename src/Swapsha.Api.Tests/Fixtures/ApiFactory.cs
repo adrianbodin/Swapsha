@@ -16,6 +16,8 @@ public class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly MsSqlContainer _dbContainer = new MsSqlBuilder().Build();
 
+
+
     public HttpClient HttpClient { get; private set; } = null!;
 
     private DbConnection _dbConnection = null!;
@@ -73,7 +75,6 @@ public class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
         {
             DbAdapter = DbAdapter.SqlServer,
-
         });
     }
 
