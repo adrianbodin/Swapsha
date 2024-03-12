@@ -2,14 +2,16 @@
 
 public class Skill
 {
-    public int Id { get; set; }
+    public int SkillId { get; set; }
 
     public string Name { get; set; }
 
     public string Description { get; set; }
 
-    public List<CustomUser> Users { get; } = [];
+    public ICollection<UserSkill> UserSkills { get; } = [];
 
-    public List<SubSkill> SubSkills { get; } = [];
+    public ICollection<UserWantedSkill> UserWantedSkills { get; } = [];
+
+    public ICollection<SubSkill>? SubSkills { get; } = [];
 
 }

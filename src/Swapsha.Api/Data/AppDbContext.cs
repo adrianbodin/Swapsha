@@ -14,10 +14,35 @@ public class AppDbContext : IdentityDbContext<CustomUser>
 
     public DbSet<Skill> Skills { get; set; }
     public DbSet<SubSkill> SubSkills { get; set; }
+    public DbSet<UserSkill> UserSkills { get; set; }
+    public DbSet<UserWantedSkill> UserWantedSkills { get; set; }
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<UserSkill>()
+        .HasKey(us => new { us.UserId, us.SkillId });
+    modelBuilder.Entity<UserSkill>()
+        .HasOne(us => us.User)
+        .WithMany(u => u.UserSkills)
+        .HasForeignKey(us => us.UserId);
+    modelBuilder.Entity<UserSkill>()
+        .HasOne(us => us.Skill)
+        .WithMany(s => s.UserSkills)
+        .HasForeignKey(us => us.SkillId);
+
+    modelBuilder.Entity<UserWantedSkill>()
+        .HasKey(us => new { us.UserId, us.SkillId });
+    modelBuilder.Entity<UserWantedSkill>()
+        .HasOne(us => us.User)
+        .WithMany(u => u.UserWantedSkills)
+        .HasForeignKey(us => us.UserId);
+    modelBuilder.Entity<UserWantedSkill>()
+        .HasOne(us => us.Skill)
+        .WithMany(s => s.UserWantedSkills)
+        .HasForeignKey(us => us.SkillId);
+
 
     ConfigureCustomUserEntity(modelBuilder);
     ConfigureSkillEntity(modelBuilder);
@@ -45,41 +70,6 @@ private void ConfigureCustomUserEntity(ModelBuilder modelBuilder)
         .Property(b => b.ProfilePictureUrl)
         .HasMaxLength(100);
 
-    modelBuilder.Entity<CustomUser>()
-        .HasMany(u => u.Skills)
-        .WithMany(s => s.Users)
-        .UsingEntity<Dictionary<string, object>>(
-            "UserSkills",
-            j => j
-                .HasOne<Skill>()
-                .WithMany()
-                .HasForeignKey("SkillId"),
-            j => j
-                .HasOne<CustomUser>()
-                .WithMany()
-                .HasForeignKey("CustomUserId"),
-            j =>
-            {
-                j.HasKey("CustomUserId", "SkillId");
-            });
-
-    modelBuilder.Entity<CustomUser>()
-        .HasMany(u => u.WantedSkills)
-        .WithMany(s => s.Users)
-        .UsingEntity<Dictionary<string, object>>(
-            "UserWantedSkills",
-            j => j
-                .HasOne<Skill>()
-                .WithMany()
-                .HasForeignKey("SkillId"),
-            j => j
-                .HasOne<CustomUser>()
-                .WithMany()
-                .HasForeignKey("CustomUserId"),
-            j =>
-            {
-                j.HasKey("CustomUserId", "SkillId");
-            });
 }
 
 private void ConfigureSkillEntity(ModelBuilder modelBuilder)
@@ -92,7 +82,7 @@ private void ConfigureSkillEntity(ModelBuilder modelBuilder)
         .HasForeignKey(s => s.SkillId);
 
     modelBuilder.Entity<Skill>()
-        .HasKey(s => s.Id);
+        .HasKey(s => s.SkillId);
 
     modelBuilder.Entity<Skill>()
         .Property(s => s.Name)

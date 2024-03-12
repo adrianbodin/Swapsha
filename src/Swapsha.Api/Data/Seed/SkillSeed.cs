@@ -13,25 +13,25 @@ public class SkillSeed
         {
             new Skill
             {
-                Id = 1,
+                SkillId = 1,
                 Name = "Programmering",
                 Description = "Kunskaper inom programmering",
             },
             new Skill
             {
-                Id = 2,
+                SkillId = 2,
                 Name = "Svenska",
                 Description = "Kunskaper inom svenska",
             },
             new Skill
             {
-                Id = 3,
+                SkillId = 3,
                 Name = "Engelska",
                 Description = "Kunskaper inom engelska",
             },
             new Skill
             {
-                Id = 4,
+                SkillId = 4,
                 Name = "Matematik",
                 Description = "Kunskaper inom matematik",
             }

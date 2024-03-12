@@ -4,6 +4,7 @@ namespace Swapsha.Api.Models;
 
 public class CustomUser : IdentityUser
 {
+
     public string? FirstName { get; set; }
 
     public string? MiddleName { get; set; }
@@ -12,7 +13,7 @@ public class CustomUser : IdentityUser
 
     public string? ProfilePictureUrl { get; set; }
 
-    public List<Skill> Skills { get; } = [];
+    public ICollection<UserSkill> UserSkills { get; set; } = [];
 
-    public List<Skill> WantedSkills { get; } = [];
+    public ICollection<UserWantedSkill> UserWantedSkills { get; set; } = [];
 }

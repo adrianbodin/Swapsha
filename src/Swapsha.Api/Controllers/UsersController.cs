@@ -158,7 +158,9 @@ public class UsersController : ControllerBase
             (
                 u.FirstName,
                 u.LastName,
-                u.ProfilePictureUrl
+                u.ProfilePictureUrl,
+                u.UserSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList(),
+                u.UserWantedSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList()
             ))
             .ToListAsync();
 
@@ -166,7 +168,7 @@ public class UsersController : ControllerBase
     }
 
     public record GetAllUsersResponse
-        (string? FirstName, string? LastName, string? ProfilePictureUrl);
+        (string? FirstName, string? LastName, string? ProfilePictureUrl, List<GetAllUsersSkills> Skills, List<GetAllUsersSkills> WantedSkills);
 
     public record GetAllUsersSkills
         (string Name, string Description);
@@ -208,7 +210,6 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<GetProfilePicResponse>> GetProfilePic(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
-
         if (user is null)
             return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
 
@@ -221,8 +222,96 @@ public class UsersController : ControllerBase
         return Ok(response);
     }
 
-    public record GetProfilePicResponse(string UserId, string ProfilePicUrl);
+    public record GetProfilePicResponse(string UserId, string? ProfilePicUrl);
 
 
-    //Add a skill to a user
+    //TODO: refactor this to a cleaner solution
+    [Authorize]
+    [HttpPost("{id}/skills")]
+    [SwaggerOperation(
+        Summary = "Add a skill to a user",
+        Description = "Add a skill to a user based on the id in the route and the skill id in the body",
+        OperationId = "AddSkillToUser")]
+    [SwaggerResponse(404, "If the user or the skill could not be found")]
+    [SwaggerResponse(400, "If the user already has the skill")]
+    [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
+    [SwaggerResponse(200, "If the skill was added to the user")]
+    public async Task<IActionResult> AddSkillToUser(string id, AddSkillToUserRequest request)
+    {
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null)
+            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
+
+        // Check if the user already has the skill
+        var alreadyHasSkill = await _db.UserSkills.AnyAsync(us => us.UserId == id && us.SkillId == request.SkillId);
+
+        if (alreadyHasSkill)
+            return Problem(statusCode:400, detail: $"The user with id: {id} already has the skill with id: {request.SkillId}");
+
+        var loggedInUser = await _userManager.GetUserAsync(User);
+        if (loggedInUser is null || loggedInUser.Id != id)
+            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+
+        var skill = await _db.Skills.FindAsync(request.SkillId);
+        if (skill is null)
+            return Problem(statusCode: 404, detail: $"The skill with the id: {request.SkillId} could not be found");
+
+        var userSkill = new UserSkill
+          {
+              SkillId = skill.SkillId,
+              UserId = user.Id
+          };
+
+        _db.UserSkills.Add(userSkill);
+
+        await _db.SaveChangesAsync();
+
+        //TODO make a better return here
+        return Ok();
+    }
+
+    public record AddSkillToUserRequest(int SkillId);
+    [Authorize]
+    [HttpPost("{id}/wantedskills")]
+    [SwaggerOperation(
+        Summary = "Add a wanted skill to a user",
+        Description = "Add a wanted skill to a user based on the id in the route and the skill id in the body",
+        OperationId = "AddWantedSkillToUser")]
+    [SwaggerResponse(404, "If the user or the skill could not be found")]
+    [SwaggerResponse(400, "If the user already has the wanted skill")]
+    [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
+    [SwaggerResponse(200, "If the wanted skill was added to the user")]
+    public async Task<IActionResult> AddWantedSkillToUser(string id, AddWantedSkillToUserRequest request)
+    {
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null)
+            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
+
+        // Check if the user already has the wanted skill
+        var alreadyHasWantedSkill = await _db.UserWantedSkills.AnyAsync(us => us.UserId == id && us.SkillId == request.SkillId);
+
+        if (alreadyHasWantedSkill)
+            return Problem(statusCode:400, detail: $"The user with id: {id} already has the wanted skill with id: {request.SkillId}");
+
+        var loggedInUser = await _userManager.GetUserAsync(User);
+        if (loggedInUser is null || loggedInUser.Id != id)
+            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+
+        var skill = await _db.Skills.FindAsync(request.SkillId);
+        if (skill is null)
+            return Problem(statusCode: 404, detail: $"The skill with the id: {request.SkillId} could not be found");
+
+        var userWantedSkill = new UserWantedSkill
+        {
+            SkillId = skill.SkillId,
+            UserId = user.Id
+        };
+
+        _db.UserWantedSkills.Add(userWantedSkill);
+        await _db.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    public record AddWantedSkillToUserRequest(int SkillId);
 }

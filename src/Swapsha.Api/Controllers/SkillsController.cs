@@ -37,7 +37,7 @@ public class SkillsController : ControllerBase
                 .AsNoTracking()
                 .Select(s => new SkillDto
                 (
-                    s.Id,
+                    s.SkillId,
                     s.Name,
                     s.Description,
                     s.SubSkills.Select(ss => new SubSkillDto(ss.Id, ss.Name, ss.Description)).ToList()
@@ -71,10 +71,10 @@ public class SkillsController : ControllerBase
 
         var result = await _db.Skills
                 .AsNoTracking()
-                .Where(s => s.Id == id)
+                .Where(s => s.SkillId == id)
                 .Select(s => new SkillDto
                 (
-                    s.Id,
+                    s.SkillId,
                     s.Name,
                     s.Description,
                     s.SubSkills.Select(ss => new SubSkillDto(ss.Id, ss.Name, ss.Description)).ToList()
