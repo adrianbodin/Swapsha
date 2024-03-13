@@ -151,9 +151,16 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<GetAllUsersResponse>>> GetAllUsers()
+    [SwaggerOperation(
+        Summary = "Get all users",
+        Description = "Get all users and their skills and wanted skills, paginated",
+        OperationId = "GetAllUsers")]
+    [SwaggerResponse(200, "Returns a paginated response of GetAllUsersResponse objects")]
+    [SwaggerResponse(500, "If there was a internal server error")]
+    public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers(int pageIndex = 1, int pageSize = 10)
     {
-        var users = await _db.Users
+        var query = _db.Users
+            .AsNoTracking()
             .Select(u => new GetAllUsersResponse
             (
                 u.FirstName,
@@ -161,10 +168,23 @@ public class UsersController : ControllerBase
                 u.ProfilePictureUrl,
                 u.UserSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList(),
                 u.UserWantedSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList()
-            ))
-            .ToListAsync();
+            ));
 
-        return Ok(users);
+        var count = await query.CountAsync();
+
+        query = query
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize);
+
+        var response = new PaginatedResponse<GetAllUsersResponse>
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            TotalRecords = count,
+            Data = await query.ToListAsync()
+        };
+
+        return Ok(response);
     }
 
     public record GetAllUsersResponse
