@@ -13,7 +13,9 @@ public class CustomUser : IdentityUser
 
     public string? ProfilePictureUrl { get; set; }
 
-    public ICollection<UserSkill> UserSkills { get; set; } = [];
+    public ICollection<Review> Reviews { get; } = [];
 
-    public ICollection<UserWantedSkill> UserWantedSkills { get; set; } = [];
+    public ICollection<UserSkill> UserSkills { get; } = [];
+
+    public ICollection<UserWantedSkill> UserWantedSkills { get; } = [];
 }

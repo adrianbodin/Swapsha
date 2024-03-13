@@ -5,16 +5,9 @@ using Swapsha.Api.Tests.Fixtures;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class GetNamesTests : IAsyncLifetime
+public class GetNamesTests : BaseTest
 {
-    private readonly HttpClient _client;
-    private readonly Func<Task> _resetDatabase;
-
-    public GetNamesTests(ApiFactory factory)
-    {
-        _client = factory.HttpClient;
-        _resetDatabase = factory.ResetDatabaseAsync;
-    }
+    public GetNamesTests(ApiFactory factory) : base(factory) { }
 
     [Fact]
     public async Task OK_When_Getting_Names()

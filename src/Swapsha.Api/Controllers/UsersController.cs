@@ -38,8 +38,67 @@ public class UsersController : ControllerBase
     }
 
 
+    //TODO: take a look at this.
+    [HttpGet]
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Get all users",
+        Description = "Get all users and their skills and wanted skills, paginated",
+        OperationId = "GetAllUsers")]
+    [SwaggerResponse(200, "Returns a paginated response of GetAllUsersResponse objects")]
+    [SwaggerResponse(500, "If there was a internal server error")]
+    #endregion
+    public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers(
+        int? skillId = null,
+        int pageIndex = 1,
+        int pageSize = 10)
+    {
+        IQueryable<CustomUser> userQuery = _db.Users.AsNoTracking();
+
+        if(skillId.HasValue)
+        {
+            userQuery = userQuery
+                .Where(u => u.UserSkills.Any(us => us.SkillId == skillId));
+        }
+
+        var count = await userQuery.CountAsync();
+
+        var users = await userQuery
+            .Select(u => new GetAllUsersResponse
+            (
+                u.FirstName,
+                u.LastName,
+                u.ProfilePictureUrl,
+                u.UserSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList(),
+                u.UserWantedSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList()
+                ))
+            .AsNoTracking()
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        var response = new PaginatedResponse<GetAllUsersResponse>
+        (
+            pageIndex,
+            pageSize,
+            count,
+            users
+        );
+
+        return Ok(response);
+    }
+
+    public record PaginatedResponse<T>(int PageIndex, int PageSize, int TotalRecords, List<T> Data);
+
+    public record GetAllUsersResponse
+        (string? FirstName, string? LastName, string? ProfilePictureUrl, List<GetAllUsersSkills> Skills, List<GetAllUsersSkills> WantedSkills);
+
+    public record GetAllUsersSkills
+        (string Name, string Description);
+
     [Authorize]
     [HttpPost("{id}/names")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add user names",
         Description = "Add the firstname, middlename, and lastname to the user.",
@@ -48,6 +107,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(400, "The user names could not be updated")]
     [SwaggerResponse(401, "You are not authorized to perform this action")]
     [SwaggerResponse(500, "An error occurred while adding the user names")]
+    #endregion
     public async Task<IActionResult> PostNames([FromBody] UserNamesDto dto, string id)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -65,21 +125,22 @@ public class UsersController : ControllerBase
         user.LastName = dto.LastName;
 
         var result = await _userManager.UpdateAsync(user);
-        //TODO better return type
-        if (result.Succeeded)
-            return Ok();
 
-        //TODO better return type
-        return Problem(statusCode: 500, detail:"An error occurred while adding the user names");
+
+        return result.Succeeded
+            ? Ok()
+            : Problem(statusCode: 500, detail:"An error occurred while adding the user names");
     }
 
+    [HttpGet("{id}/names")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get names for a specific user",
         Description = "Get firstname, middlename and lastname from the userid passed as the route parameter",
         OperationId = "GetNames")]
     [SwaggerResponse(200, "Returning the names if the operation was successful")]
     [SwaggerResponse(404, "The user could not be found from the id passed")]
-    [HttpGet("{id}/names")]
+    #endregion
     public async Task<ActionResult<UserNamesDto>> GetNames(string id)
     {
 
@@ -98,13 +159,15 @@ public class UsersController : ControllerBase
         return Ok(names);
     }
 
+    [HttpGet("{id}/firstname")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get the firstname of a specific user",
         Description = "Gets the firstname of a specific user based on the id in the route",
         OperationId = "GetFirstName")]
     [SwaggerResponse(404, "If the route id could not match with a user in the database")]
     [SwaggerResponse(200, "Returns the firstname if successful")]
-    [HttpGet("{id}/firstname")]
+    #endregion
     public async Task<ActionResult<UserNamesDto>> GetFirstName(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
@@ -118,6 +181,7 @@ public class UsersController : ControllerBase
 
     [Authorize]
     [HttpPost("{id}/firstname")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new firstname for a user",
         Description = "Posts a new firstname of the user, only the user hitting the endpoint can change it",
@@ -126,6 +190,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(400, "If the validation of the Dto was not passed")]
     [SwaggerResponse(201, "Returns the firstname if successful")]
     [SwaggerResponse(500, "If the usermanager returns a not successful result")]
+    #endregion
     public async Task<IActionResult> PostFirstName(string id, [FromBody] UserFirstNameDto dto)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -142,59 +207,16 @@ public class UsersController : ControllerBase
         user.FirstName = dto.FirstName;
 
         var result = await _userManager.UpdateAsync(user);
-        //TODO better return type
-        if (result.Succeeded)
-            return Ok();
 
-        //TODO better return type
-        return Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
+        //TODO: make a better return here
+        return result.Succeeded
+            ? Ok()
+            : Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
     }
-
-    [HttpGet]
-    [SwaggerOperation(
-        Summary = "Get all users",
-        Description = "Get all users and their skills and wanted skills, paginated",
-        OperationId = "GetAllUsers")]
-    [SwaggerResponse(200, "Returns a paginated response of GetAllUsersResponse objects")]
-    [SwaggerResponse(500, "If there was a internal server error")]
-    public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers(int pageIndex = 1, int pageSize = 10)
-    {
-        var query = _db.Users
-            .AsNoTracking()
-            .Select(u => new GetAllUsersResponse
-            (
-                u.FirstName,
-                u.LastName,
-                u.ProfilePictureUrl,
-                u.UserSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList(),
-                u.UserWantedSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList()
-            ));
-
-        var count = await query.CountAsync();
-
-        query = query
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize);
-
-        var response = new PaginatedResponse<GetAllUsersResponse>
-        {
-            PageIndex = pageIndex,
-            PageSize = pageSize,
-            TotalRecords = count,
-            Data = await query.ToListAsync()
-        };
-
-        return Ok(response);
-    }
-
-    public record GetAllUsersResponse
-        (string? FirstName, string? LastName, string? ProfilePictureUrl, List<GetAllUsersSkills> Skills, List<GetAllUsersSkills> WantedSkills);
-
-    public record GetAllUsersSkills
-        (string Name, string Description);
 
     [Authorize]
     [HttpPost("{id}/profilepic")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new profile picture for a specific user",
         Description = @"This endpoint is for adding OR overriding the current picture.
@@ -203,6 +225,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
     [SwaggerResponse(201, "If the profile picture has been updated/added successfully")]
     [SwaggerResponse(500, "If there was a internal server error")]
+    #endregion
     public async Task<ActionResult<string>> PostProfilePic(string id, IFormFile image)
     {
         var user = await _userManager.GetUserAsync(User);
@@ -219,6 +242,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}/profilepic")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Gets the profile picture url for a specific user",
         Description = @"Gets the url where you can access the profile picture of the user,
@@ -227,6 +251,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(404, "The user could not be found by the id from the route")]
     [SwaggerResponse(200, "Returns the id of the user and the Url to the profile picture")]
     [SwaggerResponse(500, "If there was a internal server error")]
+    #endregion
     public async Task<ActionResult<GetProfilePicResponse>> GetProfilePic(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
@@ -245,9 +270,9 @@ public class UsersController : ControllerBase
     public record GetProfilePicResponse(string UserId, string? ProfilePicUrl);
 
 
-    //TODO: refactor this to a cleaner solution
     [Authorize]
     [HttpPost("{id}/skills")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add a skill to a user",
         Description = "Add a skill to a user based on the id in the route and the skill id in the body",
@@ -256,6 +281,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(400, "If the user already has the skill")]
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
     [SwaggerResponse(200, "If the skill was added to the user")]
+    #endregion
     public async Task<IActionResult> AddSkillToUser(string id, AddSkillToUserRequest request)
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -289,10 +315,12 @@ public class UsersController : ControllerBase
         //TODO make a better return here
         return Ok();
     }
-
     public record AddSkillToUserRequest(int SkillId);
+
+
     [Authorize]
     [HttpPost("{id}/wantedskills")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add a wanted skill to a user",
         Description = "Add a wanted skill to a user based on the id in the route and the skill id in the body",
@@ -301,6 +329,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(400, "If the user already has the wanted skill")]
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
     [SwaggerResponse(200, "If the wanted skill was added to the user")]
+    #endregion
     public async Task<IActionResult> AddWantedSkillToUser(string id, AddWantedSkillToUserRequest request)
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);

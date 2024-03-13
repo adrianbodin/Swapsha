@@ -22,6 +22,7 @@ public class SkillsController : ControllerBase
     }
 
     [HttpGet]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Gets all skills",
         Description = "Get all skills and its subskills.",
@@ -29,6 +30,7 @@ public class SkillsController : ControllerBase
     [SwaggerResponse(200, "Returns a list of SkillDto objects", typeof(IEnumerable<SkillDto>))]
     [SwaggerResponse(404, "The skills could not be found")]
     [SwaggerResponse(500, "An error occurred while retrieving the skills")]
+    #endregion
     public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll()
     {
         try
@@ -54,8 +56,8 @@ public class SkillsController : ControllerBase
         }
     }
 
-
     [HttpGet("{id:int}")]
+    #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get a skill by its id",
         Description = "Get a skill by its it and its subskills.",
@@ -64,6 +66,7 @@ public class SkillsController : ControllerBase
     [SwaggerResponse(400, "The id has to be more than 1")]
     [SwaggerResponse(404, "The skill with the Id:{id} could not be found")]
     [SwaggerResponse(500, "An error occurred while retrieving the skill.")]
+    #endregion
     public async Task<ActionResult<SkillDto>> GetById(int id)
     {
         if (!(id >= 1))

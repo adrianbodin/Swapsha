@@ -5,16 +5,9 @@ using Swapsha.Api.Tests.Fixtures;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class GetFirstNameTests : IAsyncLifetime
+public class GetFirstNameTests : BaseTest
 {
-    private readonly HttpClient _client;
-    private readonly Func<Task> _resetDatabase;
-
-    public GetFirstNameTests(ApiFactory factory)
-    {
-        _client = factory.HttpClient;
-        _resetDatabase = factory.ResetDatabaseAsync;
-    }
+    public GetFirstNameTests(ApiFactory factory) : base(factory) { }
 
     [Fact]
     public async Task OK_When_Getting_FirstName()
@@ -36,8 +29,4 @@ public class GetFirstNameTests : IAsyncLifetime
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
-
-    public Task InitializeAsync() => Task.CompletedTask;
-
-    public Task DisposeAsync() => _resetDatabase();
 }

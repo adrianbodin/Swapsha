@@ -7,16 +7,9 @@ using static Swapsha.Api.Tests.IntegrationTests.Controllers.Users.UserUtils;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class PostNamesTests : IAsyncLifetime
+public class PostNamesTests : BaseTest
 {
-    private readonly HttpClient _client;
-    private readonly Func<Task> _resetDatabase;
-
-    public PostNamesTests(ApiFactory factory)
-    {
-        _client = factory.HttpClient;
-        _resetDatabase = factory.ResetDatabaseAsync;
-    }
+    public PostNamesTests(ApiFactory factory) : base(factory) { }
 
     [Fact]
     public async Task ShouldGive401_WhenNotAuthenticated()
@@ -27,8 +20,7 @@ public class PostNamesTests : IAsyncLifetime
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
-
-
+    
     [Fact]
     public async Task OK_When_Authenticated()
     {
@@ -70,8 +62,4 @@ public class PostNamesTests : IAsyncLifetime
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
-
-    public Task InitializeAsync() => Task.CompletedTask;
-
-    public Task DisposeAsync() => _resetDatabase();
 }

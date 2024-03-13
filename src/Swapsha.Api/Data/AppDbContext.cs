@@ -43,6 +43,10 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         .WithMany(s => s.UserWantedSkills)
         .HasForeignKey(us => us.SkillId);
 
+    modelBuilder.Entity<Review>()
+        .Property(r => r.Rating)
+        .HasMaxLength(5)
+        .IsRequired();
 
     ConfigureCustomUserEntity(modelBuilder);
     ConfigureSkillEntity(modelBuilder);
@@ -53,6 +57,11 @@ private void ConfigureCustomUserEntity(ModelBuilder modelBuilder)
 {
 
     modelBuilder.Entity<CustomUser>().HasData(UserSeed.SeedUsers());
+
+    modelBuilder.Entity<CustomUser>()
+        .HasMany(u => u.Reviews)
+        .WithOne(r => r.User)
+        .HasForeignKey(r => r.UserId);
 
     modelBuilder.Entity<CustomUser>()
         .Property(b => b.FirstName)
