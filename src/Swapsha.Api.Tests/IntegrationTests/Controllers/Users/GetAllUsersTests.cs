@@ -15,5 +15,4 @@ public class GetAllUsersTests : BaseTest
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
-
 }

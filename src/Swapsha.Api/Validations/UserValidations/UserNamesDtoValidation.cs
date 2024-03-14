@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using Swapsha.Api.Controllers;
 using Swapsha.Api.Models.Dtos;
 
 namespace Swapsha.Api.Validations.UserValidations;
 
-public class UserNamesDtoValidation : AbstractValidator<UserNamesDto>
+public class UserNamesDtoValidation : AbstractValidator<UsersController.UserNamesDto>
 {
     public UserNamesDtoValidation()
     {

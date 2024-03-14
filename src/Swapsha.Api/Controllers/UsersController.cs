@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using Azure.Storage.Blobs.Models;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,17 +35,28 @@ public class UsersController : ControllerBase
         _imageService = imageService;
     }
 
+    #region Requests/Responses
 
-    //TODO: take a look at this.
-    [HttpGet]
+    public record PaginatedResponse<T>(int PageIndex, int PageSize, int TotalRecords, List<T> Data);
+
+    public record GetAllUsersResponse
+        (string UserId,string? FirstName, string? LastName, string? ProfilePictureUrl, List<GetAllUsersSkills> Skills, List<GetAllUsersSkills> WantedSkills);
+
+    public record GetAllUsersSkills
+        (string Name, string Description);
+
+    #endregion
     #region SwaggerDocs
+
     [SwaggerOperation(
         Summary = "Get all users",
         Description = "Get all users and their skills and wanted skills, paginated",
         OperationId = "GetAllUsers")]
     [SwaggerResponse(200, "Returns a paginated response of GetAllUsersResponse objects")]
     [SwaggerResponse(500, "If there was a internal server error")]
+
     #endregion
+    [HttpGet]
     public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers(
         int? skillId = null,
         int pageIndex = 1,
@@ -66,13 +75,13 @@ public class UsersController : ControllerBase
         var users = await userQuery
             .Select(u => new GetAllUsersResponse
             (
+                u.Id,
                 u.FirstName,
                 u.LastName,
                 u.ProfilePictureUrl,
                 u.UserSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList(),
                 u.UserWantedSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList()
                 ))
-            .AsNoTracking()
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -88,14 +97,45 @@ public class UsersController : ControllerBase
         return Ok(response);
     }
 
-    public record PaginatedResponse<T>(int PageIndex, int PageSize, int TotalRecords, List<T> Data);
+    #region Requests/Responses
 
-    public record GetAllUsersResponse
-        (string? FirstName, string? LastName, string? ProfilePictureUrl, List<GetAllUsersSkills> Skills, List<GetAllUsersSkills> WantedSkills);
+    public record GetUserResponse(
+        string UserId,
+        string? Email,
+        string? FirstName,
+        string? LastName,
+        string? ProfilePictureUrl);
 
-    public record GetAllUsersSkills
-        (string Name, string Description);
+    #endregion
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Get a specific user",
+        Description = "Get a specific user based on the id in the route",
+        OperationId = "GetUser")]
+    [SwaggerResponse(200, "Returns a GetUserResponse object if the operation was successful")]
+    [SwaggerResponse(404, "If the user could not be found from the id passed")]
+    #endregion
+    [HttpGet("{id}")]
+    public async Task<ActionResult<GetUserResponse>> GetUser(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user is null)
+            return Problem(statusCode: 404, detail: $"The user could not be found with id: {id}");
 
+        var response = new GetUserResponse
+        (
+            user.Id,
+            user.Email,
+            user.FirstName,
+            user.LastName,
+            user.ProfilePictureUrl
+        );
+
+        return Ok(response);
+    }
+
+
+    public record UserNamesDto(string FirstName, string MiddleName, string LastName);
     [Authorize]
     [HttpPost("{id}/names")]
     #region SwaggerDocs

@@ -4,6 +4,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
+using Swapsha.Api.Controllers;
 using Swapsha.Api.Data;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
@@ -26,7 +27,7 @@ builder.Services.AddAzureClients(azureBuilder =>
 });
 
 builder.Services.AddTransient<IValidator<UserFirstNameDto>, UserFirstNameValidation>();
-builder.Services.AddTransient<IValidator<UserNamesDto>, UserNamesDtoValidation>();
+builder.Services.AddTransient<IValidator<UsersController.UserNamesDto>, UserNamesDtoValidation>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -80,7 +81,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.DisplayRequestDuration();
+    });
 }
 
 app.UseHttpsRedirection();
