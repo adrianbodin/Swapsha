@@ -16,15 +16,15 @@ namespace Swapsha.Api.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly UserManager<CustomUser> _userManager;
-    private readonly IValidator<UserNamesDto> _unValidator;
-    private readonly IValidator<UserFirstNameDto> _fnValidator;
+    private readonly IValidator<PostNamesRequest> _unValidator;
+    private readonly IValidator<PostFirstNameRequest> _fnValidator;
     private readonly AppDbContext _db;
     private readonly IImageService _imageService;
 
     public UsersController(
         UserManager<CustomUser> userManager,
-        IValidator<UserNamesDto> unValidator,
-        IValidator<UserFirstNameDto> fnValidator,
+        IValidator<PostNamesRequest> unValidator,
+        IValidator<PostFirstNameRequest> fnValidator,
         AppDbContext db,
         IImageService imageService)
     {
@@ -35,17 +35,6 @@ public class UsersController : ControllerBase
         _imageService = imageService;
     }
 
-    #region Requests/Responses
-
-    public record PaginatedResponse<T>(int PageIndex, int PageSize, int TotalRecords, List<T> Data);
-
-    public record GetAllUsersResponse
-        (string UserId,string? FirstName, string? LastName, string? ProfilePictureUrl, List<GetAllUsersSkills> Skills, List<GetAllUsersSkills> WantedSkills);
-
-    public record GetAllUsersSkills
-        (string Name, string Description);
-
-    #endregion
     #region SwaggerDocs
 
     [SwaggerOperation(
@@ -62,7 +51,7 @@ public class UsersController : ControllerBase
         int pageIndex = 1,
         int pageSize = 10)
     {
-        IQueryable<CustomUser> userQuery = _db.Users.AsNoTracking();
+        var userQuery = _db.Users.AsNoTracking();
 
         if(skillId.HasValue)
         {
@@ -97,16 +86,6 @@ public class UsersController : ControllerBase
         return Ok(response);
     }
 
-    #region Requests/Responses
-
-    public record GetUserResponse(
-        string UserId,
-        string? Email,
-        string? FirstName,
-        string? LastName,
-        string? ProfilePictureUrl);
-
-    #endregion
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get a specific user",
@@ -134,8 +113,6 @@ public class UsersController : ControllerBase
         return Ok(response);
     }
 
-
-    public record UserNamesDto(string FirstName, string MiddleName, string LastName);
     [Authorize]
     [HttpPost("{id}/names")]
     #region SwaggerDocs
@@ -148,21 +125,21 @@ public class UsersController : ControllerBase
     [SwaggerResponse(401, "You are not authorized to perform this action")]
     [SwaggerResponse(500, "An error occurred while adding the user names")]
     #endregion
-    public async Task<IActionResult> PostNames([FromBody] UserNamesDto dto, string id)
+    public async Task<IActionResult> PostNames([FromBody] PostNamesRequest request, string id)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null || user.Id != id)
             return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
 
-        var validationResult = _unValidator.Validate(dto);
+        var validationResult = _unValidator.Validate(request);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors);
         }
 
-        user.FirstName = dto.FirstName;
-        user.MiddleName = dto.MiddleName;
-        user.LastName = dto.LastName;
+        user.FirstName = request.FirstName;
+        user.MiddleName = request.MiddleName;
+        user.LastName = request.LastName;
 
         var result = await _userManager.UpdateAsync(user);
 
@@ -181,15 +158,14 @@ public class UsersController : ControllerBase
     [SwaggerResponse(200, "Returning the names if the operation was successful")]
     [SwaggerResponse(404, "The user could not be found from the id passed")]
     #endregion
-    public async Task<ActionResult<UserNamesDto>> GetNames(string id)
+    public async Task<ActionResult<GetNamesResponse>> GetNames(string id)
     {
-
         var user = await _userManager.FindByIdAsync(id);
 
         if (user is null)
             return Problem(statusCode: 404, detail: $"The user could not be found with id: {id}");
 
-        var names = new UserNamesDto
+        var names = new GetNamesResponse
         (
             user.FirstName,
             user.MiddleName,
@@ -208,7 +184,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(404, "If the route id could not match with a user in the database")]
     [SwaggerResponse(200, "Returns the firstname if successful")]
     #endregion
-    public async Task<ActionResult<UserNamesDto>> GetFirstName(string id)
+    public async Task<ActionResult<PostNamesRequest>> GetFirstName(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
 
@@ -217,7 +193,6 @@ public class UsersController : ControllerBase
 
         return Ok(new { user.FirstName });
     }
-
 
     [Authorize]
     [HttpPost("{id}/firstname")]
@@ -231,20 +206,20 @@ public class UsersController : ControllerBase
     [SwaggerResponse(201, "Returns the firstname if successful")]
     [SwaggerResponse(500, "If the usermanager returns a not successful result")]
     #endregion
-    public async Task<IActionResult> PostFirstName(string id, [FromBody] UserFirstNameDto dto)
+    public async Task<IActionResult> PostFirstName(string id, [FromBody] PostFirstNameRequest request)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null || user.Id != id)
             return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
 
 
-        var validationResult = _fnValidator.Validate(dto);
+        var validationResult = _fnValidator.Validate(request);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors);
         }
 
-        user.FirstName = dto.FirstName;
+        user.FirstName = request.FirstName;
 
         var result = await _userManager.UpdateAsync(user);
 
@@ -307,9 +282,6 @@ public class UsersController : ControllerBase
         return Ok(response);
     }
 
-    public record GetProfilePicResponse(string UserId, string? ProfilePicUrl);
-
-
     [Authorize]
     [HttpPost("{id}/skills")]
     #region SwaggerDocs
@@ -328,9 +300,7 @@ public class UsersController : ControllerBase
         if (user is null)
             return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
 
-        // Check if the user already has the skill
         var alreadyHasSkill = await _db.UserSkills.AnyAsync(us => us.UserId == id && us.SkillId == request.SkillId);
-
         if (alreadyHasSkill)
             return Problem(statusCode:400, detail: $"The user with id: {id} already has the skill with id: {request.SkillId}");
 
@@ -355,8 +325,6 @@ public class UsersController : ControllerBase
         //TODO make a better return here
         return Ok();
     }
-    public record AddSkillToUserRequest(int SkillId);
-
 
     [Authorize]
     [HttpPost("{id}/wantedskills")]
@@ -401,6 +369,4 @@ public class UsersController : ControllerBase
 
         return Ok();
     }
-
-    public record AddWantedSkillToUserRequest(int SkillId);
 }

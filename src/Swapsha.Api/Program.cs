@@ -26,8 +26,8 @@ builder.Services.AddAzureClients(azureBuilder =>
     azureBuilder.AddBlobServiceClient(blobStorageConnection);
 });
 
-builder.Services.AddTransient<IValidator<UserFirstNameDto>, UserFirstNameValidation>();
-builder.Services.AddTransient<IValidator<UsersController.UserNamesDto>, UserNamesDtoValidation>();
+builder.Services.AddTransient<IValidator<PostFirstNameRequest>, UserFirstNameValidation>();
+builder.Services.AddTransient<IValidator<PostNamesRequest>, PostNamesRequestValidation>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

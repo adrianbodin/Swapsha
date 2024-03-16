@@ -7,10 +7,8 @@ using static Swapsha.Api.Tests.IntegrationTests.Controllers.Users.UserUtils;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class PostNamesTests : BaseTest
+public class PostNamesTests(ApiFactory factory) : BaseTest(factory)
 {
-    public PostNamesTests(ApiFactory factory) : base(factory) { }
-
     [Fact]
     public async Task ShouldGive401_WhenNotAuthenticated()
     {

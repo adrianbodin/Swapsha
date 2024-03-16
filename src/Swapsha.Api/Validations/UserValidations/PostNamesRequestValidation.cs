@@ -4,9 +4,9 @@ using Swapsha.Api.Models.Dtos;
 
 namespace Swapsha.Api.Validations.UserValidations;
 
-public class UserNamesDtoValidation : AbstractValidator<UsersController.UserNamesDto>
+public class PostNamesRequestValidation : AbstractValidator<PostNamesRequest>
 {
-    public UserNamesDtoValidation()
+    public PostNamesRequestValidation()
     {
         RuleFor(dto => dto.FirstName).NotEmpty().NotNull().MaximumLength(50);
         RuleFor(dto => dto.MiddleName).MaximumLength(50);

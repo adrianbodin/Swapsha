@@ -2,17 +2,14 @@
 using System.Net.Http.Json;
 using Swapsha.Api.Controllers;
 using Swapsha.Api.Data.Seed;
+using Swapsha.Api.Models.Dtos;
 using Swapsha.Api.Tests.Fixtures;
 
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class GetUserTests : BaseTest
+public class GetUserTests(ApiFactory factory) : BaseTest(factory)
 {
-    public GetUserTests(ApiFactory factory) : base(factory)
-    {
-    }
-
     [Fact]
     public async Task OK_When_Getting_User()
     {
@@ -25,6 +22,7 @@ public class GetUserTests : BaseTest
         userResponse?.UserId.Should().BeEquivalentTo(validUser.Id);
     }
 
+    //Good test here
     [Fact]
     public async Task NotFound_When_Id_Is_Not_Valid_UserId()
     {

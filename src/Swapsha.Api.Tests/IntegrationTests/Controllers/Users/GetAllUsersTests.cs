@@ -4,10 +4,8 @@ using Swapsha.Api.Tests.Fixtures;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class GetAllUsersTests : BaseTest
+public class GetAllUsersTests(ApiFactory factory) : BaseTest(factory)
 {
-    public GetAllUsersTests(ApiFactory factory) : base(factory) { }
-
     [Fact]
     public async Task OK_When_Users_In_The_Db()
     {

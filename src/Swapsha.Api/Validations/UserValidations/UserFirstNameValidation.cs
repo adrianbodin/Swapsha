@@ -3,7 +3,7 @@ using Swapsha.Api.Models.Dtos;
 
 namespace Swapsha.Api.Validations.UserValidations;
 
-public class UserFirstNameValidation : AbstractValidator<UserFirstNameDto>
+public class UserFirstNameValidation : AbstractValidator<PostFirstNameRequest>
 {
     public UserFirstNameValidation()
     {

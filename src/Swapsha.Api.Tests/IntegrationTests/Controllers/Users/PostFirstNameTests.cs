@@ -7,10 +7,8 @@ using static Swapsha.Api.Tests.IntegrationTests.Controllers.Users.UserUtils;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class PostFirstNameTests : BaseTest
+public class PostFirstNameTests(ApiFactory factory) : BaseTest(factory)
 {
-    public PostFirstNameTests(ApiFactory factory) : base(factory) { }
-
     [Fact]
     public async Task Unauthorized_When_Not_Authenticated()
     {

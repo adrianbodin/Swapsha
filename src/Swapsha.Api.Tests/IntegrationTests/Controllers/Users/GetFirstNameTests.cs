@@ -5,10 +5,8 @@ using Swapsha.Api.Tests.Fixtures;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class GetFirstNameTests : BaseTest
+public class GetFirstNameTests(ApiFactory factory) : BaseTest(factory)
 {
-    public GetFirstNameTests(ApiFactory factory) : base(factory) { }
-
     [Fact]
     public async Task OK_When_Getting_FirstName()
     {
