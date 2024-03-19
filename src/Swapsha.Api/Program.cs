@@ -31,7 +31,6 @@ builder.Services.AddAzureClients(azureBuilder =>
 builder.Services.AddTransient<IValidator<PostFirstNameRequest>, UserFirstNameValidation>();
 builder.Services.AddTransient<IValidator<PostNamesRequest>, PostNamesRequestValidation>();
 builder.Services.AddSingleton<IImageService, ImageService>();
-builder.Services.AddTransient<Fakers>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

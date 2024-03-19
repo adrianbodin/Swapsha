@@ -23,11 +23,11 @@ public class PostNamesTests(ApiFactory factory) : BaseTest(factory)
     public async Task OK_When_Authenticated()
     {
         // Arrange
-        var validUser = UserSeed.SeedUsers().First();
+        var validUser = await GetValidUser(_client);
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id}/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId}/names", ValidUserNamesDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -37,11 +37,11 @@ public class PostNamesTests(ApiFactory factory) : BaseTest(factory)
     public async Task BadRequest_When_Invalid_Data()
     {
         // Arrange
-        var validUser = UserSeed.SeedUsers().First();
+        var validUser = await GetValidUser(_client);
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id}/names", InvalidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId}/names", InvalidUserNamesDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -51,11 +51,11 @@ public class PostNamesTests(ApiFactory factory) : BaseTest(factory)
     public async Task Unauthorized_When_RouteId_Does_Not_Match_UserId()
     {
         // Arrange
-        var validUser = UserSeed.SeedUsers().First();
+        var validUser = await GetValidUser(_client);
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.Id + 1}/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId + 1}/names", ValidUserNamesDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);

@@ -67,6 +67,7 @@ public class UsersController : ControllerBase
             .Select(u => new GetAllUsersResponse
             (
                 u.Id,
+                u.Email,
                 u.FirstName,
                 u.LastName,
                 u.ProfilePictureUrl,

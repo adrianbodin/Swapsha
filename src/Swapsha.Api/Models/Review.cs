@@ -2,7 +2,7 @@
 
 public class Review
 {
-    public int ReviewId { get; set; }
+    public string ReviewId { get; set; }
 
     public byte Rating { get; set; }
 

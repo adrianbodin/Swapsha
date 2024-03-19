@@ -18,6 +18,7 @@ public record PaginatedResponse<T>(
 
 public record GetAllUsersResponse(
     string UserId,
+    string? Email,
     string? FirstName,
     string? LastName,
     string? ProfilePictureUrl,

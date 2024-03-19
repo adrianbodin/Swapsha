@@ -11,10 +11,10 @@ public class GetNamesTests(ApiFactory factory) : BaseTest(factory)
     public async Task OK_When_Getting_Names()
     {
         // Arrange
-        var validUser = UserSeed.SeedUsers().First();
+        var validUser = await GetValidUser(_client);
 
         // Act
-        var response = await _client.GetAsync($"/api/v1/users/{validUser.Id}/names");
+        var response = await _client.GetAsync($"/api/v1/users/{validUser.UserId}/names");
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);

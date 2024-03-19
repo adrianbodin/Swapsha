@@ -5,7 +5,7 @@ namespace Swapsha.Api.Data.Seed;
 
 public class SubSkillSeed
 {
-    public static List<SubSkill> SeedSubSkills()
+    public static List<SubSkill> Seed()
     {
         return new List<SubSkill>
         {

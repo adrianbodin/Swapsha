@@ -8,14 +8,9 @@ namespace Swapsha.Api.Data;
 
 public class AppDbContext : IdentityDbContext<CustomUser>
 {
-    private readonly Fakers _fakers;
-
     public AppDbContext() { }
 
-    public AppDbContext(DbContextOptions<AppDbContext> options, Fakers fakers) : base(options)
-    {
-        _fakers = fakers;
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Skill> Skills { get; set; }
     public DbSet<SubSkill> SubSkills { get; set; }
@@ -34,9 +29,27 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         ConfigureCustomUserEntity(builder);
         ConfigureSkillEntity(builder);
         ConfigureSubSkillEntity(builder);
+
+        SeedData(builder);
     }
 
 
+    private void SeedData(ModelBuilder builder)
+    {
+        var users = UserSeed.Seed();
+        var reviews = ReviewSeed.Seed(users);
+        var skills = SkillSeed.Seed();
+        var subSkills = SubSkillSeed.Seed();
+        var userSkills = UserSkillsSeed.Seed(users, skills);
+        var userWantedSkills = UserWantedSkillsSeed.Seed(users, skills);
+
+        builder.Entity<CustomUser>().HasData(users);
+        builder.Entity<Review>().HasData(reviews);
+        builder.Entity<Skill>().HasData(skills);
+        builder.Entity<SubSkill>().HasData(subSkills);
+        builder.Entity<UserSkill>().HasData(userSkills);
+        builder.Entity<UserWantedSkill>().HasData(userWantedSkills);
+    }
 
 private void ConfigureUserSkillEntity(ModelBuilder builder)
 {
@@ -74,7 +87,6 @@ private void ConfigureUserWantedSkillsEntity(ModelBuilder builder)
 private void ConfigureCustomUserEntity(ModelBuilder builder)
 {
 
-    builder.Entity<CustomUser>().HasData(UserSeed.SeedUsers());
 
     builder.Entity<CustomUser>()
         .Property(b => b.FirstName)
@@ -121,18 +133,18 @@ private void ConfigureReviewEntity(ModelBuilder builder)
     builder.Entity<Review>()
         .HasOne(r => r.User)
         .WithMany(u => u.Reviews)
-        .HasForeignKey(r => r.UserId);
+        .HasForeignKey(r => r.UserId)
+        .OnDelete(DeleteBehavior.Cascade);
 
     builder.Entity<Review>()
         .HasOne(r => r.PostedByUser)
         .WithMany(u => u.PostedReviews)
-        .HasForeignKey(r => r.PostedById);
+        .HasForeignKey(r => r.PostedById)
+        .OnDelete(DeleteBehavior.Restrict);
 }
 
 private void ConfigureSkillEntity(ModelBuilder builder)
 {
-    builder.Entity<Skill>().HasData(SkillSeed.SeedSkills());
-
     builder.Entity<Skill>()
         .HasMany(s => s.SubSkills)
         .WithOne(s => s.Skill)
@@ -152,9 +164,6 @@ private void ConfigureSkillEntity(ModelBuilder builder)
 
 private void ConfigureSubSkillEntity(ModelBuilder builder)
 {
-    //Seed data for subskills
-    builder.Entity<SubSkill>().HasData(SubSkillSeed.SeedSubSkills());
-
     builder.Entity<SubSkill>()
         .HasKey(s => s.SubSkillId);
 

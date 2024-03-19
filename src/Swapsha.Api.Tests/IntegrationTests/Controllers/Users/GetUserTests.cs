@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Swapsha.Api.Controllers;
-using Swapsha.Api.Data.Seed;
 using Swapsha.Api.Models.Dtos;
 using Swapsha.Api.Tests.Fixtures;
 
@@ -13,13 +11,13 @@ public class GetUserTests(ApiFactory factory) : BaseTest(factory)
     [Fact]
     public async Task OK_When_Getting_User()
     {
-        var validUser = UserSeed.SeedUsers().First();
+        var validUser = await GetValidUser(_client);
 
-        var response = await _client.GetAsync($"/api/v1/users/{validUser.Id}");
+        var response = await _client.GetAsync($"/api/v1/users/{validUser.UserId}");
         var userResponse = await response.Content.ReadFromJsonAsync<GetUserResponse>();
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        userResponse?.UserId.Should().BeEquivalentTo(validUser.Id);
+        userResponse?.UserId.Should().BeEquivalentTo(validUser.UserId);
     }
 
     //Good test here
