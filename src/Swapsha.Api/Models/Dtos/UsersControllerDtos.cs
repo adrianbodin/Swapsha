@@ -58,3 +58,13 @@ public record AddSkillToUserRequest(
 
 public record AddWantedSkillToUserRequest(
     int SkillId);
+
+public record GetReviewsResponse(
+    short TotalReviews,
+    double AverageRating,
+    List<GetReviewsReview> Reviews);
+
+public record GetReviewsReview(
+    byte Rating,
+    string DateCreated,
+    string PostedById);
