@@ -25,7 +25,7 @@ public class SubSkillsController : ControllerBase
                 .AsNoTracking()
                 .Select(ss => new SubSkillDto
                 (
-                    ss.Id,
+                    ss.SubSkillId,
                     ss.Name,
                     ss.Description
                 ))
@@ -51,10 +51,10 @@ public class SubSkillsController : ControllerBase
         {
             var result = await _db.SubSkills
                 .AsNoTracking()
-                .Where(ss => ss.Id == id)
+                .Where(ss => ss.SubSkillId == id)
                 .Select(ss => new SubSkillDto
                 (
-                    ss.Id,
+                    ss.SubSkillId,
                     ss.Name,
                     ss.Description
                 ))

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Bogus;
+using Microsoft.AspNetCore.Identity;
 using Swapsha.Api.Models;
 
 namespace Swapsha.Api.Data.Seed;
@@ -14,6 +15,10 @@ public class UserSeed
             var appUser1 = new CustomUser
             {
             Id = userId1,
+            FirstName = "John",
+            LastName = "Doe",
+            MiddleName = "Elton",
+            ProfilePictureUrl = null,
             UserName = "test@example.com",
             NormalizedUserName = "TEST@EXAMPLE.COM",
             Email = "test@example.com",

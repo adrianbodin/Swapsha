@@ -16,8 +16,6 @@ public class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly MsSqlContainer _dbContainer = new MsSqlBuilder().Build();
 
-
-
     public HttpClient HttpClient { get; private set; } = null!;
 
     private DbConnection _dbConnection = null!;

@@ -1,11 +1,13 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
 using Swapsha.Api.Controllers;
 using Swapsha.Api.Data;
+using Swapsha.Api.Data.Seed;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
 using Swapsha.Api.Services;
@@ -29,6 +31,7 @@ builder.Services.AddAzureClients(azureBuilder =>
 builder.Services.AddTransient<IValidator<PostFirstNameRequest>, UserFirstNameValidation>();
 builder.Services.AddTransient<IValidator<PostNamesRequest>, PostNamesRequestValidation>();
 builder.Services.AddSingleton<IImageService, ImageService>();
+builder.Services.AddTransient<Fakers>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
@@ -98,7 +101,6 @@ app.MapGroup("/api/v1/Identity")
     .MapIdentityApi<CustomUser>();
 
 app.UseAuthorization();
-
 app.Run();
 
 public partial class Program

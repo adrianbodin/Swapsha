@@ -42,7 +42,7 @@ public class SkillsController : ControllerBase
                     s.SkillId,
                     s.Name,
                     s.Description,
-                    s.SubSkills.Select(ss => new SubSkillDto(ss.Id, ss.Name, ss.Description)).ToList()
+                    s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name, ss.Description)).ToList()
                 ))
                 .ToListAsync();
 
@@ -80,7 +80,7 @@ public class SkillsController : ControllerBase
                     s.SkillId,
                     s.Name,
                     s.Description,
-                    s.SubSkills.Select(ss => new SubSkillDto(ss.Id, ss.Name, ss.Description)).ToList()
+                    s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name, ss.Description)).ToList()
                 ))
                 .FirstOrDefaultAsync();
 

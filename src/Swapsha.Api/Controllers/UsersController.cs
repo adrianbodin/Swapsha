@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
+using Swapsha.Api.Data.Seed;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
 using Swapsha.Api.Services;
@@ -193,7 +195,7 @@ public class UsersController : ControllerBase
 
         return Ok(new { user.FirstName });
     }
-
+    
     [Authorize]
     [HttpPost("{id}/firstname")]
     #region SwaggerDocs

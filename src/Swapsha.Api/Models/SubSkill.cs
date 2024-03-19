@@ -2,7 +2,7 @@
 
 public class SubSkill
 {
-    public int Id { get; set; }
+    public int SubSkillId { get; set; }
 
     public string Name { get; set; }
 

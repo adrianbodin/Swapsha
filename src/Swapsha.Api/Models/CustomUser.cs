@@ -15,6 +15,8 @@ public class CustomUser : IdentityUser
 
     public ICollection<Review> Reviews { get; } = [];
 
+    public ICollection<Review> PostedReviews { get; } = [];
+
     public ICollection<UserSkill> UserSkills { get; } = [];
 
     public ICollection<UserWantedSkill> UserWantedSkills { get; } = [];
