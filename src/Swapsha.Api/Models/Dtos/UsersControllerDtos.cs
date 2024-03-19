@@ -68,3 +68,7 @@ public record GetReviewsReview(
     byte Rating,
     string DateCreated,
     string PostedById);
+
+public record PostReviewRequest(
+    byte Rating,
+    string UserId);

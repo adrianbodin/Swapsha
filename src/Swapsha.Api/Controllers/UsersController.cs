@@ -22,17 +22,20 @@ public class UsersController : ControllerBase
     private readonly IValidator<PostFirstNameRequest> _fnValidator;
     private readonly AppDbContext _db;
     private readonly IImageService _imageService;
+    private readonly IValidator<PostReviewRequest> _prValidator;
 
     public UsersController(
         UserManager<CustomUser> userManager,
         IValidator<PostNamesRequest> unValidator,
         IValidator<PostFirstNameRequest> fnValidator,
+        IValidator<PostReviewRequest> prValidator,
         AppDbContext db,
         IImageService imageService)
     {
         _userManager = userManager;
         _unValidator = unValidator;
         _fnValidator = fnValidator;
+        _prValidator = prValidator;
         _db = db;
         _imageService = imageService;
     }
@@ -400,5 +403,37 @@ public class UsersController : ControllerBase
         );
 
         return Ok(response);
+    }
+
+    //TODO: take a look at the logic, the passing of id seems confusing
+    [Authorize]
+    [HttpPost("{id}/reviews")]
+    public async Task<IActionResult> PostReview(string id, PostReviewRequest request)
+    {
+        var validationResult = _prValidator.Validate(request);
+        if (!validationResult.IsValid)
+            return Problem(statusCode:400,detail: validationResult.Errors.ToString());
+
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null)
+            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
+
+        var loggedInUser = await _userManager.GetUserAsync(User);
+        if (loggedInUser is null || loggedInUser.Id != id)
+            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+
+        var review = new Review
+        {
+            ReviewId = Guid.NewGuid().ToString(),
+            Rating = request.Rating,
+            UserId = request.UserId,
+            PostedById = id,
+            DateCreated = DateTime.Now,
+        };
+
+        _db.Reviews.Add(review);
+        await _db.SaveChangesAsync();
+
+        return Ok();
     }
 }

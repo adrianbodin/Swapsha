@@ -1,7 +1,10 @@
-﻿namespace Swapsha.Api.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Swapsha.Api.Models;
 
 public class Review
 {
+    [Key]
     public string ReviewId { get; set; }
 
     public byte Rating { get; set; }
