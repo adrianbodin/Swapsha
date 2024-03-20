@@ -13,7 +13,7 @@ public abstract class BaseTest : IAsyncLifetime
         _resetDatabase = factory.ResetDatabaseAsync;
     }
 
-    public Task InitializeAsync() => Task.CompletedTask;
+    public virtual Task InitializeAsync() => Task.CompletedTask;
 
     public Task DisposeAsync() => _resetDatabase();
 }

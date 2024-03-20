@@ -376,8 +376,19 @@ public class UsersController : ControllerBase
         return Ok();
     }
 
-    //Get all reviews for a specific user
+
     [HttpGet("{id}/reviews")]
+    #region SwaggerDocs
+
+    [SwaggerOperation(
+        Summary = "Gets all the reviews for a specific user",
+        Description = @"This endpoint gets all the reviews that other users have
+                        written for this user",
+        OperationId = "GetReviews")]
+    [SwaggerResponse(404, "There was no reviews for this user")]
+    [SwaggerResponse(200, "If the request was successful")]
+
+    #endregion
     public async Task<ActionResult<GetReviewsResponse>> GetReviews(string id)
     {
         var reviews = await _db.Reviews
@@ -408,11 +419,25 @@ public class UsersController : ControllerBase
     //TODO: take a look at the logic, the passing of id seems confusing
     [Authorize]
     [HttpPost("{id}/reviews")]
+    #region SwaggerDocs
+
+    [SwaggerOperation(
+        Summary = "Posts a new review",
+        Description = @"Posts a new review, the id in the route should be the id
+                        of the user that is submitting the review, and the userid
+                        in the request body should be the id of the user to post to",
+        OperationId = "PostReview")]
+    [SwaggerResponse(400, "If the validation of the request body was not valid")]
+    [SwaggerResponse(404, "If the id in the route was not a valid user id")]
+    [SwaggerResponse(401, "If the route id is not the same as the id of the user hitting the endpoint")]
+    [SwaggerResponse(200, "If the post request was successful")]
+
+    #endregion
     public async Task<IActionResult> PostReview(string id, PostReviewRequest request)
     {
         var validationResult = _prValidator.Validate(request);
         if (!validationResult.IsValid)
-            return Problem(statusCode:400,detail: validationResult.Errors.ToString());
+            return Problem(statusCode:400, detail: validationResult.Errors.ToString());
 
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user is null)

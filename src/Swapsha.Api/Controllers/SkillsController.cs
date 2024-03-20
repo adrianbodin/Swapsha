@@ -86,7 +86,7 @@ public class SkillsController : ControllerBase
 
 
         return result is null
-            ? Problem(statusCode:404, detail:"The skill with the Id:{id} could not be found")
+            ? Problem(statusCode:404, detail:$"The skill with the Id:{id} could not be found")
             : Ok(result);
     }
 }
