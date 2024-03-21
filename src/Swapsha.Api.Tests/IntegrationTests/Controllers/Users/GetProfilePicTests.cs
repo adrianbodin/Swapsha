@@ -22,13 +22,13 @@ public class GetProfilePicTests(ApiFactory factory) : BaseTest(factory)
     }
 
     [Fact]
-    public async Task NotFound_When_Id_Is_Not_Valid()
+    public async Task BadRequest_When_Id_Is_Not_ValidGuid()
     {
         var notValidId = 556;
 
         var response = await _client.GetAsync($"/api/v1/users/{notValidId}/profilepic");
 
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
 }

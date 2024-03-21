@@ -12,8 +12,10 @@ public class PostNamesTests(ApiFactory factory) : BaseTest(factory)
     [Fact]
     public async Task ShouldGive401_WhenNotAuthenticated()
     {
+
+        var randomGuid = Guid.NewGuid().ToString();
         //Act
-        var response = await _client.PostAsJsonAsync("/api/v1/users/1/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{randomGuid}/names", ValidUserNamesDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -51,11 +53,12 @@ public class PostNamesTests(ApiFactory factory) : BaseTest(factory)
     public async Task Unauthorized_When_RouteId_Does_Not_Match_UserId()
     {
         // Arrange
+        var randomGuid = Guid.NewGuid().ToString();
         var validUser = await GetValidUser(_client);
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId + 1}/names", ValidUserNamesDto());
+        var response = await _client.PostAsJsonAsync($"/api/v1/users/{randomGuid}/names", ValidUserNamesDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);

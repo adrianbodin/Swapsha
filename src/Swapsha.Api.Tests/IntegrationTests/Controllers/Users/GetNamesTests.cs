@@ -21,14 +21,10 @@ public class GetNamesTests(ApiFactory factory) : BaseTest(factory)
     }
 
     [Fact]
-    public async Task NotFound_When_RouteId_Is_Not_UserId()
+    public async Task BadRequest_When_RouteId_Is_Not_Valid_Guid()
     {
         var response = await _client.GetAsync($"/api/v1/users/546489/names");
 
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
-
-    public Task InitializeAsync() => Task.CompletedTask;
-
-    public Task DisposeAsync() => _resetDatabase();
 }

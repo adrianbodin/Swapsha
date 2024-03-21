@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.Data.Seed;
+using Swapsha.Api.Filters;
 using Swapsha.Api.Models;
 using Swapsha.Api.Models.Dtos;
 using Swapsha.Api.Services;
@@ -101,6 +102,7 @@ public class UsersController : ControllerBase
     [SwaggerResponse(404, "If the user could not be found from the id passed")]
     #endregion
     [HttpGet("{id}")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     public async Task<ActionResult<GetUserResponse>> GetUser(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
@@ -121,6 +123,7 @@ public class UsersController : ControllerBase
 
     [Authorize]
     [HttpPost("{id}/names")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add user names",
@@ -156,6 +159,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}/names")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get names for a specific user",
@@ -182,6 +186,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}/firstname")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get the firstname of a specific user",
@@ -202,6 +207,7 @@ public class UsersController : ControllerBase
     
     [Authorize]
     [HttpPost("{id}/firstname")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new firstname for a user",
@@ -237,6 +243,7 @@ public class UsersController : ControllerBase
 
     [Authorize]
     [HttpPost("{id}/profilepic")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new profile picture for a specific user",
@@ -263,6 +270,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}/profilepic")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Gets the profile picture url for a specific user",
@@ -290,6 +298,7 @@ public class UsersController : ControllerBase
 
     [Authorize]
     [HttpPost("{id}/skills")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add a skill to a user",
@@ -334,6 +343,7 @@ public class UsersController : ControllerBase
 
     [Authorize]
     [HttpPost("{id}/wantedskills")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add a wanted skill to a user",
@@ -378,6 +388,7 @@ public class UsersController : ControllerBase
 
 
     [HttpGet("{id}/reviews")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
 
     [SwaggerOperation(
@@ -419,6 +430,7 @@ public class UsersController : ControllerBase
     //TODO: take a look at the logic, the passing of id seems confusing
     [Authorize]
     [HttpPost("{id}/reviews")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
 
     [SwaggerOperation(
@@ -437,7 +449,7 @@ public class UsersController : ControllerBase
     {
         var validationResult = _prValidator.Validate(request);
         if (!validationResult.IsValid)
-            return Problem(statusCode:400, detail: validationResult.Errors.ToString());
+            return BadRequest(validationResult.Errors);
 
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user is null)
