@@ -1,19 +1,11 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
-using Swapsha.Api.Data.Seed;
 using Swapsha.Api.Exceptions;
-using Swapsha.Api.Features.Reviews.Models;
-using Swapsha.Api.Features.Reviews.Validations;
-using Swapsha.Api.Features.Users;
 using Swapsha.Api.Features.Users.Models;
-using Swapsha.Api.Features.Users.Validations;
-using Swapsha.Api.Models;
 using Swapsha.Api.Shared.Services;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -31,9 +23,6 @@ builder.Services.AddAzureClients(azureBuilder =>
     azureBuilder.AddBlobServiceClient(blobStorageConnection);
 });
 
-builder.Services.AddTransient<IValidator<PostFirstNameRequest>, UserFirstNameValidation>();
-builder.Services.AddTransient<IValidator<PostNamesRequest>, PostNamesRequestValidation>();
-builder.Services.AddTransient<IValidator<PostReviewRequest>, PostReviewRequestValidation>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

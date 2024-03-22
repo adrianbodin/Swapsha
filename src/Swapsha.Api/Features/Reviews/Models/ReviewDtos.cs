@@ -1,4 +1,7 @@
-﻿namespace Swapsha.Api.Features.Reviews.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
+
+namespace Swapsha.Api.Features.Reviews.Models;
 
 public record GetReviewsResponse(
     short TotalReviews,
@@ -10,6 +13,12 @@ public record GetReviewsReview(
     string DateCreated,
     string PostedById);
 
-public record PostReviewRequest(
-    byte Rating,
-    string UserId);
+public record PostReviewRequest
+{
+    [Required(ErrorMessage = "Rating is required.")]
+    [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
+    public int Rating { get; set; }
+
+    [Required(ErrorMessage = "UserId is required.")]
+    public string UserId { get; set; }
+}

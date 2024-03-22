@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Swapsha.Api.Features.Users.Models;
 
-namespace Swapsha.Api.Features.Users;
+namespace Swapsha.Api.Features.Users.Models;
 
 public class UserSeed
 {

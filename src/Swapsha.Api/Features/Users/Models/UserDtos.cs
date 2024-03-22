@@ -1,4 +1,6 @@
-﻿namespace Swapsha.Api.Features.Users.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Swapsha.Api.Features.Users.Models;
 
 public record LoginDto(
     string Email,
@@ -36,18 +38,31 @@ public record GetUserResponse(
     string? LastName,
     string? ProfilePictureUrl);
 
-public record PostNamesRequest(
-    string FirstName,
-    string MiddleName,
-    string LastName);
+public record PostNamesRequest
+{
+    [Required(ErrorMessage = "First name is required.")]
+    [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+    public string FirstName { get; init; }
+
+    [StringLength(50, ErrorMessage = "Middle name cannot be longer than 50 characters.")]
+    public string MiddleName { get; init; }
+
+    [Required(ErrorMessage = "Last name is required.")]
+    [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
+    public string LastName { get; init; }
+}
 
 public record GetNamesResponse(
     string FirstName,
     string MiddleName,
     string LastName);
 
-public record PostFirstNameRequest(
-    string FirstName);
+public record PostFirstNameRequest
+{
+    [Required(ErrorMessage = "First name is required.")]
+    [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+    public string FirstName { get; init; }
+}
 
 public record GetProfilePicResponse(
     string UserId,

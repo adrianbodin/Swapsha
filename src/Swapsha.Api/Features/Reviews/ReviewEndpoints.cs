@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +16,13 @@ public class ReviewEndpoints : ControllerBase
 {
     private readonly AppDbContext _db;
     private readonly UserManager<CustomUser> _userManager;
-    private readonly IValidator<PostReviewRequest> _prValidator;
 
     public ReviewEndpoints(
         AppDbContext db,
-        UserManager<CustomUser> userManager,
-        IValidator<PostReviewRequest> prValidator)
+        UserManager<CustomUser> userManager)
     {
         _db = db;
         _userManager = userManager;
-        _prValidator = prValidator;
     }
 
     [HttpGet("{id}/reviews")]
@@ -89,10 +85,6 @@ public class ReviewEndpoints : ControllerBase
     #endregion
     public async Task<IActionResult> PostReview(string id, PostReviewRequest request)
     {
-        var validationResult = _prValidator.Validate(request);
-        if (!validationResult.IsValid)
-            return BadRequest(validationResult.Errors);
-
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user is null)
             return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
@@ -104,7 +96,7 @@ public class ReviewEndpoints : ControllerBase
         var review = new Review
         {
             ReviewId = Guid.NewGuid().ToString(),
-            Rating = request.Rating,
+            Rating = (byte)request.Rating,
             UserId = request.UserId,
             PostedById = id,
             DateCreated = DateTime.Now,

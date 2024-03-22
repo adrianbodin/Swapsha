@@ -1,8 +1,6 @@
-﻿using Swapsha.Api.Features.Reviews.Models;
-using Swapsha.Api.Features.Users.Models;
-using Swapsha.Api.Models;
+﻿using Swapsha.Api.Features.Users.Models;
 
-namespace Swapsha.Api.Features.Reviews;
+namespace Swapsha.Api.Features.Reviews.Models;
 
 public class ReviewSeed
 {

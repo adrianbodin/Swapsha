@@ -10,22 +10,38 @@ public static class UserUtils
 {
     internal static PostNamesRequest ValidUserNamesDto()
     {
-        return new PostNamesRequest("John", "Doe", "Smith");
+        return new PostNamesRequest
+        {
+            FirstName = "John",
+            MiddleName = "Doe",
+            LastName = "Smith"
+        };
     }
 
     internal static PostNamesRequest InvalidUserNamesDto()
     {
-        return new PostNamesRequest("John", "Doe", "");
+        return new PostNamesRequest
+        {
+            FirstName = "Joe",
+            MiddleName = "Hello",
+            LastName = ""
+        };
     }
 
     internal static PostFirstNameRequest ValidFirstNameDto()
     {
-        return new PostFirstNameRequest("Adrian");
+        return new PostFirstNameRequest
+        {
+            FirstName = "Adrian"
+        };
     }
 
     internal static PostFirstNameRequest InvalidFirstNameDto()
     {
-        return new PostFirstNameRequest("");
+        return new PostFirstNameRequest
+        {
+            FirstName = ""
+        };
     }
 
     internal static async Task AuthenticateUser(HttpClient client, GetAllUsersResponse validUser)

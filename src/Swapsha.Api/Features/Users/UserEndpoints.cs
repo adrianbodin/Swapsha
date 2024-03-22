@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,21 +16,15 @@ namespace Swapsha.Api.Features.Users;
 public class UserEndpoints : ControllerBase
 {
     private readonly UserManager<CustomUser> _userManager;
-    private readonly IValidator<PostNamesRequest> _unValidator;
-    private readonly IValidator<PostFirstNameRequest> _fnValidator;
     private readonly AppDbContext _db;
     private readonly IImageService _imageService;
 
     public UserEndpoints(
         UserManager<CustomUser> userManager,
-        IValidator<PostNamesRequest> unValidator,
-        IValidator<PostFirstNameRequest> fnValidator,
         AppDbContext db,
         IImageService imageService)
     {
         _userManager = userManager;
-        _unValidator = unValidator;
-        _fnValidator = fnValidator;
         _db = db;
         _imageService = imageService;
     }
@@ -135,12 +128,6 @@ public class UserEndpoints : ControllerBase
         if (user == null || user.Id != id)
             return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
 
-        var validationResult = _unValidator.Validate(request);
-        if (!validationResult.IsValid)
-        {
-            return BadRequest(validationResult.Errors);
-        }
-
         user.FirstName = request.FirstName;
         user.MiddleName = request.MiddleName;
         user.LastName = request.LastName;
@@ -218,13 +205,6 @@ public class UserEndpoints : ControllerBase
         var user = await _userManager.GetUserAsync(User);
         if (user == null || user.Id != id)
             return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
-
-
-        var validationResult = _fnValidator.Validate(request);
-        if (!validationResult.IsValid)
-        {
-            return BadRequest(validationResult.Errors);
-        }
 
         user.FirstName = request.FirstName;
 

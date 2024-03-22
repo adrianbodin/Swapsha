@@ -25,7 +25,11 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
     {
         var recievingUser = await GetValidUser(_client);
 
-        var validReview = new PostReviewRequest(4, recievingUser.UserId);
+        var validReview = new PostReviewRequest
+        {
+            Rating = 4,
+            UserId = recievingUser.UserId
+        };
 
         await AuthenticateUser(_client, _user);
 
@@ -38,7 +42,11 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
     public async Task BadRequest_When_Request_Body_Is_Invalid()
     {
         await AuthenticateUser(_client, _user);
-        var notValidRequest = new PostReviewRequest(0, Guid.NewGuid().ToString());
+        var notValidRequest = new PostReviewRequest
+        {
+            Rating = 0,
+            UserId = Guid.NewGuid().ToString()
+        };
 
         var response = await _client.PostAsJsonAsync($"/api/v1/users/{_user.UserId}/reviews", notValidRequest);
 
@@ -49,7 +57,11 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
     public async Task NotFound_When_Id_Of_Route_Is_Not_Valid_User_Id()
     {
         var invalidUserId = Guid.NewGuid().ToString();
-        var validRequest = new PostReviewRequest(4, invalidUserId);
+        var validRequest = new PostReviewRequest
+        {
+            Rating = 4,
+            UserId = invalidUserId
+        };
 
         await AuthenticateUser(_client, _user);
 
