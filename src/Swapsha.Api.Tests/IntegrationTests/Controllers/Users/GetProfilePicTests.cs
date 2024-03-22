@@ -1,7 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Swapsha.Api.Data.Seed;
-using Swapsha.Api.Models.Dtos;
+using Swapsha.Api.Features.Users;
+using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Tests.Fixtures;
 
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;

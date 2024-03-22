@@ -34,4 +34,10 @@
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Reviews\Exceptions\" />
+      <Folder Include="Features\Users\Exceptions\" />
+      <Folder Include="Shared\" />
+    </ItemGroup>
+
 </Project>

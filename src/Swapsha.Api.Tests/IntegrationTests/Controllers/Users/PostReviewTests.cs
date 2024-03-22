@@ -1,6 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Swapsha.Api.Models.Dtos;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Swapsha.Api.Features.Reviews.Models;
+using Swapsha.Api.Features.Users;
+using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Tests.Fixtures;
 
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;

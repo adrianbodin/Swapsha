@@ -5,13 +5,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
-using Swapsha.Api.Controllers;
 using Swapsha.Api.Data;
 using Swapsha.Api.Data.Seed;
+using Swapsha.Api.Exceptions;
+using Swapsha.Api.Features.Reviews.Models;
+using Swapsha.Api.Features.Reviews.Validations;
+using Swapsha.Api.Features.Users;
+using Swapsha.Api.Features.Users.Models;
+using Swapsha.Api.Features.Users.Validations;
 using Swapsha.Api.Models;
-using Swapsha.Api.Models.Dtos;
-using Swapsha.Api.Services;
-using Swapsha.Api.Validations.UserValidations;
+using Swapsha.Api.Shared.Services;
 using Swashbuckle.AspNetCore.Filters;
 
 
@@ -39,7 +42,14 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 
-builder.Services.AddProblemDetails();
+builder.Services
+    .AddProblemDetails(options =>
+        options.CustomizeProblemDetails = ctx =>
+        {
+            ctx.ProblemDetails.Extensions.Add("instance", $"{ctx.HttpContext.Request.Method} {ctx.HttpContext.Request.Path}");
+        });
+
+builder.Services.AddExceptionHandler<ExceptionToProblemDetailsHandler>();
 
 builder.Services.AddIdentityApiEndpoints<CustomUser>(options =>
     {
@@ -80,7 +90,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
-
+app.UseStatusCodePages();
+app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -91,9 +102,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseExceptionHandler();
-app.UseStatusCodePages();
 
 app.MapControllers();
 

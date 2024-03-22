@@ -27,4 +27,14 @@ public class GetFirstNameTests(ApiFactory factory) : BaseTest(factory)
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
+
+    [Fact]
+    public async Task NotFound_When_No_User_With_RouteId_Was_Found()
+    {
+        var randomGuid = Guid.NewGuid().ToString();
+
+        var response = await _client.GetAsync($"/api/v1/users/{randomGuid}/firstname");
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
 }
