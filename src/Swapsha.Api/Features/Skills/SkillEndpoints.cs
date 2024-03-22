@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.Features.Skills.Models;
@@ -10,11 +11,11 @@ namespace Swapsha.Api.Features.Skills;
 [ApiController]
 public class SkillEndpoints : ControllerBase
 {
-    private readonly AppDbContext _db;
+    private readonly ISkillService _skillService;
 
-    public SkillEndpoints(AppDbContext db)
+    public SkillEndpoints(ISkillService skillService)
     {
-        _db = db;
+        _skillService = skillService;
     }
 
     [HttpGet]
@@ -29,27 +30,8 @@ public class SkillEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<IEnumerable<SkillDto>>> GetAll()
     {
-        try
-        {
-            var result = await _db.Skills
-                .AsNoTracking()
-                .Select(s => new SkillDto
-                (
-                    s.SkillId,
-                    s.Name,
-                    s.Description,
-                    s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name, ss.Description)).ToList()
-                ))
-                .ToListAsync();
-
-            return result is null
-                ? NotFound("The skills could not be found")
-                : Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return Problem($"An error occurred while retrieving the skills. {ex.Message}");
-        }
+        var result = await _skillService.GetAllSkills();
+        return Ok(result);
     }
 
     [HttpGet("{id:int}")]
@@ -68,21 +50,8 @@ public class SkillEndpoints : ControllerBase
         if (!(id >= 1))
             return Problem(statusCode: 400, detail: "The id has to be more than 1");
 
-        var result = await _db.Skills
-                .AsNoTracking()
-                .Where(s => s.SkillId == id)
-                .Select(s => new SkillDto
-                (
-                    s.SkillId,
-                    s.Name,
-                    s.Description,
-                    s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name, ss.Description)).ToList()
-                ))
-                .FirstOrDefaultAsync();
+        var result = await _skillService.GetSkillById(id);
 
-
-        return result is null
-            ? Problem(statusCode:404, detail:$"The skill with the Id:{id} could not be found")
-            : Ok(result);
+        return Ok(result);
     }
 }

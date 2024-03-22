@@ -5,6 +5,7 @@ using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
 using Swapsha.Api.Exceptions;
+using Swapsha.Api.Features.Skills;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Shared.Services;
 using Swashbuckle.AspNetCore.Filters;
@@ -17,6 +18,8 @@ var blobStorageConnection = builder.Configuration["ConnectionStrings:Swapsha:Blo
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(sqlConnection));
+
+builder.Services.AddScoped<ISkillService, SkillService>();
 
 builder.Services.AddAzureClients(azureBuilder =>
 {

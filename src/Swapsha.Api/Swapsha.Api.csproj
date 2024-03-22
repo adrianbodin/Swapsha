@@ -35,6 +35,7 @@
 
     <ItemGroup>
       <Folder Include="Features\Reviews\Exceptions\" />
+      <Folder Include="Features\Skills\Filters\" />
       <Folder Include="Features\Users\Exceptions\" />
       <Folder Include="Shared\" />
     </ItemGroup>
