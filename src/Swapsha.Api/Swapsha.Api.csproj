@@ -28,6 +28,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.2" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
+        <PackageReference Include="Optional" Version="4.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.1" />
@@ -35,9 +36,7 @@
 
     <ItemGroup>
       <Folder Include="Features\Reviews\Exceptions\" />
-      <Folder Include="Features\Skills\Filters\" />
       <Folder Include="Features\Users\Exceptions\" />
-      <Folder Include="Shared\" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
+using Swapsha.Api.Exceptions;
+using Swapsha.Api.Features.Skills.Filters;
 using Swapsha.Api.Features.Skills.Models;
+using Swapsha.Api.Shared;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Swapsha.Api.Features.Skills;
@@ -35,6 +38,7 @@ public class SkillEndpoints : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [ValidSkillIdFilter]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get a skill by its id",
@@ -47,11 +51,7 @@ public class SkillEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<SkillDto>> GetById(int id)
     {
-        if (!(id >= 1))
-            return Problem(statusCode: 400, detail: "The id has to be more than 1");
-
         var result = await _skillService.GetSkillById(id);
-
         return Ok(result);
     }
 }

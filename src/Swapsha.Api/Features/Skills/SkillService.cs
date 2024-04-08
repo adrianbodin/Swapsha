@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using Optional;
 using Swapsha.Api.Data;
+using Swapsha.Api.Exceptions;
 using Swapsha.Api.Features.Skills;
 using Swapsha.Api.Features.Skills.Exceptions;
 using Swapsha.Api.Features.Skills.Models;
+using Swapsha.Api.Shared;
 
 public class SkillService : ISkillService
 {
@@ -48,7 +52,7 @@ public class SkillService : ISkillService
             ))
             .FirstOrDefaultAsync();
 
-        if (result == null)
+        if (result is null)
         {
             throw new NoSkillsFoundException($"The skill with the Id:{id} could not be found");
         }
