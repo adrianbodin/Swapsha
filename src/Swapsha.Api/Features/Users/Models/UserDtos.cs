@@ -21,15 +21,11 @@ public record PaginatedResponse<T>(
 public record GetAllUsersResponse(
     string UserId,
     string? Email,
-    string? FirstName,
-    string? LastName,
+    string? FullName,
     string? ProfilePictureUrl,
-    List<GetAllUsersSkills> Skills,
-    List<GetAllUsersSkills> WantedSkills);
-
-public record GetAllUsersSkills(
-    string Name,
-    string Description);
+    int? TotalReviews,
+    int? AverageRating,
+    List<string> Skills);
 
 public record GetUserResponse(
     string UserId,

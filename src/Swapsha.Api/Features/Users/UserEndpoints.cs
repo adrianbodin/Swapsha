@@ -60,11 +60,11 @@ public class UserEndpoints : ControllerBase
             (
                 u.Id,
                 u.Email,
-                u.FirstName,
-                u.LastName,
+                u.FirstName + " " + u.LastName,
                 u.ProfilePictureUrl,
-                u.UserSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList(),
-                u.UserWantedSkills.Select(s => new GetAllUsersSkills(s.Skill.Name, s.Skill.Description)).ToList()
+                u.Reviews.Count(),
+                u.Reviews.Any() ? (int?)u.Reviews.Average(r => r.Rating) : null,
+                u.UserSkills.Select(s => s.Skill.Name).ToList()
                 ))
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)

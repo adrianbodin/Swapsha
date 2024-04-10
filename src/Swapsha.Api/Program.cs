@@ -34,6 +34,14 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(o => o.AddPolicy("react-frontend", build =>
+{
+    build
+        .WithOrigins("http://localhost:3000")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
 builder.Services
     .AddProblemDetails(options =>
         options.CustomizeProblemDetails = ctx =>
@@ -82,6 +90,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
 app.UseStatusCodePages();
 app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
@@ -92,6 +101,8 @@ if (app.Environment.IsDevelopment())
         options.DisplayRequestDuration();
     });
 }
+
+app.UseCors("react-frontend");
 
 app.UseHttpsRedirection();
 
