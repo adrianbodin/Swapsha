@@ -1,11 +1,9 @@
-﻿import {Skill} from "@/types/skill";
-
-export interface User {
+﻿export interface User {
   userId: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   profilePictureUrl: string | null;
-  skills: Skill[]
-  wantedSkills: Skill[]
+  totalReviews: number | null;
+  averageRating: number | null;
+  skills: string[];
 }

@@ -17,7 +17,7 @@ const NavMenu = () => {
     setExpanded(false)
   }
   return (
-    <div className="fixed overflow-auto bottom-0 sm:top-1/3 sm:left-0 flex w-full sm:w-auto flex-col items-center gap-2">
+    <div className="fixed overflow-auto z-50 bottom-0 sm:top-1/3 sm:left-0 flex w-full sm:w-auto flex-col items-center gap-2">
       <nav className="rounded-r-lg px-3 py-4 bg-main-white flex w-full sm:w-auto justify-evenly flex-row sm:flex-col gap-3">
         <Link className="flex gap-3" onClick={collapseNav} href="/">
           <Image

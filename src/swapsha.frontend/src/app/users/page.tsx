@@ -32,11 +32,11 @@ const Page = () => {
   }, []);
 
   return (
-    <section className="mt-10">
+    <section className="my-10">
       <h2 className="text-center text-2xl font-bold">Lets find the best match for your project!</h2>
       <div className="grid grid-cols-1 gap-10 pt-10 md:grid-cols-2">
         {users.map(user =>
-          <p key={user.userId}>{user.email}</p>
+          <UserCard user={user}/>
         )}
       </div>
     </section>
