@@ -17,8 +17,8 @@ const NavMenu = () => {
     setExpanded(false)
   }
   return (
-    <div className="fixed overflow-auto top-1/3 left-0 flex flex-col items-center gap-2">
-      <nav className="rounded-r-lg px-3 py-4 bg-main-white flex flex-col gap-3">
+    <div className="fixed overflow-auto bottom-0 sm:top-1/3 sm:left-0 flex w-full sm:w-auto flex-col items-center gap-2">
+      <nav className="rounded-r-lg px-3 py-4 bg-main-white flex w-full sm:w-auto justify-evenly flex-row sm:flex-col gap-3">
         <Link className="flex gap-3" onClick={collapseNav} href="/">
           <Image
             src="/S-logo.svg"
@@ -34,7 +34,7 @@ const NavMenu = () => {
         </span>
           {expanded && <span className="hover:underline">Browse Users</span>}
         </Link>
-        <hr />
+        <hr className="hidden sm:block" />
         <Link className="flex gap-3" onClick={collapseNav} href="/register">
         <span className="material-symbols-outlined">
           edit_note
@@ -48,7 +48,7 @@ const NavMenu = () => {
           {expanded && <span className="hover:underline">Login</span>}
         </Link>
       </nav>
-      <button onClick={toggleExpand} className="bg-main-white rounded-full w-8 h-8 flex items-center justify-center">
+      <button onClick={toggleExpand} className="bg-main-white hidden sm:flex rounded-full w-8 h-8 items-center justify-center">
         {!expanded && <span className="material-symbols-outlined">arrow_forward</span>}
         {expanded && <span className="material-symbols-outlined">arrow_back</span>}
       </button>
