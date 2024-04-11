@@ -2,8 +2,8 @@
 
 const Page = () => {
   return (
-    <div>
-      
+    <div className="mt-20 font-bold">
+      <p>This page will be a register page where the user will register to a new account</p>
     </div>
   );
 };

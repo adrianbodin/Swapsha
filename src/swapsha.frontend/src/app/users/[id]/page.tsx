@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, {FC} from 'react';
 
 interface UserPageProps {
   params: {
@@ -6,7 +6,7 @@ interface UserPageProps {
   }
 }
 
-const UserPage = ({ params }: UserPageProps) => {
+const UserPage: FC<UserPageProps> = ({ params }) => {
   return (
     <div>
       <p>{params.id}</p>

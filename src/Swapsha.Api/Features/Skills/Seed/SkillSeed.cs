@@ -11,104 +11,104 @@ public class SkillSeed
             new Skill
             {
                 SkillId = 1,
-                Name = "Snickeri",
-                Description = "Kunskaper inom snickeri",
+                Name = "Carpentry",
+                Description = "Knowledge about carpentry",
             },
             new Skill
             {
                 SkillId = 2,
-                Name = "Målning",
-                Description = "Kunskaper inom målning",
+                Name = "Painting",
+                Description = "Knowledge about painting",
             },
             new Skill
             {
                 SkillId = 3,
-                Name = "Svetsning",
-                Description = "Kunskaper inom svetsning",
+                Name = "Welding",
+                Description = "Knowledge about welding, soldering and more"
             },
             new Skill
             {
                 SkillId = 4,
-                Name = "Mekanik",
-                Description = "Kunskaper inom mekanik",
+                Name = "Mechanics",
+                Description = "Knowledge about mechanics, cars and more"
             },
             new Skill
             {
                 SkillId = 5,
-                Name = "Elektronik",
-                Description = "Kunskaper inom elektronik",
+                Name = "Electronics",
+                Description = "Knowledge about electronics, circuits and more",
             },
             new Skill
             {
                 SkillId = 6,
-                Name = "Programmering",
-                Description = "Kunskaper inom programmering",
+                Name = "Programming",
+                Description = "Knowledge about programming, software development and more",
             },
             new Skill
             {
                 SkillId = 7,
-                Name = "Golvläggning",
-                Description = "Kunskaper inom golvläggning",
+                Name = "Flooring",
+                Description = "Knowledge about flooring, tiling and more",
             },
             new Skill
             {
                 SkillId = 8,
-                Name = "VVS",
-                Description = "Kunskaper inom VVS",
+                Name = "Plumbing",
+                Description = "Knowledge about plumbing, pipes and more",
             },
             new Skill
             {
                 SkillId = 9,
-                Name = "El",
-                Description = "Kunskaper inom el",
+                Name = "Electricity",
+                Description = "Knowledge about electricity, wiring and more",
             },
             new Skill
             {
                 SkillId = 10,
-                Name = "Trädgård",
-                Description = "Kunskaper inom trädgård",
+                Name = "Gardening",
+                Description = "Knowledge about gardening, plants and more",
             },
             new Skill
             {
                 SkillId = 11,
-                Name = "Städning",
-                Description = "Kunskaper inom städning",
+                Name = "Cleaning",
+                Description = "Knowledge about cleaning, tidying and more",
             },
             new Skill
             {
                 SkillId = 12,
-                Name = "Köksarbete",
-                Description = "Kunskaper inom köksarbete",
+                Name = "Cooking",
+                Description = "Knowledge about cooking, baking and more",
             },
             new Skill
             {
                 SkillId = 13,
-                Name = "Barnpassning",
-                Description = "Kunskaper inom barnpassning",
+                Name = "Babysitting",
+                Description = "Knowledge about babysitting, childcare and more",
             },
             new Skill
             {
                 SkillId = 14,
-                Name = "Äldreomsorg",
-                Description = "Kunskaper inom äldreomsorg",
+                Name = "Elderly care",
+                Description = "Knowledge about elderly care, nursing and more",
             },
             new Skill
             {
                 SkillId = 15,
-                Name = "Hundpassning",
-                Description = "Kunskaper inom hundpassning",
+                Name = "Dog sitting",
+                Description = "Knowledge about dog sitting, dog walking and more",
             },
             new Skill
             {
                 SkillId = 16,
-                Name = "Kattvakt",
-                Description = "Kunskaper inom kattvakt",
+                Name = "Cat sitting",
+                Description = "Knowledge about cat sitting, cat walking and more",
             },
             new Skill
             {
                 SkillId = 17,
-                Name = "Fotografering",
-                Description = "Kunskaper inom fotografering",
+                Name = "Photography",
+                Description = "Knowledge about photography, photo editing and more",
             }
         };
     }

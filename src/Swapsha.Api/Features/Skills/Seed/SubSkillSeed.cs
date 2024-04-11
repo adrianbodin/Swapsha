@@ -11,232 +11,232 @@ public class SubSkillSeed
             new SubSkill
             {
                 SubSkillId = 1,
-                Name = "Bygga möbler",
-                Description = "Kunskaper inom att bygga möbler",
+                Name = "Build furniture",
+                Description = "Knowledge about building furniture",
                 SkillId = 1
             },
             new SubSkill
             {
                 SubSkillId = 2,
-                Name = "Renovera hus",
-                Description = "Kunskaper inom att renovera hus",
+                Name = "Renovate houses",
+                Description = "Knowledge about renovating houses",
                 SkillId = 1
             },
             new SubSkill
             {
                 SubSkillId = 3,
-                Name = "Måla möbler",
-                Description = "Kunskaper inom att måla möbler",
+                Name = "Paint furniture",
+                Description = "Knowledge about painting furniture",
                 SkillId = 2
             },
             new SubSkill
             {
                 SubSkillId = 4,
-                Name = "Måla hus",
-                Description = "Kunskaper inom att måla hus",
+                Name = "Paint houses",
+                Description = "Knowledge about painting houses",
                 SkillId = 2
             },
             new SubSkill
             {
                 SubSkillId = 5,
-                Name = "Svetsa metall",
-                Description = "Kunskaper inom att svetsa metall",
+                Name = "Weld metal",
+                Description = "Knowledge about welding metal",
                 SkillId = 3
             },
             new SubSkill
             {
                 SubSkillId = 6,
-                Name = "Svetsa plast",
-                Description = "Kunskaper inom att svetsa plast",
+                Name = "Weld plastic",
+                Description = "Knowledge about welding plastic",
                 SkillId = 3
             },
             new SubSkill
             {
                 SubSkillId = 7,
-                Name = "Reparera bilar",
-                Description = "Kunskaper inom att reparera bilar",
+                Name = "Repair cars",
+                Description = "Knowledge about repairing cars",
                 SkillId = 4
             },
             new SubSkill
             {
                 SubSkillId = 8,
-                Name = "Reparera motorcyklar",
-                Description = "Kunskaper inom att reparera motorcyklar",
+                Name = "Repair motorcycles",
+                Description = "Knowledge about repairing motorcycles",
                 SkillId = 4
             },
             new SubSkill
             {
                 SubSkillId = 9,
-                Name = "Bygga kretskort",
-                Description = "Kunskaper inom att bygga kretskort",
+                Name = "Build circuit boards",
+                Description = "Knowledge about building circuit boards",
                 SkillId = 5
             },
             new SubSkill
             {
                 SubSkillId = 10,
-                Name = "Bygga robotar",
-                Description = "Kunskaper inom att bygga robotar",
+                Name = "Build robots",
+                Description = "Knowledge about building robots",
                 SkillId = 5
             },
             new SubSkill
             {
                 SubSkillId = 11,
-                Name = "Webbutveckling",
-                Description = "Kunskaper inom webbutveckling",
+                Name = "Web development",
+                Description = "Knowledge about web development",
                 SkillId = 6
             },
             new SubSkill
             {
                 SubSkillId = 12,
-                Name = "Apputveckling",
-                Description = "Kunskaper inom apputveckling",
+                Name = "App development",
+                Description = "Knowledge about app development",
                 SkillId = 6
             },
             new SubSkill
             {
                 SubSkillId = 13,
-                Name = "Lägga golv",
-                Description = "Kunskaper inom att lägga golv",
+                Name = "Lay flooring",
+                Description = "Knowledge about laying flooring",
                 SkillId = 7
             },
             new SubSkill
             {
                 SubSkillId = 14,
-                Name = "Lägga kakel",
-                Description = "Kunskaper inom att lägga kakel",
+                Name = "Lay tiles",
+                Description = "Knowledge about laying tiles",
                 SkillId = 7
             },
             new SubSkill
             {
                 SubSkillId = 15,
-                Name = "Rörmokare",
-                Description = "Kunskaper inom att vara rörmokare",
+                Name = "Plumbing",
+                Description = "Knowledge about plumbing",
                 SkillId = 8
             },
             new SubSkill
             {
                 SubSkillId = 16,
-                Name = "VVS-installation",
-                Description = "Kunskaper inom VVS-installation",
+                Name = "VVS installation",
+                Description = "Knowledge about plumbing installation",
                 SkillId = 8
             },
             new SubSkill
             {
                 SubSkillId = 17,
-                Name = "Elinstallation",
-                Description = "Kunskaper inom elinstallation",
+                Name = "Electrical installation",
+                Description = "Knowledge about electrical installation",
                 SkillId = 9
             },
             new SubSkill
             {
                 SubSkillId = 18,
-                Name = "Elreparation",
-                Description = "Kunskaper inom elreparation",
+                Name = "Electrical repair",
+                Description = "Knowledge about electrical repair",
                 SkillId = 9
             },
             new SubSkill
             {
                 SubSkillId = 19,
-                Name = "Trädgårdsdesign",
-                Description = "Kunskaper inom trädgårdsdesign",
+                Name = "Garden design",
+                Description = "Knowledge about garden design",
                 SkillId = 10
             },
             new SubSkill
             {
                 SubSkillId = 20,
-                Name = "Trädgårdsarbete",
-                Description = "Kunskaper inom trädgårdsarbete",
+                Name = "Gardening",
+                Description = "Knowledge about gardening",
                 SkillId = 10
             },
             new SubSkill
             {
                 SubSkillId = 21,
-                Name = "Städning av hem",
-                Description = "Kunskaper inom städning av hem",
+                Name = "Home cleaning",
+                Description = "Knowledge about home cleaning",
                 SkillId = 11
             },
             new SubSkill
             {
                 SubSkillId = 22,
-                Name = "Städning av kontor",
-                Description = "Kunskaper inom städning av kontor",
+                Name = "Office cleaning",
+                Description = "Knowledge about office cleaning",
                 SkillId = 11
             },
             new SubSkill
             {
                 SubSkillId = 23,
-                Name = "Köksdesign",
-                Description = "Kunskaper inom köksdesign",
+                Name = "Kitchen design",
+                Description = "Knowledge about kitchen design",
                 SkillId = 12
             },
             new SubSkill
             {
                 SubSkillId = 24,
-                Name = "Köksarbete",
-                Description = "Kunskaper inom köksarbete",
+                Name = "Kitchen work",
+                Description = "Knowledge about kitchen work",
                 SkillId = 12
             },
             new SubSkill
             {
                 SubSkillId = 25,
                 Name = "Nanny",
-                Description = "Kunskaper inom barnpassning",
+                Description = "Knowledge about nannying",
                 SkillId = 13
             },
             new SubSkill
             {
                 SubSkillId = 26,
-                Name = "Barnaktiviteter",
-                Description = "Kunskaper inom barnaktiviteter",
+                Name = "Child activities",
+                Description = "Knowledge about child activities",
                 SkillId = 13
             },
             new SubSkill
             {
                 SubSkillId = 27,
-                Name = "Diabetesvård",
-                Description = "Kunskaper inom äldreomsorg",
+                Name = "Elderly care",
+                Description = "Knowledge about elderly care",
                 SkillId = 14
             },
             new SubSkill
             {
                 SubSkillId = 28,
-                Name = "Äldreaktiviteter",
-                Description = "Kunskaper inom äldreaktiviteter",
+                Name = "Nursing",
+                Description = "Knowledge about nursing",
                 SkillId = 14
             },
             new SubSkill
             {
                 SubSkillId = 30,
-                Name = "Hundträning",
-                Description = "Kunskaper inom hundträning",
+                Name = "Dog training",
+                Description = "Knowledge about dog training",
                 SkillId = 15
             },
             new SubSkill
             {
                 SubSkillId = 31,
-                Name = "Kattskötsel",
-                Description = "Kunskaper inom kattvakt",
+                Name = "Cat walking",
+                Description = "Knowledge about cat walking",
                 SkillId = 16
             },
             new SubSkill
             {
                 SubSkillId = 32,
-                Name = "Kattaktiviteter",
-                Description = "Kunskaper inom kattaktiviteter",
+                Name = "Cat activities",
+                Description = "Knowledge about cat activities",
                 SkillId = 16
             },
             new SubSkill
             {
                 SubSkillId = 33,
-                Name = "Landskapsfotografering",
-                Description = "Kunskaper inom fotografering",
+                Name = "Photography",
+                Description = "Knowledge about photography",
                 SkillId = 17
             },
             new SubSkill
             {
                 SubSkillId = 34,
-                Name = "Fotoredigering",
-                Description = "Kunskaper inom fotoredigering",
+                Name = "Photo editing",
+                Description = "Knowledge about photo editing",
                 SkillId = 17
             }
         };

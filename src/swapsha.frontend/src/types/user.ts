@@ -2,7 +2,7 @@
   userId: string;
   email: string;
   fullName: string;
-  profilePictureUrl: string | null;
+  profilePictureUrl: string;
   totalReviews: number | null;
   averageRating: number | null;
   skills: string[];

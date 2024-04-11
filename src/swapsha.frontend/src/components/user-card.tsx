@@ -1,20 +1,19 @@
-﻿import React from 'react';
+﻿import React, {FC} from 'react';
 import Image from "next/image";
 import {User} from "@/types/user";
-import {Libre_Barcode_39} from "next/dist/compiled/@next/font/dist/google";
 import Link from "next/link";
 
 interface UserCardProps{
   user: User
 }
 
-const UserCard = ({ user } : UserCardProps) => {
+const UserCard: FC<UserCardProps> = ({ user }) => {
   return (
     <div className="w-full h-64 bg-main-white shadow-2xl rounded-2xl flex">
       <div className="w-1/2 relative h-full">
         <Image
           className="rounded-l-2xl h-full"
-          src="/images/user-card-image.jpg"
+          src={user.profilePictureUrl ? user.profilePictureUrl : "/images/user-card-image.jpg"}
           alt="Picture of a user"
           width={640}
           height={427}
@@ -29,7 +28,7 @@ const UserCard = ({ user } : UserCardProps) => {
         <p className="font-bold text-xl">{user.fullName}</p>
         <ul className="list-disc ml-4">
           {user.skills.slice(0, 3).map(skill => (
-            <li>{skill}</li>
+            <li key={skill}>{skill}</li>
           ))}
           {user.skills.length > 4  && <p>and {user.skills.length - 3} more...</p>}
         </ul>
