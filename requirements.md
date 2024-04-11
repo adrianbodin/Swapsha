@@ -1,4 +1,4 @@
-﻿# Kravspecfikation Swapsha
+﻿# Kravspecifikation Swapsha
 
 ## Kort beskrivning om produkten
 
@@ -8,7 +8,7 @@ Om man hittar en person som man vill ta kontakt med kan man skicka en förfråga
 antingen få den godkänd av andra parten eller inte. 
 
 Sedan kan man skriva till varandra i en chat på plattformen, och efter fortsatt diskussion
-förhoppningvis byta tjänster med varandra. 
+förhoppningsvis byta tjänster med varandra. 
 
 ## Funktioner
 

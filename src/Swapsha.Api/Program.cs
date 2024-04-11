@@ -114,6 +114,7 @@ app.MapGroup("/api/v1/Identity")
 app.UseAuthorization();
 app.Run();
 
+//Had to do this to use it in the webapplicationbuilder in the test project
 public partial class Program
 {
 

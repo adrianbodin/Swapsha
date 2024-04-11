@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Swapsha.Api.Data;
 
@@ -11,9 +12,11 @@ using Swapsha.Api.Data;
 namespace Swapsha.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411064242_AddedCloudImagesToSeedUsers")]
+    partial class AddedCloudImagesToSeedUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,7 +184,7 @@ namespace Swapsha.Api.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
 
                     b.HasData(
                         new
@@ -966,7 +969,7 @@ namespace Swapsha.Api.Data.Migrations
 
                     b.HasKey("SkillId");
 
-                    b.ToTable("Skills", (string)null);
+                    b.ToTable("Skills");
 
                     b.HasData(
                         new
@@ -1098,7 +1101,7 @@ namespace Swapsha.Api.Data.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("SubSkills", (string)null);
+                    b.ToTable("SubSkills");
 
                     b.HasData(
                         new
@@ -1809,7 +1812,7 @@ namespace Swapsha.Api.Data.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("UserSkills", (string)null);
+                    b.ToTable("UserSkills");
 
                     b.HasData(
                         new
@@ -2251,7 +2254,7 @@ namespace Swapsha.Api.Data.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("UserWantedSkills", (string)null);
+                    b.ToTable("UserWantedSkills");
 
                     b.HasData(
                         new
