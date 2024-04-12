@@ -31,7 +31,7 @@ Fullstack web application for trading skills with eachother
 7. Now start up Swapsha.api in visual studio, this should open swagger with all the endpoints.
 
 
-8. Navigate to the swapsha.frontend in the src root directory. Then run this command to install all the dependencies for the frontend
+8. Navigate to the swapsha.frontend in the src root directory. Then run this command to install all the dependencies for the frontend </br>
    ![Screenshot 2024-04-12 083147](https://github.com/adrianbodin/Swapsha/assets/105102657/649d098f-22ef-4185-81f6-fef758181a21)
 
 
