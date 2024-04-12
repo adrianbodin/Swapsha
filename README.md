@@ -24,7 +24,7 @@ Fullstack web application for trading skills with eachother
 
 
 
-6. Now run this command. This should run all the migrations and create a database with seed data in it. 
+6. Now run this command. This should run all the migrations and create a database with seed data in it. Make sure you got MS sql server installed on your computer.
 ![Screenshot 2024-04-12 082230](https://github.com/adrianbodin/Swapsha/assets/105102657/78c2e826-1763-43fa-80d4-1d3084cd017a)
 
 
