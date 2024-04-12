@@ -12,8 +12,8 @@ using Swashbuckle.AspNetCore.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-var sqlConnection = builder.Configuration["ConnectionStrings:Swapsha:SqlDb"];
+//["ConnectionStrings:Swapsha:SqlDb"]
+var sqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 var blobStorageConnection = builder.Configuration["ConnectionStrings:Swapsha:BlobStorage"];
 
 builder.Services.AddDbContext<AppDbContext>(options =>
