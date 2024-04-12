@@ -6,7 +6,7 @@ Fullstack web application for trading skills with eachother
 1. Run this command to clone the repository in the directory of your choice.![img.png](readme-images/img.png)
 
 
-2. Run this command to go into the project directory. </br>![img_1.png](readme-images/img_1.png)
+2. Run this command to go into the project directory. </br>![readme-images/img_1.png](readme-images/img_1.png)
 
 
 3. Change to to src directory. </br> ![img_2.png](readme-images/img_2.png)
