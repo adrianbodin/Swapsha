@@ -36,7 +36,7 @@ cd Swapsha.Api
 
 ```json
 {
-   "DefaultConnection": "RandomServerName\\SQLEXPRESS"
+   "DefaultConnection": "Server=YourServerName"
 }
 ```
 
