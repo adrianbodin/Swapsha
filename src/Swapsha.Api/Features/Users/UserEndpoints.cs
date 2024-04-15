@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
+using Swapsha.Api.Features.Users.Filters;
 using Swapsha.Api.Features.Users.Models;
+using Swapsha.Api.Features.Users.Services;
 using Swapsha.Api.Filters;
 using Swapsha.Api.Models;
 using Swapsha.Api.Shared.Services;
@@ -16,17 +18,17 @@ namespace Swapsha.Api.Features.Users;
 public class UserEndpoints : ControllerBase
 {
     private readonly UserManager<CustomUser> _userManager;
-    private readonly AppDbContext _db;
     private readonly IImageService _imageService;
+    private readonly IUserService _userService;
 
     public UserEndpoints(
         UserManager<CustomUser> userManager,
-        AppDbContext db,
-        IImageService imageService)
+        IImageService imageService,
+        IUserService userService)
     {
         _userManager = userManager;
-        _db = db;
         _imageService = imageService;
+        _userService = userService;
     }
 
     #region SwaggerDocs
@@ -40,44 +42,9 @@ public class UserEndpoints : ControllerBase
 
     #endregion
     [HttpGet]
-    public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers(
-        int? skillId = null,
-        int pageIndex = 1,
-        int pageSize = 10)
+    public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers([FromQuery]GetAllUsersRequest request)
     {
-        var userQuery = _db.Users.AsNoTracking();
-
-        if(skillId.HasValue)
-        {
-            userQuery = userQuery
-                .Where(u => u.UserSkills.Any(us => us.SkillId == skillId));
-        }
-
-        var count = await userQuery.CountAsync();
-
-        var users = await userQuery
-            .Select(u => new GetAllUsersResponse
-            (
-                u.Id,
-                u.Email,
-                u.FirstName + " " + u.LastName,
-                u.ProfilePictureUrl,
-                u.Reviews.Count(),
-                u.Reviews.Any() ? (int?)u.Reviews.Average(r => r.Rating) : null,
-                u.UserSkills.Select(s => s.Skill.Name).ToList()
-                ))
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
-
-        var response = new PaginatedResponse<GetAllUsersResponse>
-        (
-            pageIndex,
-            pageSize,
-            count,
-            users
-        );
-
+        var response = await _userService.GetAllUsers(request);
         return Ok(response);
     }
 
@@ -93,25 +60,14 @@ public class UserEndpoints : ControllerBase
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
     public async Task<ActionResult<GetUserResponse>> GetUser(string id)
     {
-        var user = await _userManager.FindByIdAsync(id);
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user could not be found with id: {id}");
-
-        var response = new GetUserResponse
-        (
-            user.Id,
-            user.Email,
-            user.FirstName,
-            user.LastName,
-            user.ProfilePictureUrl
-        );
-
+        var response = await _userService.GetUserById(id);
         return Ok(response);
     }
 
     [Authorize]
     [HttpPost("{id}/names")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add user names",
@@ -124,9 +80,7 @@ public class UserEndpoints : ControllerBase
     #endregion
     public async Task<IActionResult> PostNames([FromBody] PostNamesRequest request, string id)
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null || user.Id != id)
-            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+        var user = HttpContext.Items["User"] as CustomUser;
 
         user.FirstName = request.FirstName;
         user.MiddleName = request.MiddleName;
@@ -152,18 +106,7 @@ public class UserEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<GetNamesResponse>> GetNames(string id)
     {
-        var user = await _userManager.FindByIdAsync(id);
-
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user could not be found with id: {id}");
-
-        var names = new GetNamesResponse
-        (
-            user.FirstName,
-            user.MiddleName,
-            user.LastName
-        );
-
+        var names = await _userService.GetNamesById(id);
         return Ok(names);
     }
 
@@ -179,17 +122,14 @@ public class UserEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<PostNamesRequest>> GetFirstName(string id)
     {
-        var user = await _userManager.FindByIdAsync(id);
-
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user could not be found with id: {id}");
-
-        return Ok(new { user.FirstName });
+        var firstName = await _userService.GetFirstNameById(id);
+        return Ok(new { firstName });
     }
     
     [Authorize]
     [HttpPost("{id}/firstname")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new firstname for a user",
@@ -202,9 +142,7 @@ public class UserEndpoints : ControllerBase
     #endregion
     public async Task<IActionResult> PostFirstName(string id, [FromBody] PostFirstNameRequest request)
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null || user.Id != id)
-            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+        var user = HttpContext.Items["User"] as CustomUser;
 
         user.FirstName = request.FirstName;
 
@@ -219,6 +157,7 @@ public class UserEndpoints : ControllerBase
     [Authorize]
     [HttpPost("{id}/profilepic")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new profile picture for a specific user",
@@ -231,9 +170,7 @@ public class UserEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<string>> PostProfilePic(string id, IFormFile image)
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null || user.Id != id)
-            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
+        var user = HttpContext.Items["User"] as CustomUser;
 
         var result = await _imageService.AddProfilePic(user.Id, image);
 
@@ -258,22 +195,16 @@ public class UserEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<GetProfilePicResponse>> GetProfilePic(string id)
     {
-        var user = await _userManager.FindByIdAsync(id);
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
-
-        var response = new GetProfilePicResponse
-        (
-            user.Id,
-            user.ProfilePictureUrl ?? null
-        );
+        var response = await _userService.GetProfilePicById(id);
 
         return Ok(response);
     }
 
+    //TODO: fix better shallow validation for the skillId
     [Authorize]
     [HttpPost("{id}/skills")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add a skill to a user",
@@ -284,41 +215,17 @@ public class UserEndpoints : ControllerBase
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
     [SwaggerResponse(200, "If the skill was added to the user")]
     #endregion
-    public async Task<IActionResult> AddSkillToUser(string id, AddSkillToUserRequest request)
+    public async Task<IActionResult> AddSkillToUser([FromRoute]string id,[FromBody]int skillId)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
-
-        var alreadyHasSkill = await _db.UserSkills.AnyAsync(us => us.UserId == id && us.SkillId == request.SkillId);
-        if (alreadyHasSkill)
-            return Problem(statusCode:400, detail: $"The user with id: {id} already has the skill with id: {request.SkillId}");
-
-        var loggedInUser = await _userManager.GetUserAsync(User);
-        if (loggedInUser is null || loggedInUser.Id != id)
-            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
-
-        var skill = await _db.Skills.FindAsync(request.SkillId);
-        if (skill is null)
-            return Problem(statusCode: 404, detail: $"The skill with the id: {request.SkillId} could not be found");
-
-        var userSkill = new UserSkill
-          {
-              SkillId = skill.SkillId,
-              UserId = user.Id
-          };
-
-        _db.UserSkills.Add(userSkill);
-
-        await _db.SaveChangesAsync();
-
-        //TODO make a better return here
+        await _userService.AddSkillToUser(id, skillId);
+        //TODO: Created return type
         return Ok();
     }
 
     [Authorize]
     [HttpPost("{id}/wantedskills")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add a wanted skill to a user",
@@ -329,35 +236,9 @@ public class UserEndpoints : ControllerBase
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
     [SwaggerResponse(200, "If the wanted skill was added to the user")]
     #endregion
-    public async Task<IActionResult> AddWantedSkillToUser(string id, AddWantedSkillToUserRequest request)
+    public async Task<IActionResult> AddWantedSkillToUser(string id, [FromBody]int skillId)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
-
-        // Check if the user already has the wanted skill
-        var alreadyHasWantedSkill = await _db.UserWantedSkills.AnyAsync(us => us.UserId == id && us.SkillId == request.SkillId);
-
-        if (alreadyHasWantedSkill)
-            return Problem(statusCode:400, detail: $"The user with id: {id} already has the wanted skill with id: {request.SkillId}");
-
-        var loggedInUser = await _userManager.GetUserAsync(User);
-        if (loggedInUser is null || loggedInUser.Id != id)
-            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
-
-        var skill = await _db.Skills.FindAsync(request.SkillId);
-        if (skill is null)
-            return Problem(statusCode: 404, detail: $"The skill with the id: {request.SkillId} could not be found");
-
-        var userWantedSkill = new UserWantedSkill
-        {
-            SkillId = skill.SkillId,
-            UserId = user.Id
-        };
-
-        _db.UserWantedSkills.Add(userWantedSkill);
-        await _db.SaveChangesAsync();
-
+        await _userService.AddWantedSkillToUser(id, skillId);
         return Ok();
     }
 }

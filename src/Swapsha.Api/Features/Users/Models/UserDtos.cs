@@ -18,6 +18,17 @@ public record PaginatedResponse<T>(
     int TotalRecords,
     List<T> Data);
 
+public record GetAllUsersRequest
+{
+    public int? SkillId { get; init; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "Page index must be greater than 0.")]
+    public int PageIndex { get; init; } = 1;
+
+    [Range(1, 100, ErrorMessage = "Page size must be between 1 and 100.")]
+    public int PageSize { get; init; } = 10;
+}
+
 public record GetAllUsersResponse(
     string UserId,
     string? Email,
@@ -27,12 +38,16 @@ public record GetAllUsersResponse(
     int? AverageRating,
     List<string> Skills);
 
+public record GetUserSkillDto(int Id, string Name);
+
 public record GetUserResponse(
     string UserId,
     string? Email,
     string? FirstName,
     string? LastName,
-    string? ProfilePictureUrl);
+    string? ProfilePictureUrl,
+    List<GetUserSkillDto>? Skills,
+    List<GetUserSkillDto>? WantedSkills);
 
 public record PostNamesRequest
 {
@@ -63,9 +78,3 @@ public record PostFirstNameRequest
 public record GetProfilePicResponse(
     string UserId,
     string? ProfilePicUrl);
-
-public record AddSkillToUserRequest(
-    int SkillId);
-
-public record AddWantedSkillToUserRequest(
-    int SkillId);

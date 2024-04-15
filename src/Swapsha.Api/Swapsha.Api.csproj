@@ -37,7 +37,6 @@
     <ItemGroup>
       <Folder Include="Data\" />
       <Folder Include="Features\Reviews\Exceptions\" />
-      <Folder Include="Features\Users\Exceptions\" />
     </ItemGroup>
 
 </Project>

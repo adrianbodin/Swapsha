@@ -6,7 +6,9 @@ using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
 using Swapsha.Api.Exceptions;
 using Swapsha.Api.Features.Skills;
+using Swapsha.Api.Features.Users;
 using Swapsha.Api.Features.Users.Models;
+using Swapsha.Api.Features.Users.Services;
 using Swapsha.Api.Shared.Services;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -20,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(sqlConnection));
 
 builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAzureClients(azureBuilder =>
 {
