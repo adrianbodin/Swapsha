@@ -51,7 +51,7 @@ dotnet ef database update
 7. Now start up Swapsha.api in visual studio, this should open swagger with all the endpoints.
 
 
-8. Navigate to the swapsha.frontend in the src root directory. Then run this command to install all the dependencies for the frontend 
+8. Open a new terminal while the api is running and navigate to the swapsha.frontend in the src root directory. Then run this command to install all the dependencies for the frontend 
 
 ```bash
 npm install
