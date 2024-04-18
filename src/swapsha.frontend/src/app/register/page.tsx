@@ -1,11 +1,25 @@
-﻿import React from 'react';
+﻿'use client'
 
-const Page = () => {
+import {useState} from "react";
+import RegisterStepOne from "@/components/register/register-step-one";
+
+
+const RegisterPage = () => {
+  const [step, setStep] = useState(1);
+
+  const nextStep = () => {
+    setStep(prevStep => prevStep + 1);
+  };
+
+  const prevStep = () => {
+    setStep(prevStep => prevStep - 1);
+  };
+
   return (
-    <div className="mt-20 font-bold">
-      <p>This page will be a register page where the user will register to a new account</p>
+    <div className="h-screen flex items-center">
+      {step === 1 && <RegisterStepOne/>}
     </div>
   );
 };
 
-export default Page;
+export default RegisterPage;

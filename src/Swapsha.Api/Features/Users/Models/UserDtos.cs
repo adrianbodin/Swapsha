@@ -42,7 +42,6 @@ public record GetUserSkillDto(int Id, string Name);
 
 public record GetUserResponse(
     string UserId,
-    string? Email,
     string? FirstName,
     string? LastName,
     string? ProfilePictureUrl,

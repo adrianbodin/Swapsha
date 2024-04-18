@@ -65,7 +65,6 @@ public class UserService : IUserService
             .Where(u => u.Id == id)
             .Select(u => new GetUserResponse(
             u.Id,
-            u.Email,
             u.FirstName,
             u.LastName,
             u.ProfilePictureUrl,
@@ -77,7 +76,7 @@ public class UserService : IUserService
                 s.Skill.SkillId,
                 s.Skill.Name
                 )).ToList()
-        )).FirstOrDefaultAsync();
+            )).FirstOrDefaultAsync();
 
         if (user is null)
         {
