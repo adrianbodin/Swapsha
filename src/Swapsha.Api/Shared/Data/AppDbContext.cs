@@ -1,16 +1,14 @@
-﻿using Bogus;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data.Seed;
-using Swapsha.Api.Features.Reviews;
 using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Features.Skills.Models;
 using Swapsha.Api.Features.Skills.Seed;
-using Swapsha.Api.Features.Users;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Models;
+using Swapsha.Api.Shared.Data.Seed;
 
-namespace Swapsha.Api.Data;
+namespace Swapsha.Api.Shared.Data;
 
 public class AppDbContext : IdentityDbContext<CustomUser>
 {

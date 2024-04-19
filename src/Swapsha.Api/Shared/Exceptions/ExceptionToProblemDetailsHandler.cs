@@ -3,7 +3,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Swapsha.Api.Exceptions;
+namespace Swapsha.Api.Shared.Exceptions;
 
 public class ExceptionToProblemDetailsHandler : IExceptionHandler
 {

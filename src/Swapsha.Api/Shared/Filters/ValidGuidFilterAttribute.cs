@@ -1,7 +1,6 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-namespace Swapsha.Api.Filters;
+namespace Swapsha.Api.Shared.Filters;
 
 public class ValidGuidFilterAttribute : ActionFilterAttribute
 {

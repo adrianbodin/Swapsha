@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Swapsha.Api.Exceptions;
+using Swapsha.Api.Shared.Exceptions;
 
 namespace Swapsha.Api.Features.Users.Exceptions;
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Respawn;
-using Swapsha.Api.Data;
+using Swapsha.Api.Shared.Data;
 using Testcontainers.MsSql;
 
 namespace Swapsha.Api.Tests.Fixtures;

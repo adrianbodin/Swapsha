@@ -35,7 +35,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
       <Folder Include="Features\Reviews\Exceptions\" />
     </ItemGroup>
 

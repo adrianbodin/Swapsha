@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Swapsha.Api.Exceptions;
+namespace Swapsha.Api.Shared.Exceptions;
 
 public class SkillNotFoundException : CustomException
 {

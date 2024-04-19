@@ -3,12 +3,12 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
-using Swapsha.Api.Data;
-using Swapsha.Api.Exceptions;
 using Swapsha.Api.Features.Reviews.Services;
 using Swapsha.Api.Features.Skills.Services;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Features.Users.Services;
+using Swapsha.Api.Shared.Data;
+using Swapsha.Api.Shared.Exceptions;
 using Swapsha.Api.Shared.Services;
 using Swashbuckle.AspNetCore.Filters;
 

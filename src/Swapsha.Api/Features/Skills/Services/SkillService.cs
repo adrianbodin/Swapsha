@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Swapsha.Api.Data;
 using Swapsha.Api.Features.Skills.Exceptions;
 using Swapsha.Api.Features.Skills.Models;
+using Swapsha.Api.Shared.Data;
 
 namespace Swapsha.Api.Features.Skills.Services;
 

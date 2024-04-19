@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Swapsha.Api.Data;
+using Swapsha.Api.Shared.Data;
 
 #nullable disable
 
-namespace Swapsha.Api.Data.Migrations
+namespace Swapsha.Api.Shared.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240319113521_test")]

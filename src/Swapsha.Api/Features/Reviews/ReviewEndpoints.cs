@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Swapsha.Api.Data;
 using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Features.Reviews.Services;
 using Swapsha.Api.Features.Users.Filters;
-using Swapsha.Api.Features.Users.Models;
-using Swapsha.Api.Filters;
+using Swapsha.Api.Shared.Filters;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Swapsha.Api.Features.Reviews;

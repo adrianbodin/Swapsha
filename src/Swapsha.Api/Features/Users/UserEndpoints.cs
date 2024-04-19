@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Swapsha.Api.Data;
 using Swapsha.Api.Features.Users.Filters;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Features.Users.Services;
-using Swapsha.Api.Filters;
-using Swapsha.Api.Models;
+using Swapsha.Api.Shared.Filters;
 using Swapsha.Api.Shared.Services;
 using Swashbuckle.AspNetCore.Annotations;
 

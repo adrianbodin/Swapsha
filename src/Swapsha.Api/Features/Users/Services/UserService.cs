@@ -1,11 +1,10 @@
-﻿using System.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Swapsha.Api.Data;
 using Swapsha.Api.Features.Skills.Exceptions;
 using Swapsha.Api.Features.Users.Exceptions;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Models;
+using Swapsha.Api.Shared.Data;
 
 namespace Swapsha.Api.Features.Users.Services;
 
