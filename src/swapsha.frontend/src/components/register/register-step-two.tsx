@@ -34,17 +34,32 @@ const RegisterStepTwo: FC<RegisterStepTwoProps> = ({prevStep,nextStep,handleForm
   };
 
   function validate(){
-    return true;
+    let tempErrors: RegisterStepTwoFormData = {
+      firstName: formData.firstName ? "" : "First Name is required.",
+      middleName: "",
+      lastName: formData.lastName ? "" : "Last Name is required.",
+    };
+
+    if (formData.firstName.length > 50) {
+      tempErrors.firstName = "First Name must be less than 50 characters.";
+    }
+
+    if (formData.middleName && formData.middleName.length > 50) {
+      tempErrors.middleName = "Middle Name must be less than 50 characters.";
+    }
+
+    if (formData.lastName.length > 50) {
+      tempErrors.lastName = "Last Name must be less than 50 characters.";
+    }
+
+    setErrors(tempErrors);
+
+    return Object.values(tempErrors).every(x => x === "");
   }
 
   function handleNext(){
     if(validate()){
-      const dataToSend = {
-
-      };
-
-      // Send this data to the parent
-      handleFormData(dataToSend);
+      handleFormData(formData);
       nextStep()
     }
   }
@@ -54,9 +69,9 @@ const RegisterStepTwo: FC<RegisterStepTwoProps> = ({prevStep,nextStep,handleForm
       <div>
         <h2 className="text-2xl font-bold">What is your name?</h2>
       </div>
-      <Input type="text" placeholder="First Name" name="firstName" onChange={handleChange}/>
-      <Input type="text" placeholder="Middle Name (Optional)" name="middleName" onChange={handleChange}/>
-      <Input type="text" placeholder="Last Name" name="lastName" onChange={handleChange}/>
+      <Input type="text" placeholder="First Name" name="firstName" onChange={handleChange} error={errors.firstName}/>
+      <Input type="text" placeholder="Middle Name (Optional)" name="middleName" onChange={handleChange} error={errors.middleName}/>
+      <Input type="text" placeholder="Last Name" name="lastName" onChange={handleChange} error={errors.lastName}/>
       <button
         className="inline-block px-4 py-2 text-main-white w-full bg-light-green rounded-xl"
         onClick={handleNext}>
