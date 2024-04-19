@@ -2,6 +2,7 @@
 
 import {useState} from "react";
 import RegisterStepOne from "@/components/register/register-step-one";
+import RegisterStepTwo from "@/components/register/register-step-two";
 
 
 const RegisterPage = () => {
@@ -29,6 +30,7 @@ const RegisterPage = () => {
   return (
     <div className="h-screen flex items-center">
       {step === 1 && <RegisterStepOne nextStep={nextStep} handleFormData={handleFormData}/>}
+      {step === 2 && <RegisterStepTwo prevStep={prevStep} nextStep={nextStep} handleFormData={handleFormData}/>}
     </div>
   );
 };
