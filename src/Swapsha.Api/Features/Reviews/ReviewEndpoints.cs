@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
 using Swapsha.Api.Features.Reviews.Models;
+using Swapsha.Api.Features.Reviews.Services;
+using Swapsha.Api.Features.Users.Filters;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Filters;
 using Swashbuckle.AspNetCore.Annotations;
@@ -14,15 +16,11 @@ namespace Swapsha.Api.Features.Reviews;
 [ApiController]
 public class ReviewEndpoints : ControllerBase
 {
-    private readonly AppDbContext _db;
-    private readonly UserManager<CustomUser> _userManager;
+    private readonly IReviewService _reviewService;
 
-    public ReviewEndpoints(
-        AppDbContext db,
-        UserManager<CustomUser> userManager)
+    public ReviewEndpoints(IReviewService reviewService)
     {
-        _db = db;
-        _userManager = userManager;
+        _reviewService = reviewService;
     }
 
     [HttpGet("{id}/reviews")]
@@ -40,35 +38,14 @@ public class ReviewEndpoints : ControllerBase
     #endregion
     public async Task<ActionResult<GetReviewsResponse>> GetReviews(string id)
     {
-        var reviews = await _db.Reviews
-            .Where(r => r.UserId == id)
-            .Select(r => new GetReviewsReview
-            (
-                r.Rating,
-                r.DateCreated.ToString("yyyy-MM-dd"),
-                r.PostedById
-            ))
-            .ToListAsync();
-
-        if (reviews is null || !reviews.Any())
-            return Problem(statusCode: 404, detail: $"No reviews could be found for the user with id: {id}");
-
-        var averageRating = reviews.Average(r => r.Rating);
-
-        var response = new GetReviewsResponse
-        (
-            (short)reviews.Count(),
-            averageRating,
-            reviews
-        );
-
+        var response = await _reviewService.GetReviewsByUserId(id);
         return Ok(response);
     }
 
-    //TODO: take a look at the logic, the passing of id seems confusing
     [Authorize]
     [HttpPost("{id}/reviews")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
 
     [SwaggerOperation(
@@ -85,26 +62,7 @@ public class ReviewEndpoints : ControllerBase
     #endregion
     public async Task<IActionResult> PostReview(string id, PostReviewRequest request)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
-        if (user is null)
-            return Problem(statusCode: 404, detail: $"The user with id: {id} could not be found");
-
-        var loggedInUser = await _userManager.GetUserAsync(User);
-        if (loggedInUser is null || loggedInUser.Id != id)
-            return Problem(statusCode: 401, detail: "You are not authorized to perform this action");
-
-        var review = new Review
-        {
-            ReviewId = Guid.NewGuid().ToString(),
-            Rating = (byte)request.Rating,
-            UserId = request.UserId,
-            PostedById = id,
-            DateCreated = DateTime.Now,
-        };
-
-        _db.Reviews.Add(review);
-        await _db.SaveChangesAsync();
-
+        await _reviewService.PostReview(id, request);
         return Ok();
     }
 }

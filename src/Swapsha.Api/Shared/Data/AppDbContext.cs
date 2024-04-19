@@ -28,7 +28,6 @@ public class AppDbContext : IdentityDbContext<CustomUser>
     {
         base.OnModelCreating(builder);
 
-
         ConfigureUserSkillEntity(builder);
         ConfigureUserWantedSkillsEntity(builder);
         ConfigureReviewEntity(builder);
@@ -57,129 +56,133 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         builder.Entity<UserWantedSkill>().HasData(userWantedSkills);
     }
 
-private void ConfigureUserSkillEntity(ModelBuilder builder)
-{
-    builder.Entity<UserSkill>()
-        .HasKey(us => new { us.UserId, us.SkillId });
+    private void ConfigureUserSkillEntity(ModelBuilder builder)
+    {
+        builder.Entity<UserSkill>()
+            .HasKey(us => new { us.UserId, us.SkillId });
 
-    builder.Entity<UserSkill>()
-        .HasOne(us => us.User)
-        .WithMany(u => u.UserSkills)
-        .HasForeignKey(us => us.UserId);
+        builder.Entity<UserSkill>()
+            .HasOne(us => us.User)
+            .WithMany(u => u.UserSkills)
+            .HasForeignKey(us => us.UserId);
 
-    builder.Entity<UserSkill>()
-        .HasOne(us => us.Skill)
-        .WithMany(s => s.UserSkills)
-        .HasForeignKey(us => us.SkillId);
-}
-
-
-private void ConfigureUserWantedSkillsEntity(ModelBuilder builder)
-{
-    builder.Entity<UserWantedSkill>()
-        .HasKey(us => new { us.UserId, us.SkillId });
-
-    builder.Entity<UserWantedSkill>()
-        .HasOne(us => us.User)
-        .WithMany(u => u.UserWantedSkills)
-        .HasForeignKey(us => us.UserId);
-
-    builder.Entity<UserWantedSkill>()
-        .HasOne(us => us.Skill)
-        .WithMany(s => s.UserWantedSkills)
-        .HasForeignKey(us => us.SkillId);
-}
-
-private void ConfigureCustomUserEntity(ModelBuilder builder)
-{
+        builder.Entity<UserSkill>()
+            .HasOne(us => us.Skill)
+            .WithMany(s => s.UserSkills)
+            .HasForeignKey(us => us.SkillId);
+    }
 
 
-    builder.Entity<CustomUser>()
-        .Property(b => b.FirstName)
-        .HasMaxLength(100);
+    private void ConfigureUserWantedSkillsEntity(ModelBuilder builder)
+    {
+        builder.Entity<UserWantedSkill>()
+            .HasKey(us => new { us.UserId, us.SkillId });
 
-    builder.Entity<CustomUser>()
-        .Property(b => b.MiddleName)
-        .HasMaxLength(100);
+        builder.Entity<UserWantedSkill>()
+            .HasOne(us => us.User)
+            .WithMany(u => u.UserWantedSkills)
+            .HasForeignKey(us => us.UserId);
 
-    builder.Entity<CustomUser>()
-        .Property(b => b.LastName)
-        .HasMaxLength(100);
+        builder.Entity<UserWantedSkill>()
+            .HasOne(us => us.Skill)
+            .WithMany(s => s.UserWantedSkills)
+            .HasForeignKey(us => us.SkillId);
+    }
 
-    builder.Entity<CustomUser>()
-        .Property(b => b.ProfilePictureUrl)
-        .HasMaxLength(100);
+    private void ConfigureCustomUserEntity(ModelBuilder builder)
+    {
 
-    builder.Entity<CustomUser>()
-        .HasMany(u => u.PostedReviews)
-        .WithOne(r => r.PostedByUser)
-        .HasForeignKey(r => r.PostedById);
 
-    builder.Entity<CustomUser>()
-        .HasMany(u => u.Reviews)
-        .WithOne(r => r.User)
-        .HasForeignKey(r => r.UserId);
+        builder.Entity<CustomUser>()
+            .Property(b => b.FirstName)
+            .HasMaxLength(100);
 
-}
+        builder.Entity<CustomUser>()
+            .Property(b => b.MiddleName)
+            .HasMaxLength(100);
 
-private void ConfigureReviewEntity(ModelBuilder builder)
-{
-    builder.Entity<Review>()
-        .HasKey(r => r.ReviewId);
+        builder.Entity<CustomUser>()
+            .Property(b => b.LastName)
+            .HasMaxLength(100);
 
-    builder.Entity<Review>()
-        .Property(r => r.Rating)
-        .HasMaxLength(5)
-        .IsRequired();
+        builder.Entity<CustomUser>()
+            .Property(b => b.ProfilePictureUrl)
+            .HasMaxLength(100);
 
-    builder.Entity<Review>()
-        .Property(r => r.DateCreated)
-        .IsRequired();
+        builder.Entity<CustomUser>()
+            .HasMany(u => u.PostedReviews)
+            .WithOne(r => r.PostedByUser)
+            .HasForeignKey(r => r.PostedById);
 
-    builder.Entity<Review>()
-        .HasOne(r => r.User)
-        .WithMany(u => u.Reviews)
-        .HasForeignKey(r => r.UserId)
-        .OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<CustomUser>()
+            .HasMany(u => u.Reviews)
+            .WithOne(r => r.User)
+            .HasForeignKey(r => r.UserId);
 
-    builder.Entity<Review>()
-        .HasOne(r => r.PostedByUser)
-        .WithMany(u => u.PostedReviews)
-        .HasForeignKey(r => r.PostedById)
-        .OnDelete(DeleteBehavior.Restrict);
-}
+    }
 
-private void ConfigureSkillEntity(ModelBuilder builder)
-{
-    builder.Entity<Skill>()
-        .HasMany(s => s.SubSkills)
-        .WithOne(s => s.Skill)
-        .HasForeignKey(s => s.SkillId);
+    private void ConfigureReviewEntity(ModelBuilder builder)
+    {
+        builder.Entity<Review>()
+            .HasKey(r => r.ReviewId);
 
-    builder.Entity<Skill>()
-        .HasKey(s => s.SkillId);
+        builder.Entity<Review>()
+            .Property(r => r.Comment)
+            .HasMaxLength(500);
 
-    builder.Entity<Skill>()
-        .Property(s => s.Name)
-        .HasMaxLength(100);
+        builder.Entity<Review>()
+            .Property(r => r.Rating)
+            .HasMaxLength(5)
+            .IsRequired();
 
-    builder.Entity<Skill>()
-        .Property(s => s.Description)
-        .HasMaxLength(1000);
-}
+        builder.Entity<Review>()
+            .Property(r => r.DateCreated)
+            .IsRequired();
 
-private void ConfigureSubSkillEntity(ModelBuilder builder)
-{
-    builder.Entity<SubSkill>()
-        .HasKey(s => s.SubSkillId);
+        builder.Entity<Review>()
+            .HasOne(r => r.User)
+            .WithMany(u => u.Reviews)
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-    builder.Entity<SubSkill>()
-        .Property(s => s.Name)
-        .HasMaxLength(100);
+        builder.Entity<Review>()
+            .HasOne(r => r.PostedByUser)
+            .WithMany(u => u.PostedReviews)
+            .HasForeignKey(r => r.PostedById)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
 
-    builder.Entity<SubSkill>()
-        .Property(s => s.Description)
-        .HasMaxLength(1000);
-}
+    private void ConfigureSkillEntity(ModelBuilder builder)
+    {
+        builder.Entity<Skill>()
+            .HasMany(s => s.SubSkills)
+            .WithOne(s => s.Skill)
+            .HasForeignKey(s => s.SkillId);
+
+        builder.Entity<Skill>()
+            .HasKey(s => s.SkillId);
+
+        builder.Entity<Skill>()
+            .Property(s => s.Name)
+            .HasMaxLength(100);
+
+        builder.Entity<Skill>()
+            .Property(s => s.Description)
+            .HasMaxLength(1000);
+    }
+
+    private void ConfigureSubSkillEntity(ModelBuilder builder)
+    {
+        builder.Entity<SubSkill>()
+            .HasKey(s => s.SubSkillId);
+
+        builder.Entity<SubSkill>()
+            .Property(s => s.Name)
+            .HasMaxLength(100);
+
+        builder.Entity<SubSkill>()
+            .Property(s => s.Description)
+            .HasMaxLength(1000);
+    }
 
 }

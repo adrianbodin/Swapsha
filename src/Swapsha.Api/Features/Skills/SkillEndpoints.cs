@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Swapsha.Api.Data;
-using Swapsha.Api.Exceptions;
+﻿using Microsoft.AspNetCore.Mvc;
 using Swapsha.Api.Features.Skills.Filters;
 using Swapsha.Api.Features.Skills.Models;
-using Swapsha.Api.Shared;
+using Swapsha.Api.Features.Skills.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Swapsha.Api.Features.Skills;

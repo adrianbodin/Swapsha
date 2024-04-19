@@ -5,8 +5,8 @@ using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
 using Swapsha.Api.Data;
 using Swapsha.Api.Exceptions;
-using Swapsha.Api.Features.Skills;
-using Swapsha.Api.Features.Users;
+using Swapsha.Api.Features.Reviews.Services;
+using Swapsha.Api.Features.Skills.Services;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Features.Users.Services;
 using Swapsha.Api.Shared.Services;
@@ -23,13 +23,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddSingleton<IImageService, ImageService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddAzureClients(azureBuilder =>
 {
     azureBuilder.AddBlobServiceClient(blobStorageConnection);
 });
-
-builder.Services.AddSingleton<IImageService, ImageService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

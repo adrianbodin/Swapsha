@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using Optional;
+﻿using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data;
-using Swapsha.Api.Exceptions;
-using Swapsha.Api.Features.Skills;
 using Swapsha.Api.Features.Skills.Exceptions;
 using Swapsha.Api.Features.Skills.Models;
-using Swapsha.Api.Shared;
+
+namespace Swapsha.Api.Features.Skills.Services;
 
 public class SkillService : ISkillService
 {

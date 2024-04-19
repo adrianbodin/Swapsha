@@ -54,7 +54,7 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
     }
 
     [Fact]
-    public async Task NotFound_When_Id_Of_Route_Is_Not_Valid_User_Id()
+    public async Task Unauthorized_When_Id_Of_Route_Is_Not_Valid_User_Id()
     {
         var invalidUserId = Guid.NewGuid().ToString();
         var validRequest = new PostReviewRequest
@@ -67,7 +67,7 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
 
         var response = await _client.PostAsJsonAsync($"/api/v1/users/{invalidUserId}/reviews", validRequest);
 
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
 }

@@ -10,6 +10,8 @@ public class Review
 
     public byte Rating { get; set; }
 
+    public string? Comment { get; set; }
+
     public DateTime DateCreated { get; set; } = DateTime.Now;
 
     public string UserId { get; set; }
