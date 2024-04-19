@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Swapsha.Api.Features.Reviews.Models;
-using Swapsha.Api.Models;
+using Swapsha.Api.Shared.Models;
 
 namespace Swapsha.Api.Features.Users.Models;
 

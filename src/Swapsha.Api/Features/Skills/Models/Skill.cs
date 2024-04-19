@@ -1,4 +1,4 @@
-﻿using Swapsha.Api.Models;
+﻿using Swapsha.Api.Shared.Models;
 
 namespace Swapsha.Api.Features.Skills.Models;
 

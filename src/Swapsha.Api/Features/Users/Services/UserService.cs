@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Features.Skills.Exceptions;
 using Swapsha.Api.Features.Users.Exceptions;
 using Swapsha.Api.Features.Users.Models;
-using Swapsha.Api.Models;
 using Swapsha.Api.Shared.Data;
+using Swapsha.Api.Shared.Models;
 
 namespace Swapsha.Api.Features.Users.Services;
 

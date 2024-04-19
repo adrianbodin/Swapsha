@@ -1,8 +1,7 @@
 ﻿using Swapsha.Api.Features.Skills.Models;
-using Swapsha.Api.Features.Users;
 using Swapsha.Api.Features.Users.Models;
 
-namespace Swapsha.Api.Models;
+namespace Swapsha.Api.Shared.Models;
 
 public class UserWantedSkill
 {

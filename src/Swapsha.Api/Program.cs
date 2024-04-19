@@ -14,22 +14,27 @@ using Swashbuckle.AspNetCore.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+//---------------Connection strings----------------
+
 //["ConnectionStrings:Swapsha:SqlDb"]
 var sqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 var blobStorageConnection = builder.Configuration["ConnectionStrings:Swapsha:BlobStorage"];
 
+//---------------Services----------------
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(sqlConnection));
-
-builder.Services.AddScoped<ISkillService, SkillService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddSingleton<IImageService, ImageService>();
-builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddAzureClients(azureBuilder =>
 {
     azureBuilder.AddBlobServiceClient(blobStorageConnection);
 });
+
+builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddSingleton<IImageService, ImageService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

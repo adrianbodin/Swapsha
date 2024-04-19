@@ -5,8 +5,8 @@ using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Features.Skills.Models;
 using Swapsha.Api.Features.Skills.Seed;
 using Swapsha.Api.Features.Users.Models;
-using Swapsha.Api.Models;
 using Swapsha.Api.Shared.Data.Seed;
+using Swapsha.Api.Shared.Models;
 
 namespace Swapsha.Api.Shared.Data;
 
