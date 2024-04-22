@@ -12,6 +12,7 @@ interface RegisterFormData{
 const UseRegister = () => {
   const [step, setStep] = useState(1);
 
+  //This will hold the form data for registration
   const [formData, setFormData] = useState<RegisterFormData>({
     email: '',
     password: '',
@@ -20,6 +21,10 @@ const UseRegister = () => {
     lastName: '',
     profilePicture: undefined
   });
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   const nextStep = () => {
     setStep(prevStep => prevStep + 1);
