@@ -9,12 +9,11 @@ interface RegisterStepTwoFormData {
 }
 
 interface RegisterStepTwoProps {
-  prevStep: () => void;
   nextStep: () => void;
   handleFormData: (data:any) => void;
 }
 
-const RegisterStepTwo: FC<RegisterStepTwoProps> = ({prevStep,nextStep,handleFormData}) => {
+const RegisterStepTwo: FC<RegisterStepTwoProps> = ({ nextStep,handleFormData }) => {
   const [formData, setFormData] = useState<RegisterStepTwoFormData>({
     firstName: '',
     middleName: '',

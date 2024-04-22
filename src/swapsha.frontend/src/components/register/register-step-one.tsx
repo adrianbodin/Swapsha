@@ -50,12 +50,28 @@ const RegisterStepOne: FC<RegisterStepOneProps> = ({ nextStep, handleFormData })
       confirmPassword: formData.confirmPassword ? "" : "Confirm password is required."
     };
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      tempErrors.email = "Email is not valid.";
+    }
+
     if (formData.password !== formData.confirmPassword) {
       tempErrors.confirmPassword = "Password and confirm password do not match.";
     }
 
     if(formData.email !== formData.confirmEmail){
       tempErrors.confirmEmail = "Email and confirm email do not match."
+    }
+
+    if (formData.password.length < 10) {
+      tempErrors.password = "Password must be at least 10 characters.";
+    }
+
+    if (!/[A-Z]/.test(formData.password)) {
+      tempErrors.password = "Password must contain at least one capital letter.";
+    }
+
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(formData.password)) {
+      tempErrors.password = "Password must contain at least one special character.";
     }
 
     setErrors(tempErrors);

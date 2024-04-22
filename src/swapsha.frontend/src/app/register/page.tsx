@@ -1,36 +1,19 @@
 ﻿'use client'
 
-import {useState} from "react";
 import RegisterStepOne from "@/components/register/register-step-one";
 import RegisterStepTwo from "@/components/register/register-step-two";
+import RegisterStepThree from "@/components/register/register-step-three";
+import useRegister from "@/hooks/useRegister";
 
 
 const RegisterPage = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [step, setStep] = useState(1);
-
-  const nextStep = () => {
-    setStep(prevStep => prevStep + 1);
-  };
-
-  const prevStep = () => {
-    setStep(prevStep => prevStep - 1);
-  };
-
-  const handleFormData = (newData: any) => {
-    setFormData(prevData => ({
-      ...prevData,
-      ...newData
-    }));
-  };
+  const {step, nextStep, handleFormData, submitRegisterForm} = useRegister();
 
   return (
     <div className="h-screen flex items-center">
       {step === 1 && <RegisterStepOne nextStep={nextStep} handleFormData={handleFormData}/>}
-      {step === 2 && <RegisterStepTwo prevStep={prevStep} nextStep={nextStep} handleFormData={handleFormData}/>}
+      {step === 2 && <RegisterStepTwo nextStep={nextStep} handleFormData={handleFormData}/>}
+      {step === 3 && <RegisterStepThree submitRegisterForm={submitRegisterForm}  handleFormData={handleFormData}/>}
     </div>
   );
 };
