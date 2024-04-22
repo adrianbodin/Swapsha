@@ -241,9 +241,16 @@ public class UserEndpoints : ControllerBase
 
     [Authorize]
     [HttpGet("profile")]
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Gets information about the user hitting the endpoint",
+        Description = "Gets the id of the user hitting the endpoint",
+        OperationId = "GetProfile")]
+    [SwaggerResponse(200, "Returns the id of the user hitting the endpoint")]
+    #endregion
     public async Task<IActionResult> GetProfile()
     {
-        var user =  _userManager.GetUserAsync(HttpContext.User).Result;
+        var user =  await _userManager.GetUserAsync(HttpContext.User);
         return Ok(new { user.Id });
     }
 }
