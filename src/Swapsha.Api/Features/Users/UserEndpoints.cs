@@ -238,4 +238,12 @@ public class UserEndpoints : ControllerBase
         await _userService.AddWantedSkillToUser(id, skillId);
         return Ok();
     }
+
+    [Authorize]
+    [HttpGet("profile")]
+    public async Task<IActionResult> GetProfile()
+    {
+        var user =  _userManager.GetUserAsync(HttpContext.User).Result;
+        return Ok(new { user.Id });
+    }
 }
