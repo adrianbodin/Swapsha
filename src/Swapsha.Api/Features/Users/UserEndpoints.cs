@@ -239,6 +239,7 @@ public class UserEndpoints : ControllerBase
         return Ok();
     }
 
+
     [Authorize]
     [HttpGet("profile")]
     #region SwaggerDocs

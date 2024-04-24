@@ -45,9 +45,10 @@ builder.Services.AddControllers();
 builder.Services.AddCors(o => o.AddPolicy("react-frontend", build =>
 {
     build
-        .WithOrigins("http://localhost:3000")
+        .WithOrigins("https://localhost:3000")
         .AllowAnyMethod()
-        .AllowAnyHeader();
+        .AllowAnyHeader()
+        .AllowCredentials();
 }));
 
 builder.Services
@@ -99,6 +100,8 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+app.UseCors("react-frontend");
+
 app.UseStatusCodePages();
 app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
@@ -110,13 +113,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseCors("react-frontend");
-
 app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.MapGroup("/api/v1/Identity")
+app.MapGroup("/api/v1/identity")
     .MapIdentityApi<CustomUser>();
 
 app.UseAuthorization();
