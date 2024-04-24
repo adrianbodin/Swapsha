@@ -15,7 +15,7 @@ const UserPage = () => {
   async function fetchUsers(pageIndex: number){
     dispatch({type: FETCH_INIT})
     try {
-      const result = await fetch(`https://localhost:7228/api/v1/users?pageIndex=${pageIndex}&pageSize=10`);
+      const result = await fetch(`https://localhost:7228/api/v1/users?pageIndex=${pageIndex}&pageSize=30`);
       const json = await result.json();
 
       dispatch({type: FETCH_SUCCESS, payload: {

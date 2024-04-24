@@ -26,10 +26,6 @@ const UseRegister = () => {
     profilePicture: undefined
   });
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   const nextStep = () => {
     setStep(prevStep => prevStep + 1);
   };
@@ -41,6 +37,8 @@ const UseRegister = () => {
     }));
   };
 
+  //The pipeline for submitting the registration form
+  //QUESTION Make this more efficient maybe? Task.WhenAll?
   const submitRegisterForm = async () => {
     try{
       const registerResponse = await fetch(apiRoutes.register, {
@@ -97,8 +95,13 @@ const UseRegister = () => {
         namesData.middleName = formData.middleName;
       }
 
+      console.log(namesData);
+
       const addNamesResponse = await fetch(`${apiRoutes.root}/users/${userId.id}/names`,{
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(namesData),
         credentials: 'include'
       });
@@ -110,11 +113,16 @@ const UseRegister = () => {
       // Create a new FormData instance
       const formDat = new FormData();
 
+      console.log(formData.profilePicture);
+      console.log(typeof formData.profilePicture);
+      console.log(formData.profilePicture instanceof File);
       // Append the profile picture file to the form data
-      if (formData.profilePicture) {
-          formDat.append('profilePicture', formData.profilePicture);
+      if (formData.profilePicture){
+          formDat.append('image', formData.profilePicture);
+          console.log('lets gooo');
       }
 
+      console.log(formDat)
       // Make the fetch request, passing the form data as the body
       const addProfilePicResponse = await fetch(`${apiRoutes.root}/users/${userId.id}/profilepic`, {
         method: 'POST',
@@ -126,8 +134,8 @@ const UseRegister = () => {
         throw new Error("There was an error adding the profile picture to your profile");
       }
 
-      //should set the user to signed in and redirect
-
+      //TODO should set the user to signed in and redirect
+      //QUESTION Zustand?
       router.push('/');
 
     }catch(error){

@@ -14,9 +14,18 @@ const RegisterStepThree: FC<RegisterStepThreeProps> = ({  handleFormData, submit
 
   useEffect(() => {
     if (selectedImage) {
-      cropToCircle(selectedImage, {x:0, y:0, width:400, height:400}).then((croppedImage) => {
-        setCropedImage(croppedImage);
-      });
+      cropToCircle(selectedImage, {x:0, y:0, width:400, height:400})
+        .then((croppedImage) => {
+          if (croppedImage) {
+            setCropedImage(croppedImage);
+            handleFormData({ profilePicture: croppedImage});
+          } else {
+            console.log('Cropped image is null');
+          }
+        })
+        .catch((error) => {
+          console.error('Error cropping image:', error);
+        });
     }
   }, [selectedImage]);
 
@@ -28,7 +37,6 @@ const RegisterStepThree: FC<RegisterStepThreeProps> = ({  handleFormData, submit
 
   const handleNext = () => {
     if (cropedImage) {
-      handleFormData({ profilePicture: cropedImage});
       submitRegisterForm();
     }
   };
