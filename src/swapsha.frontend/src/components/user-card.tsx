@@ -22,8 +22,14 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
       </div>
       <div className="w-1/2 p-3 flex flex-col justify-between">
         <div className="flex gap-3">
-          <p className="underline">{user.averageRating}/5</p>
-          <p>{user.totalReviews} reviews</p>
+          {user.totalReviews
+            ?
+              <>
+                  <p className="underline">{user.averageRating}/5</p>
+                  <p>{user.totalReviews} Reviews</p>
+              </>
+            :
+              <p>No Reviews</p>}
         </div>
         <p className="font-bold text-xl">{user.fullName}</p>
         <ul className="list-disc ml-4">
