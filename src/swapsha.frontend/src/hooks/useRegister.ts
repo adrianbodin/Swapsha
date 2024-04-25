@@ -110,19 +110,14 @@ const UseRegister = () => {
         throw new Error("There was an error adding names to your profile");
       }
 
-      // Create a new FormData instance
+      // Create a new FormData instance for sending the profile picture
       const formDat = new FormData();
 
-      console.log(formData.profilePicture);
-      console.log(typeof formData.profilePicture);
-      console.log(formData.profilePicture instanceof File);
       // Append the profile picture file to the form data
-      if (formData.profilePicture){
-          formDat.append('image', formData.profilePicture);
-          console.log('lets gooo');
+      if (formData.profilePicture) {
+        formDat.append('image', formData.profilePicture);
       }
 
-      console.log(formDat)
       // Make the fetch request, passing the form data as the body
       const addProfilePicResponse = await fetch(`${apiRoutes.root}/users/${userId.id}/profilepic`, {
         method: 'POST',
