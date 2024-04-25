@@ -6,6 +6,8 @@ import "./global-icons.css";
 import NavMenu from "@/components/nav-menu";
 import Footer from "@/components/footer";
 import {Toaster, toast} from 'sonner';
+import {useStore} from "@/stores/user-store";
+import {useEffect} from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +16,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const checkAuth = useStore((state) => state.checkAuth);
+
+  useEffect(() => {
+    checkAuth();
+    console.log("Checking if authenticated")
+  }, [checkAuth]);
+
   return (
     <html lang="en" className="bg-light-grey">
       <body className={`${inter.className} flex flex-col min-h-screen`}>

@@ -3,11 +3,13 @@
 import React, {useState} from 'react';
 import Image from 'next/image';
 import Link from "next/link";
+import {useStore} from "@/stores/user-store";
 
 
 //TODO: Refactor this into smaller parts
 const NavMenu = () => {
   const [expanded, setExpanded] = useState(false);
+  const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   function toggleExpand(){
     setExpanded(!expanded)
@@ -35,18 +37,38 @@ const NavMenu = () => {
           {expanded && <span className="hover:underline">Browse Users</span>}
         </Link>
         <hr className="hidden sm:block" />
-        <Link className="flex gap-3" onClick={collapseNav} href="/register">
-        <span className="material-symbols-outlined">
-          edit_note
-        </span>
-          {expanded && <span className="hover:underline">Register</span>}
-        </Link>
-        <Link className="flex gap-3" onClick={collapseNav} href="/login">
-          <span className="material-symbols-outlined">
-            login
-          </span>
-          {expanded && <span className="hover:underline">Login</span>}
-        </Link>
+        {isLoggedIn
+          ?
+          <>
+            <Link className="flex gap-3" onClick={collapseNav} href="/chat">
+              <span className="material-symbols-outlined">
+                chat
+              </span>
+              {expanded && <span className="hover:underline">Chat</span>}
+            </Link>
+            <Link className="flex gap-3" onClick={collapseNav} href="/profile">
+              <span className="material-symbols-outlined">
+                person
+              </span>
+              {expanded && <span className="hover:underline">Profile</span>}
+            </Link>
+          </>
+          :
+          <>
+            <Link className="flex gap-3" onClick={collapseNav} href="/register">
+              <span className="material-symbols-outlined">
+                edit_note
+              </span>
+              {expanded && <span className="hover:underline">Register</span>}
+            </Link>
+            <Link className="flex gap-3" onClick={collapseNav} href="/login">
+              <span className="material-symbols-outlined">
+                login
+              </span>
+              {expanded && <span className="hover:underline">Login</span>}
+            </Link>
+          </>
+        }
       </nav>
       <button onClick={toggleExpand} className="bg-main-white hidden sm:flex rounded-full w-8 h-8 items-center justify-center">
         {!expanded && <span className="material-symbols-outlined">arrow_forward</span>}

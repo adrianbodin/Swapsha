@@ -83,7 +83,7 @@ const RegisterStepOne: FC<RegisterStepOneProps> = ({ nextStep, handleFormData })
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <h2 className="text-2xl font-bold">Create account</h2>
+        <h2 className="text-2xl mb-2 font-bold">Create account</h2>
         <p>Already have an account? <Link className="underline" href="/login">Log in</Link></p>
       </div>
       <Input type="email" placeholder="Email" name="email" onChange={handleChange} error={errors.email}/>

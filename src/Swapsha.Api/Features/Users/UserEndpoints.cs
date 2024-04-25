@@ -252,6 +252,11 @@ public class UserEndpoints : ControllerBase
     public async Task<IActionResult> GetProfile()
     {
         var user =  await _userManager.GetUserAsync(HttpContext.User);
-        return Ok(new { user.Id });
+        return Ok(new
+        {
+            user.Id,
+            user.FirstName,
+            user.LastName,
+        });
     }
 }

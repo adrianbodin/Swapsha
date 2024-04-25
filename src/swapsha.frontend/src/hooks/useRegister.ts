@@ -2,6 +2,7 @@
 import {apiRoutes} from "@/api-routes";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
+import {useStore} from "@/stores/user-store";
 
 interface RegisterFormData{
   email: string;
@@ -14,6 +15,7 @@ interface RegisterFormData{
 
 const UseRegister = () => {
   const [step, setStep] = useState(1);
+  const setUser = useStore((state) => state.setUser);
   const router = useRouter();
 
   //This will hold the form data for registration
@@ -129,13 +131,19 @@ const UseRegister = () => {
         throw new Error("There was an error adding the profile picture to your profile");
       }
 
-      //TODO should set the user to signed in and redirect
-      //QUESTION Zustand?
+      //TODO change to include full name maybe
+      setUser({
+        isLoggedIn: true,
+        id: userId.id,
+        name: formData.firstName,
+      });
+
       router.push('/');
 
     }catch(error){
       if (error instanceof Error) {
         console.error(error);
+        router.push('/register')
         toast.error(error.message);
       }
     }
