@@ -22,8 +22,7 @@ public class SkillService : ISkillService
             (
                 s.SkillId,
                 s.Name,
-                s.Description,
-                s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name, ss.Description)).ToList()
+                s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name)).ToList()
             ))
             .ToListAsync();
 
@@ -44,8 +43,7 @@ public class SkillService : ISkillService
             (
                 s.SkillId,
                 s.Name,
-                s.Description,
-                s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name, ss.Description)).ToList()
+                s.SubSkills.Select(ss => new SubSkillDto(ss.SubSkillId, ss.Name)).ToList()
             ))
             .FirstOrDefaultAsync();
 

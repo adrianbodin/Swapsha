@@ -26,8 +26,7 @@ public class SubSkillEndpoints : ControllerBase
                 .Select(ss => new SubSkillDto
                 (
                     ss.SubSkillId,
-                    ss.Name,
-                    ss.Description
+                    ss.Name
                 ))
                 .ToListAsync();
 
@@ -55,8 +54,7 @@ public class SubSkillEndpoints : ControllerBase
                 .Select(ss => new SubSkillDto
                 (
                     ss.SubSkillId,
-                    ss.Name,
-                    ss.Description
+                    ss.Name
                 ))
                 .FirstOrDefaultAsync();
 
