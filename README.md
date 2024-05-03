@@ -1,7 +1,10 @@
 # Swapsha
 Fullstack web application for trading skills with eachother
 
-## Steps to run the application:
+<details>
+<summary><strong>How you run this locally</strong></summary>
+
+---
 
 1. Run this command to clone the repository in the directory of your choice.
 
@@ -9,6 +12,7 @@ Fullstack web application for trading skills with eachother
 git clone https://github.com/adrianbodin/Swapsha
 ```
 
+---
 
 2. Run this command to go into the project directory. 
 
@@ -16,6 +20,7 @@ git clone https://github.com/adrianbodin/Swapsha
 cd Swapsha
 ```
 
+---
 
 3. Change to to src directory. 
 
@@ -23,6 +28,7 @@ cd Swapsha
 cd src
 ```
 
+---
 
 4. Change to the api project to run migrations for the database.
 
@@ -30,16 +36,17 @@ cd src
 cd Swapsha.Api
 ```
 
+---
 
-5. Go into appsettings.Development.json to change the connection string to your own. Change to 
-   your own one, you can keep everything after the server.
+5. Go into appsettings.Development.json to change the server to your own, you can keep everything after the server.
 
 ```json
 {
-   "DefaultConnection": "Server=YourServerName"
+   "DefaultConnection": "Server={YOUR-SERVER-NAME};Database=Swapsha;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
 }
 ```
 
+---
 
 6. Now run this command. This should run all the migrations and create a database with seed data in it. Make sure you got MS sql server installed on your computer.
 
@@ -47,9 +54,13 @@ cd Swapsha.Api
 dotnet ef database update
 ```
 
+---
 
 7. Now start up Swapsha.api in visual studio, this should open swagger with all the endpoints.
+>[!NOTE]
+> You can also use other code editors or IDEs but you might have to start the api from the terminal.  
 
+---
 
 8. Open a new terminal while the api is running and navigate to the swapsha.frontend in the src root directory. Then run this command to install all the dependencies for the frontend 
 
@@ -57,6 +68,7 @@ dotnet ef database update
 npm install
 ```
 
+---
 
 9. Then after the installation is complete, run this command to start the next.js project.
 
@@ -64,5 +76,10 @@ npm install
 npm run dev
 ```
 
+---
 
 10. Now you should have a local database, an api and a frontend all connected together and ready to be tested, hope it worked!
+
+---
+
+</details>
