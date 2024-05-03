@@ -48,6 +48,8 @@ of the application.
 <details>
 <summary><strong>How you run this locally</strong></summary>
 
+## Run this locally
+
 ---
 
 1. Run this command to clone the repository in the directory of your choice.
