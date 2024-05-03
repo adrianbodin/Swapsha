@@ -26,7 +26,7 @@ of the application.
 ## Challenges and Solutions
 
 
-## What i Learned
+## 📘 What i Learned
 
 The things that i have learned the most on this project is about advanced entity framework and React.
 I have gotten alot of knowledge about how entity framework works behind the scenes. I have learnt how 
@@ -39,7 +39,7 @@ Here i put some links to talk/videos about EF that have helped me understand it 
 
 [Entity Framework (Core) Unchained: Getting the Best Performance from Your ORM - Dan Mallott](https://www.youtube.com/watch?v=ZKVXl2640ps&t=1571s)
 
-## Future Improvements
+## 🦸 Future Improvements
 
 There is alot that can be added to this platform to make it more interesting. One thing that i would like to implement some time is 
 a way to write a digital contract between the two parts before every job is started. This would lower the risk for arguing about 
@@ -47,7 +47,7 @@ the job being done, because everything will be written in detail in this contrac
 
 I would probably have to use a third party solution for this to make it secure and follow legal laws. But it would be very fun to build on myself.
 
-## Testing Strategy
+## 🧪 Testing Strategy
 
 The testing is a little different from only unit test that i have experience from before. I only test the backend and not the frontend in this project.
 I have read alot about this and i have come to a nice solution that i feel is really good. I use [Testcontainers](https://testcontainers.com/), which is a nuget package that simply spins up a docker container with a database everytime run the tests. This combined with [Respawn](https://github.com/jbogard/Respawn) that is used to reset
@@ -113,8 +113,11 @@ dotnet ef database update
 ---
 
 7. Now start up Swapsha.api in visual studio, this should open swagger with all the endpoints.
->[!NOTE]
-> You can also use other code editors or IDEs but you might have to start the api from the terminal.  
+
+   
+> [!NOTE]
+> You can also use other code editors or IDEs but you might have to start the api from the terminal.
+
 
 ---
 
