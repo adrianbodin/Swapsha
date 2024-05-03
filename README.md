@@ -55,12 +55,7 @@ the database between every test, and the WebApplicationFactory that is used to s
 pipeline from request to response from the api and also becomes very much like production if you put up good seed data that is put in the test database on creation.
 
 
-<details>
-<summary><strong>How you run this locally</strong></summary>
-
-## Run this locally
-
----
+## How you run locally
 
 1. Run this command to clone the repository in the directory of your choice.
 
@@ -139,6 +134,3 @@ npm run dev
 
 10. Now you should have a local database, an api and a frontend all connected together and ready to be tested, hope it worked!
 
----
-
-</details>
