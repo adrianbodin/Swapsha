@@ -49,7 +49,10 @@ I would probably have to use a third party solution for this to make it secure a
 
 ## Testing Strategy
 
-
+The testing is a little different from only unit test that i have experience from before. I only test the backend and not the frontend in this project.
+I have read alot about this and i have come to a nice solution that i feel is really good. I use [Testcontainers](https://testcontainers.com/), which is a nuget package that simply spins up a docker container with a database everytime run the tests. This combined with [Respawn](https://github.com/jbogard/Respawn) that is used to reset
+the database between every test, and the WebApplicationFactory that is used to spin up the api to run tests on, this becomes a very good way to integration the entire 
+pipeline from request to response from the api and also becomes very much like production if you put up good seed data that is put in the test database on creation.
 
 
 <details>
