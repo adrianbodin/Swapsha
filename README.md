@@ -1,5 +1,49 @@
 # Swapsha
-Fullstack web application for trading skills with eachother
+
+## 📝 Description 
+
+---
+
+This project is a platform for people to find each other and offer services and get services in return.
+They will be able to contact each other and then come up with an agreement of a job that they will do for each other.
+The idea behind the entire application was to make it easier and more affordable for people with less money to get help
+from other people and swap services with each other.
+
+##  💻 Technologies Used
+
+---
+
+### Frontend
+
+The frontend uses **NextJs/React**. I am using this because we are using it in school, but would like to try other
+frameworks as well. I think Svelte looks good and very easy syntax to understand. 
+
+### Backend
+
+The backend uses a **Asp.Net Web Api** for sending data back and forth to the client and take care of backend logic. 
+
+### Database
+
+The database used is a **SQL Server** relational database. I might also add a document database later for some parts
+of the application.
+
+## Challenges and Solutions
+
+---
+
+## What i Learned
+
+---
+
+## Future Improvements
+
+---
+
+## Testing Strategy
+
+---
+
+
 
 <details>
 <summary><strong>How you run this locally</strong></summary>
