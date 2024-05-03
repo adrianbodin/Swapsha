@@ -33,16 +33,22 @@ I have gotten alot of knowledge about how entity framework works behind the scen
 many to many relationships work in this project, which i have not worked with before. Entity framework is 
 very intresting i think, i have learnt how you can pick only some columns from a table when including another table 
 in a join for example. This is very handy for better performance because you dont want to send data that is not needed.
-Here i put some links to talk/videos about EF that have helped me understand it better: </br>
+Here i put some links to talk/videos about EF that have helped me understand it better: 
+
 [Common mistakes in EF Core - Jernej Kavka - NDC Oslo 2023](https://www.youtube.com/watch?v=dDANjr5MCew&t=3400s)
+
+[Entity Framework (Core) Unchained: Getting the Best Performance from Your ORM - Dan Mallott](https://www.youtube.com/watch?v=ZKVXl2640ps&t=1571s)
 
 ## Future Improvements
 
----
+There is alot that can be added to this platform to make it more interesting. One thing that i would like to implement some time is 
+a way to write a digital contract between the two parts before every job is started. This would lower the risk for arguing about 
+the job being done, because everything will be written in detail in this contract.
+
+I would probably have to use a third party solution for this to make it secure and follow legal laws. But it would be very fun to build on myself.
 
 ## Testing Strategy
 
----
 
 
 
