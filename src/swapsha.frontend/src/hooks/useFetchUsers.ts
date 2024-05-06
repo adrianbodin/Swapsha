@@ -19,7 +19,7 @@ export const useFetchUsers = () => {
     const baseUrl = new URL('https://localhost:7228/api/v1/users');
     const params = new URLSearchParams({
       pageIndex: pageIndex.toString(),
-      pageSize: '30',
+      pageSize: '10',
     });
 
     if (skillFilter) {
@@ -50,6 +50,7 @@ export const useFetchUsers = () => {
     }
   }
 
+  //When the user changes the filter select this sets this state to the choosen one
   const handleSkillChange = (e : any) => {
     const chosenSkill = state.skills.find(skill => skill.name === e.target.value);
     if(chosenSkill){
@@ -65,7 +66,7 @@ export const useFetchUsers = () => {
     if (state.filterSkill && state.filterSkill.id) {
       fetchUsers(1, state.filterSkill.id);
     } else {
-      fetchUsers(1);
+      fetchUsers(1)
     }
   }, [state.filterSkill]);
 
@@ -85,8 +86,6 @@ export const useFetchUsers = () => {
       dispatch({type: FETCH_DONE})
     }
   }
-
-
 
   useEffect(() => {
     fetchUsers(state.pageInfo.pageIndex);

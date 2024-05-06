@@ -17,8 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //---------------Connection strings----------------
 
-//["ConnectionStrings:Swapsha:SqlDb"]
-var sqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+var sqlConnection = builder.Configuration["ConnectionStrings:Swapsha:SqlDb"];
 var blobStorageConnection = builder.Configuration["ConnectionStrings:Swapsha:BlobStorage"];
 
 //---------------Services----------------
@@ -50,6 +50,7 @@ builder.Services.AddCors(o => o.AddPolicy("react-frontend", build =>
         .AllowAnyHeader()
         .AllowCredentials();
 }));
+
 
 builder.Services
     .AddProblemDetails(options =>
