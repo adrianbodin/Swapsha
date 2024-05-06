@@ -1,5 +1,4 @@
-﻿import {useState} from "react";
-import {User} from "@/types/user";
+﻿import {User} from "@/types/user";
 import {PageInfo} from "@/types/page-info";
 
 export const INITIAL_STATE: State ={
