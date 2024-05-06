@@ -6,6 +6,8 @@ import {useFetchUsers} from "@/hooks/useFetchUsers";
 const UserPage = () => {
   const {state, handleSkillChange, handleSortChange} = useFetchUsers()
 
+  const totalPages = Math.ceil(state.pageInfo.totalRecords / state.pageInfo.pageSize);
+
   return (
     <section className="mt-10 mb-40">
       <h2 className="text-center text-2xl mb-10 font-bold">Lets find the best match for your project!</h2>
@@ -50,8 +52,20 @@ const UserPage = () => {
               <UserCard key={user.userId} user={user}/>
           )}
       </div>
-      <div className="flex justify-center pt-5">
-        <div>hello</div>
+      <div className="flex justify-center pt-10">
+        <div className="flex">
+          <button>
+            <span className="material-symbols-outlined">
+              arrow_back_ios
+            </span>
+          </button>
+          <span className="pr-1">Page {state.pageInfo.pageIndex} of {totalPages}</span>
+          <button>
+            <span className="material-symbols-outlined">
+              arrow_forward_ios
+            </span>
+          </button>
+        </div>
       </div>
     </section>
   );
