@@ -22,6 +22,8 @@ public record GetAllUsersRequest
 {
     public int? SkillId { get; init; }
 
+    public string? SortBy { get; init; }
+
     [Range(1, int.MaxValue, ErrorMessage = "Page index must be greater than 0.")]
     public int PageIndex { get; init; } = 1;
 

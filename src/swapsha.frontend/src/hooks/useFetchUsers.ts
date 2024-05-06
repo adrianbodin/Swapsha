@@ -1,17 +1,20 @@
-﻿import { useReducer, useEffect } from 'react';
-import { toast } from "sonner";
+﻿import {useEffect, useReducer, useState} from 'react';
+import {toast} from "sonner";
 import {
   FETCH_DONE,
   FETCH_FAILURE,
   FETCH_INIT,
   FETCH_SKILLS_SUCCESS,
   FETCH_SUCCESS,
-  INITIAL_STATE, SET_FILTER_SKILL,
+  INITIAL_STATE,
+  SET_FILTER_SKILL,
   userReducer
 } from "@/reducers/userReducer";
+import {SortUsersType} from "@/types/user";
 
 export const useFetchUsers = () => {
-  const [state, dispatch] = useReducer(userReducer, INITIAL_STATE)
+  const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
+  const [sortOption, setSortOption] = useState<SortUsersType>(SortUsersType.BestRating);
 
   async function fetchUsers(pageIndex: number, skillFilter?: number){
     dispatch({type: FETCH_INIT})
@@ -24,6 +27,10 @@ export const useFetchUsers = () => {
 
     if (skillFilter) {
       params.append('skillId', skillFilter.toString());
+    }
+
+    if (sortOption) {
+      params.append('sortBy', sortOption);
     }
 
     baseUrl.search = params.toString();
@@ -61,14 +68,19 @@ export const useFetchUsers = () => {
     }
   }
 
-  //Runs when the
+  //runs when the sort by select changes
+  const handleSortChange = (e : any) => {
+    setSortOption(e.target.value);
+  }
+
+  //Runs when one of the filter or sort selects change to fetch again
   useEffect(() => {
     if (state.filterSkill && state.filterSkill.id) {
       fetchUsers(1, state.filterSkill.id);
     } else {
       fetchUsers(1)
     }
-  }, [state.filterSkill]);
+  }, [state.filterSkill, sortOption]);
 
   //Is used to show all the skills in the dropdown
   async function fetchSkills(){
@@ -92,5 +104,5 @@ export const useFetchUsers = () => {
     fetchSkills();
   }, []);
 
-  return { state, handleSkillChange };
+  return { state, handleSkillChange, handleSortChange };
 }

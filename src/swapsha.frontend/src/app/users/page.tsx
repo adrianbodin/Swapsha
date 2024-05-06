@@ -4,21 +4,35 @@ import LoadingSpinner from "@/components/loading-spinner";
 import {useFetchUsers} from "@/hooks/useFetchUsers";
 
 const UserPage = () => {
-  const {state, handleSkillChange} = useFetchUsers()
+  const {state, handleSkillChange, handleSortChange} = useFetchUsers()
 
   return (
     <section className="mt-10 mb-40">
       <h2 className="text-center text-2xl mb-10 font-bold">Lets find the best match for your project!</h2>
-      <label className="font-bold" htmlFor="skill-select">Filter by skill</label>
-      <select className="p-2 rounded-md block"
-                name="skill-select"
-                id="skill-select"
-                onChange={handleSkillChange}>
-        <option value="">All</option>
-          {state.skills && state.skills.map((skill) =>
-            <option key={skill.id} value={skill.name}>{skill.name}</option>)}
-      </select>
-      <p className="text-dark-grey mt-2"><span className="font-bold underline">{state.pageInfo.totalRecords}</span> users</p>
+      <div className="flex gap-10">
+        <div>
+          <label className="font-bold" htmlFor="skill-select">Filter by skill</label>
+          <select className="p-2 rounded-md block"
+                  name="skill-select"
+                  id="skill-select"
+                  onChange={handleSkillChange}>
+            <option value="">All</option>
+            {state.skills && state.skills.map((skill) =>
+              <option key={skill.id} value={skill.name}>{skill.name}</option>)}
+          </select>
+          <p className="text-dark-grey mt-2"><span className="font-bold underline">{state.pageInfo.totalRecords}</span> users</p>
+        </div>
+        <div>
+          <label className="font-bold" htmlFor="skill-select">Sort by</label>
+          <select className="p-2 rounded-md block"
+                  name="skill-select"
+                  id="skill-select"
+                  onChange={handleSortChange}>
+            <option value="best-rating">Best Rating</option>
+            <option value="most-ratings">Most Ratings</option>
+          </select>
+        </div>
+      </div>
       {state.loading &&
           <div className="flex justify-center items-center h-dvh">
               <LoadingSpinner />
@@ -35,6 +49,9 @@ const UserPage = () => {
         {!state.loading && state.users.map(user =>
               <UserCard key={user.userId} user={user}/>
           )}
+      </div>
+      <div className="flex justify-center pt-5">
+        <div>hello</div>
       </div>
     </section>
   );

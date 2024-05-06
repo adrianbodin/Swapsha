@@ -23,10 +23,20 @@ public class UserService : IUserService
     {
         var userQuery = _db.Users.AsNoTracking();
 
-        if(request.SkillId.HasValue)
+        if (request.SkillId.HasValue)
         {
             userQuery = userQuery
                 .Where(u => u.UserSkills.Any(us => us.SkillId == request.SkillId));
+        }
+
+        if (!string.IsNullOrEmpty(request.SortBy))
+        {
+            userQuery = request.SortBy switch
+            {
+                "best-rating" => userQuery.OrderByDescending(u => u.Reviews.Average(r => r.Rating)),
+                "most-ratings" => userQuery.OrderByDescending(u => u.Reviews.Count),
+                _ => userQuery
+            };
         }
 
         var count = await userQuery.CountAsync();

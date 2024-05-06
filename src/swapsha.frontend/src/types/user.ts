@@ -7,3 +7,8 @@
   averageRating: number | null;
   skills: string[];
 }
+
+export enum SortUsersType{
+  BestRating = "best-rating",
+  MostRatings = "most-ratings"
+}
