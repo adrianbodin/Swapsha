@@ -4,7 +4,7 @@ import LoadingSpinner from "@/components/loading-spinner";
 import {useFetchUsers} from "@/hooks/useFetchUsers";
 
 const UserPage = () => {
-  const {state, handleSkillChange, handleSortChange} = useFetchUsers()
+  const {state, handleSkillChange, handleSortChange, nextPage, previousPage} = useFetchUsers()
 
   const totalPages = Math.ceil(state.pageInfo.totalRecords / state.pageInfo.pageSize);
 
@@ -54,13 +54,19 @@ const UserPage = () => {
       </div>
       <div className="flex justify-center pt-10">
         <div className="flex">
-          <button>
+          <button
+            disabled={state.pageInfo.pageIndex === 1}
+            onClick={previousPage}
+            className={state.pageInfo.pageIndex === 1 ? `opacity-25` : `opacity-100`}>
             <span className="material-symbols-outlined">
               arrow_back_ios
             </span>
           </button>
           <span className="pr-1">Page {state.pageInfo.pageIndex} of {totalPages}</span>
-          <button>
+          <button
+            disabled={state.pageInfo.pageIndex === totalPages}
+            className={state.pageInfo.pageIndex === totalPages ? `opacity-25` : `opacity-100`}
+            onClick={nextPage}>
             <span className="material-symbols-outlined">
               arrow_forward_ios
             </span>

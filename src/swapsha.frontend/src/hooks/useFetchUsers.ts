@@ -6,7 +6,7 @@ import {
   FETCH_INIT,
   FETCH_SKILLS_SUCCESS,
   FETCH_SUCCESS,
-  INITIAL_STATE,
+  INITIAL_STATE, NEXT_PAGE, PREVIOUS_PAGE,
   SET_FILTER_SKILL,
   userReducer
 } from "@/reducers/userReducer";
@@ -68,19 +68,30 @@ export const useFetchUsers = () => {
     }
   }
 
+  const previousPage = () => {
+    dispatch({type: PREVIOUS_PAGE});
+    window.scrollTo(0, 0);
+  }
+
+  const nextPage = () => {
+    dispatch({type: NEXT_PAGE});
+    window.scrollTo(0, 0);
+  }
+
   //runs when the sort by select changes
   const handleSortChange = (e : any) => {
     setSortOption(e.target.value);
   }
 
+  //TODO might be a bug here, when the user sets the filter when not on page 1
   //Runs when one of the filter or sort selects change to fetch again
   useEffect(() => {
     if (state.filterSkill && state.filterSkill.id) {
       fetchUsers(1, state.filterSkill.id);
     } else {
-      fetchUsers(1)
+      fetchUsers(state.pageInfo.pageIndex)
     }
-  }, [state.filterSkill, sortOption]);
+  }, [state.filterSkill, sortOption, state.pageInfo.pageIndex]);
 
   //Is used to show all the skills in the dropdown
   async function fetchSkills(){
@@ -104,5 +115,5 @@ export const useFetchUsers = () => {
     fetchSkills();
   }, []);
 
-  return { state, handleSkillChange, handleSortChange };
+  return { state, handleSkillChange, handleSortChange, previousPage, nextPage};
 }

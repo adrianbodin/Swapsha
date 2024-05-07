@@ -21,6 +21,8 @@ export const FETCH_FAILURE = 'FETCH_FAILURE';
 export const FETCH_DONE = 'FETCH_DONE';
 export const FETCH_SKILLS_SUCCESS = 'FETCH_SKILLS_SUCCESS';
 export const SET_FILTER_SKILL = 'SET_FILTER_SKILL';
+export const NEXT_PAGE = 'NEXT_PAGE';
+export const PREVIOUS_PAGE = 'PREVIOUS_PAGE';
 
 type Action =
   | { type: typeof FETCH_INIT }
@@ -28,7 +30,9 @@ type Action =
   | { type: typeof FETCH_SKILLS_SUCCESS; payload: { skills: Skill[]}}
   | { type: typeof FETCH_FAILURE;}
   | { type: typeof FETCH_DONE; }
-  | { type: typeof SET_FILTER_SKILL; payload: {skill: Skill | null}};
+  | { type: typeof SET_FILTER_SKILL; payload: {skill: Skill | null}}
+  | { type: typeof NEXT_PAGE}
+  | { type: typeof PREVIOUS_PAGE}
 
 
 // Update the State type to include an error message
@@ -56,6 +60,12 @@ export const userReducer = (state: State, action: Action): State => {
       return { ...state, loading: false };
     case SET_FILTER_SKILL:
       return { ...state, filterSkill: state.filterSkill ? action.payload.skill : action.payload.skill };
+    case NEXT_PAGE:
+      const newPageIndex = state.pageInfo.pageIndex + 1;
+      return { ...state, pageInfo: { ...state.pageInfo, pageIndex: newPageIndex } }
+    case PREVIOUS_PAGE:
+      const previousPageIndex = state.pageInfo.pageIndex - 1;
+      return { ...state, pageInfo: { ...state.pageInfo, pageIndex: previousPageIndex } }
     default:
       throw new Error();
   }
