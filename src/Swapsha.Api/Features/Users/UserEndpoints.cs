@@ -29,7 +29,6 @@ public class UserEndpoints : ControllerBase
     }
 
     #region SwaggerDocs
-
     [SwaggerOperation(
         Summary = "Get all users",
         Description = "Get all users and their skills and wanted skills, paginated",

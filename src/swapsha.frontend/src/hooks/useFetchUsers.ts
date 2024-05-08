@@ -1,4 +1,4 @@
-﻿import {useEffect, useReducer, useState} from 'react';
+﻿import {ChangeEvent, useEffect, useReducer, useState} from 'react';
 import {toast} from "sonner";
 import {
   FETCH_DONE,

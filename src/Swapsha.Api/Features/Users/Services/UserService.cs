@@ -29,6 +29,8 @@ public class UserService : IUserService
                 .Where(u => u.UserSkills.Any(us => us.SkillId == request.SkillId));
         }
 
+
+        //will add sorting if the query param was provided
         if (!string.IsNullOrEmpty(request.SortBy))
         {
             userQuery = request.SortBy switch
