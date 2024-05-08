@@ -1,7 +1,8 @@
 ﻿export interface User {
   userId: string;
   fullName: string;
-  profilePictureUrl: string;
+  city: string;
+  profilePictureUrl?: string;
   totalReviews: number | null;
   averageRating: number | null;
   skills: string[];

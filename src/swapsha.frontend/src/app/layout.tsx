@@ -29,10 +29,10 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="bg-light-grey">
-      <body className={`${inter.className} flex flex-col min-h-screen`}>
+      <body className={`${inter.className} flex flex-col`}>
         <QueryClientProvider client={queryClient}>
           <NavMenu/>
-          <div className="max-w-screen-xl mx-auto flex-grow px-2 sm:px-10 md:px-16 lg:px-48">
+          <div className="max-w-screen-xl min-h-screen mx-auto flex-grow px-2 sm:px-10 md:px-16 lg:px-48">
             {children}
           </div>
           <Footer/>

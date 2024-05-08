@@ -1,7 +1,7 @@
 ﻿'use client'
 import React, {FC} from 'react';
 import {useQuery} from "react-query";
-import {apiRoutes} from "@/api-routes";
+import {fetchUserById} from "@/fetching/users";
 
 interface UserPageProps {
   params: {
@@ -12,7 +12,7 @@ interface UserPageProps {
 const UserPage: FC<UserPageProps> = ({ params }) => {
   const {data: user, isLoading, isError} = useQuery({
     queryKey: ['user', params.id],
-    queryFn: () => fetch(`${apiRoutes.root}/users/${params.id}`).then(res => res.json())
+    queryFn: () => fetchUserById(params.id)
   })
 
   if (isLoading) return <p>Loading...</p>
@@ -21,7 +21,7 @@ const UserPage: FC<UserPageProps> = ({ params }) => {
 
   return (
     <div>
-      <p>{user.city}</p>
+      <p>{user?.city}</p>
     </div>
   );
 };
