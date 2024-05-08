@@ -13,7 +13,8 @@ public class CustomUser : IdentityUser
 
     public string? LastName { get; set; }
 
-    //TODO: add maybe location of the user?
+    public int CityId { get; set; }
+    public City City { get; set; }
 
     public string? ProfilePictureUrl { get; set; }
 
