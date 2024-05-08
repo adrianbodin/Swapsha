@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query-devtools": "^5.35.1",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
     "react-image-crop": "^11.0.5",
+    "react-query": "^3.39.3",
     "sonner": "^1.4.41",
     "zustand": "^4.5.2"
   },

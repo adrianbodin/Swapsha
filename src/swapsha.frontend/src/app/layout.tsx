@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import {Toaster, toast} from 'sonner';
 import {useStore} from "@/stores/user-store";
 import {useEffect} from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,9 @@ export default function RootLayout({
 }>) {
   const checkAuth = useStore((state) => state.checkAuth);
 
+  //for react query
+  const queryClient = new QueryClient();
+
   useEffect(() => {
     checkAuth();
     console.log("Checking if authenticated")
@@ -26,12 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-light-grey">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
-        <NavMenu/>
-        <div className="max-w-screen-xl mx-auto flex-grow px-2 sm:px-10 md:px-16 lg:px-48">
-          {children}
-        </div>
-        <Footer/>
-        <Toaster richColors position="top-center"/>
+        <QueryClientProvider client={queryClient}>
+          <NavMenu/>
+          <div className="max-w-screen-xl mx-auto flex-grow px-2 sm:px-10 md:px-16 lg:px-48">
+            {children}
+          </div>
+          <Footer/>
+          <Toaster richColors position="top-center"/>
+        </QueryClientProvider>
       </body>
     </html>
   );
