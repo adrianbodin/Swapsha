@@ -50,9 +50,9 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         var userSkills = UserSkillsSeed.Seed(users, skills);
         var userWantedSkills = UserWantedSkillsSeed.Seed(users, skills);
 
+        builder.Entity<City>().HasData(cities);
         builder.Entity<CustomUser>().HasData(users);
         builder.Entity<Review>().HasData(reviews);
-        builder.Entity<City>().HasData(cities);
         builder.Entity<Skill>().HasData(skills);
         builder.Entity<SubSkill>().HasData(subSkills);
         builder.Entity<UserSkill>().HasData(userSkills);
@@ -113,6 +113,12 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         builder.Entity<CustomUser>()
             .Property(b => b.MiddleName)
             .HasMaxLength(100);
+
+        builder.Entity<CustomUser>()
+            .HasOne(u => u.City)
+            .WithMany(c => c.Users)
+            .HasForeignKey(u => u.CityId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.Entity<CustomUser>()
             .Property(b => b.LastName)
