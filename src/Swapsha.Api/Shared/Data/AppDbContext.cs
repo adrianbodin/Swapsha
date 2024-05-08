@@ -5,6 +5,7 @@ using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Features.Skills.Models;
 using Swapsha.Api.Features.Skills.Seed;
 using Swapsha.Api.Features.Users.Models;
+using Swapsha.Api.Features.Users.Seed;
 using Swapsha.Api.Shared.Data.Seed;
 using Swapsha.Api.Shared.Models;
 
@@ -21,6 +22,7 @@ public class AppDbContext : IdentityDbContext<CustomUser>
     public DbSet<UserSkill> UserSkills { get; set; }
     public DbSet<UserWantedSkill> UserWantedSkills { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<City> Cities { get; set; }
 
    protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -31,6 +33,7 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         ConfigureReviewEntity(builder);
         ConfigureCustomUserEntity(builder);
         ConfigureSkillEntity(builder);
+        ConfigureCityEntity(builder);
         ConfigureSubSkillEntity(builder);
 
         SeedData(builder);
@@ -42,12 +45,14 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         var users = UserSeed.Seed();
         var reviews = ReviewSeed.Seed(users);
         var skills = SkillSeed.Seed();
+        var cities = CitySeed.Seed();
         var subSkills = SubSkillSeed.Seed();
         var userSkills = UserSkillsSeed.Seed(users, skills);
         var userWantedSkills = UserWantedSkillsSeed.Seed(users, skills);
 
         builder.Entity<CustomUser>().HasData(users);
         builder.Entity<Review>().HasData(reviews);
+        builder.Entity<City>().HasData(cities);
         builder.Entity<Skill>().HasData(skills);
         builder.Entity<SubSkill>().HasData(subSkills);
         builder.Entity<UserSkill>().HasData(userSkills);
@@ -68,6 +73,16 @@ public class AppDbContext : IdentityDbContext<CustomUser>
             .HasOne(us => us.Skill)
             .WithMany(s => s.UserSkills)
             .HasForeignKey(us => us.SkillId);
+    }
+
+    private void ConfigureCityEntity(ModelBuilder builder)
+    {
+        builder.Entity<City>()
+            .HasKey(c => c.CityId);
+
+        builder.Entity<City>()
+            .Property(c => c.Name)
+            .HasMaxLength(100);
     }
 
 
