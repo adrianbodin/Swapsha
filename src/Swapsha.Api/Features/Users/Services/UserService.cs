@@ -47,8 +47,8 @@ public class UserService : IUserService
             .Select(u => new GetAllUsersResponse
             (
                 u.Id,
-                u.Email,
                 u.FirstName + " " + u.LastName,
+                u.City.Name,
                 u.ProfilePictureUrl,
                 u.Reviews.Count(),
                 u.Reviews.Any() ? (int?)u.Reviews.Average(r => r.Rating) : null,
@@ -78,6 +78,7 @@ public class UserService : IUserService
             u.Id,
             u.FirstName,
             u.LastName,
+            u.City.Name,
             u.ProfilePictureUrl,
             u.UserSkills.Select(s => new GetUserSkillDto(
                 s.Skill.SkillId,

@@ -33,8 +33,8 @@ public record GetAllUsersRequest
 
 public record GetAllUsersResponse(
     string UserId,
-    string? Email,
     string? FullName,
+    string? City,
     string? ProfilePictureUrl,
     int? TotalReviews,
     int? AverageRating,
@@ -46,6 +46,7 @@ public record GetUserResponse(
     string UserId,
     string? FirstName,
     string? LastName,
+    string? City,
     string? ProfilePictureUrl,
     List<GetUserSkillDto>? Skills,
     List<GetUserSkillDto>? WantedSkills);

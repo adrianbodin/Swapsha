@@ -6,5 +6,5 @@ public class City
 
     public string Name { get; set; }
 
-    public ICollection<CustomUser> Users { get; set; }
+    public ICollection<CustomUser> Users { get; set; } = [];
 }

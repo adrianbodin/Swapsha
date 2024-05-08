@@ -1,4 +1,7 @@
-﻿import React, {FC} from 'react';
+﻿'use client'
+import React, {FC} from 'react';
+import {useQuery} from "react-query";
+import {apiRoutes} from "@/api-routes";
 
 interface UserPageProps {
   params: {
@@ -7,9 +10,18 @@ interface UserPageProps {
 }
 
 const UserPage: FC<UserPageProps> = ({ params }) => {
+  const {data: user, isLoading, isError} = useQuery({
+    queryKey: ['user', params.id],
+    queryFn: () => fetch(`${apiRoutes.root}/users/${params.id}`).then(res => res.json())
+  })
+
+  if (isLoading) return <p>Loading...</p>
+
+  if (isError) return <p>Error...</p>
+
   return (
     <div>
-      <p>{params.id}</p>
+      <p>{user.city}</p>
     </div>
   );
 };
