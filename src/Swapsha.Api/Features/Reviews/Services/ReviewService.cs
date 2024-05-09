@@ -24,10 +24,12 @@ public class ReviewService : IReviewService
             .Where(r => r.UserId == id)
             .Select(r => new GetReviewsReview
             (
+                r.ReviewId,
                 r.Rating,
                 r.Comment,
                 r.DateCreated.ToString("yyyy-MM-dd"),
-                r.PostedById
+                r.PostedById,
+                r.PostedByUser.FirstName + " " + r.PostedByUser.LastName
             ))
             .ToListAsync();
 

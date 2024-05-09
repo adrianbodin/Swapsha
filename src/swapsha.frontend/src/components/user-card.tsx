@@ -10,16 +10,14 @@ interface UserCardProps{
 const UserCard: FC<UserCardProps> = ({ user }) => {
   return (
     <div className="w-full h-64 bg-main-white shadow-2xl rounded-2xl flex">
-      <div className="w-1/2 relative h-full">
         <Image
-          className="rounded-l-2xl h-full"
+          className="rounded-l-2xl w-1/2"
           src={user.profilePictureUrl ? user.profilePictureUrl : "/images/user-card-image.jpg"}
           alt="Picture of a user"
-          width={640}
-          height={427}
+          width={400}
+          height={400}
           style={{objectFit:"cover"}}
         />
-      </div>
       <div className="w-1/2 p-3 flex flex-col justify-between">
         <div className="flex gap-3">
           {user.totalReviews

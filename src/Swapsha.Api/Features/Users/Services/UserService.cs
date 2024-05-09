@@ -49,6 +49,7 @@ public class UserService : IUserService
                 u.Id,
                 u.Email,
                 u.FirstName + " " + u.LastName,
+                u.City.Name,
                 u.ProfilePictureUrl,
                 u.Reviews.Count(),
                 u.Reviews.Any() ? (int?)u.Reviews.Average(r => r.Rating) : null,
@@ -76,9 +77,11 @@ public class UserService : IUserService
             .Where(u => u.Id == id)
             .Select(u => new GetUserResponse(
             u.Id,
-            u.FirstName,
-            u.LastName,
+            u.FirstName + " " + u.LastName,
+            u.City.Name,
             u.ProfilePictureUrl,
+            u.Reviews.Count(),
+            u.Reviews.Any() ? (int?)u.Reviews.Average(r => r.Rating) : null,
             u.UserSkills.Select(s => new GetUserSkillDto(
                 s.Skill.SkillId,
                 s.Skill.Name
