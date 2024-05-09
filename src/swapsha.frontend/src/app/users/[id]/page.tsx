@@ -23,13 +23,15 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
 
   return (
     <section className="py-5">
-      <div className="relative w-80 h-80 flex justify-center items-center overflow-hidden rounded-full">
-        <Image
-          src={user?.profilePictureUrl || ""}
-          alt="Profile picture"
-          fill
-          objectFit="cover"
-        />
+      <div className="flex justify-center items-center">
+        <div className="relative w-80 h-80 overflow-hidden rounded-full">
+          <Image
+            src={user?.profilePictureUrl || ""}
+            alt="Profile picture"
+            fill
+            objectFit="cover"
+          />
+        </div>
       </div>
       <div className="flex flex-col items-center justify-center py-8">
         <h2 className="font-bold text-3xl mb-1">{user?.fullName}</h2>
@@ -39,6 +41,11 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
             </span>
             <h3 className="font-bold">{user?.city}</h3>
           </div>
+      </div>
+      <div className="flex justify-center gap-4 mb-10">
+        <button className="px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black w-28">Contact</button>
+        <button className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28">Reviews</button>
+        <button className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28">Bio</button>
       </div>
       <div className="mb-10">
         <h3 className="font-bold text-2xl mb-2">I am good at:</h3>
@@ -56,7 +63,6 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
           )}
         </ul>
       </div>
-      <button className="fixed right-2 bottom-16 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>
     </section>
   );
 };
