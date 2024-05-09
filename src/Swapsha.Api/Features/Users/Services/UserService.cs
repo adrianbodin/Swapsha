@@ -47,6 +47,7 @@ public class UserService : IUserService
             .Select(u => new GetAllUsersResponse
             (
                 u.Id,
+                u.Email,
                 u.FirstName + " " + u.LastName,
                 u.City.Name,
                 u.ProfilePictureUrl,

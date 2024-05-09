@@ -33,6 +33,7 @@ public record GetAllUsersRequest
 
 public record GetAllUsersResponse(
     string UserId,
+    string Email,
     string? FullName,
     string? City,
     string? ProfilePictureUrl,
