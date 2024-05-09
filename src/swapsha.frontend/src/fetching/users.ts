@@ -1,11 +1,13 @@
-﻿import {User} from "@/types/user";
+﻿import {SingleUser, User} from "@/types/user";
 import {apiRoutes} from "@/api-routes";
 
-export async function fetchUserById(id: string): Promise<User> {
+export async function fetchUserById(id: string): Promise<SingleUser> {
   return fetch(`${apiRoutes.root}/users/${id}`)
     .then(res => {
       if (!res.ok) {
-        throw new Error(`HTTP error, status = ${res.status}`);
+        //QUESTION is this safe to write out.
+        console.error("Error fetching user", {status: res.status, statusText: res.statusText});
+        throw new Error(`There was an error fetching user, we are sorry for the inconvenience.`)
       }
       return res.json();
     });
