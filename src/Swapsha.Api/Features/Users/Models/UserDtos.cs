@@ -44,8 +44,7 @@ public record GetUserSkillDto(int Id, string Name);
 
 public record GetUserResponse(
     string UserId,
-    string? FirstName,
-    string? LastName,
+    string? FullName,
     string? City,
     string? ProfilePictureUrl,
     List<GetUserSkillDto>? Skills,

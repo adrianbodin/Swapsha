@@ -76,8 +76,7 @@ public class UserService : IUserService
             .Where(u => u.Id == id)
             .Select(u => new GetUserResponse(
             u.Id,
-            u.FirstName,
-            u.LastName,
+            u.FirstName + " " + u.LastName,
             u.City.Name,
             u.ProfilePictureUrl,
             u.UserSkills.Select(s => new GetUserSkillDto(
