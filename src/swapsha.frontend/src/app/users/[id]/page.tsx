@@ -40,22 +40,23 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
             <h3 className="font-bold">{user?.city}</h3>
           </div>
       </div>
-      <div className="flex flex-col items-center mb-10">
+      <div className="mb-10">
         <h3 className="font-bold text-2xl mb-2">I am good at:</h3>
-        <ul>
+        <ul className="ml-5">
           {user?.skills.map(skill =>
             <li className="list-disc text-xl" key={skill.id} >{skill.name}</li>
           )}
         </ul>
       </div>
-      <div className="flex flex-col items-center mb-10">
+      <div className="mb-10">
         <h3 className="font-bold text-2xl mb-2">I am looking for:</h3>
-        <ul>
+        <ul className="ml-5">
           {user?.wantedSkills.map(wantedSkill =>
             <li className="list-disc text-xl" key={wantedSkill.id} >{wantedSkill.name}</li>
           )}
         </ul>
       </div>
+      <button className="fixed right-2 bottom-16 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>
     </section>
   );
 };
