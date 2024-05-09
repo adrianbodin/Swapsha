@@ -14,7 +14,12 @@ const UserReviews:FC<UserReviewProps> = ({ userId }) => {
 
   return (
     <section>
-
+      {data?.reviews.map(review =>
+        <div key={review.postedById}>
+          <p>{review.rating}/5</p>
+          <p>{review.comment}</p>
+          <p>{review.dateCreated}</p>
+        </div>)}
     </section>
   );
 };

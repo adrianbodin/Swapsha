@@ -9,12 +9,12 @@
 }
 
 export interface SingleUser{
-  userId: string;
-  fullName: string;
-  city: string;
-  profilePictureUrl?: string;
-  skills: Skill[];
-  wantedSkills: Skill[];
+  userId: string | undefined;
+  fullName: string | undefined;
+  city: string | undefined;
+  profilePictureUrl?: string | undefined;
+  skills: Skill[] | undefined;
+  wantedSkills: Skill[] | undefined;
 }
 
 interface Review {

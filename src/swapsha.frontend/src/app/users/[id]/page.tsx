@@ -1,8 +1,12 @@
 ﻿'use client'
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useQuery} from "react-query";
 import {fetchUserById} from "@/fetching/users";
 import Image from "next/image";
+import {type} from "node:os";
+import UserReviews from "@/components/user-reviews";
+import UserBio from "@/components/user-bio";
+import {SingleUser} from "@/types/user";
 
 interface UserPageProps {
   params: {
@@ -10,13 +14,18 @@ interface UserPageProps {
   }
 }
 
+type ViewType = 'bio' | 'reviews'
+
 const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
-  const {data: user, isLoading, isError} = useQuery({
+  const [currentView, setCurrentView] = useState<ViewType>('bio');
+
+  const {data: user, isLoading, isError} = useQuery<SingleUser>({
     queryKey: ['user', userId],
     queryFn: () => fetchUserById(userId)
   })
 
 
+  //TODO fix better tags for these
   if (isLoading) return <p>Loading...</p>
 
   if (isError) return <p>There was an error...</p>
@@ -44,25 +53,21 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
       </div>
       <div className="flex justify-center gap-4 mb-10">
         <button className="px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black w-28">Contact</button>
-        <button className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28">Reviews</button>
-        <button className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28">Bio</button>
+        <button
+          className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28"
+          onClick={() => setCurrentView('reviews')}>
+          Reviews
+        </button>
+        <button
+          className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28"
+          onClick={() => setCurrentView('bio')}>
+          Bio
+        </button>
       </div>
-      <div className="mb-10">
-        <h3 className="font-bold text-2xl mb-2">I am good at:</h3>
-        <ul className="ml-5">
-          {user?.skills.map(skill =>
-            <li className="list-disc text-xl" key={skill.id} >{skill.name}</li>
-          )}
-        </ul>
-      </div>
-      <div className="mb-10">
-        <h3 className="font-bold text-2xl mb-2">I am looking for:</h3>
-        <ul className="ml-5">
-          {user?.wantedSkills.map(wantedSkill =>
-            <li className="list-disc text-xl" key={wantedSkill.id} >{wantedSkill.name}</li>
-          )}
-        </ul>
-      </div>
+      {currentView === 'bio' &&
+        <UserBio skills={user?.skills} wantedSkills={user?.wantedSkills} />}
+      {currentView === 'reviews' &&
+        <UserReviews userId={userId} />}
     </section>
   );
 };
