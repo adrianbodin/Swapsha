@@ -47,6 +47,8 @@ public record GetUserResponse(
     string? FullName,
     string? City,
     string? ProfilePictureUrl,
+    int? TotalReviews,
+    int? AverageRating,
     List<GetUserSkillDto>? Skills,
     List<GetUserSkillDto>? WantedSkills);
 

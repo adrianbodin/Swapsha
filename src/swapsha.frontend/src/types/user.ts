@@ -13,15 +13,19 @@ export interface SingleUser{
   fullName: string | undefined;
   city: string | undefined;
   profilePictureUrl?: string | undefined;
+  totalReviews: number | null;
+  averageRating: number | null;
   skills: Skill[] | undefined;
   wantedSkills: Skill[] | undefined;
 }
 
 interface Review {
+  reviewId: number;
   rating: number;
   comment: string;
   dateCreated: string;
   postedById: string;
+  postedBy: string;
 }
 
 export interface UserReviewsResponse{

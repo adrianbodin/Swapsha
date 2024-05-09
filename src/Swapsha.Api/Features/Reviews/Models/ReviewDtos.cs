@@ -8,10 +8,12 @@ public record GetReviewsResponse(
     List<GetReviewsReview> Reviews);
 
 public record GetReviewsReview(
+    string ReviewId,
     byte Rating,
     string? Comment,
     string DateCreated,
-    string PostedById);
+    string PostedById,
+    string PostedBy);
 
 public record PostReviewRequest
 {

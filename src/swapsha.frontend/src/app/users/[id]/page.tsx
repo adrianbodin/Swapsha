@@ -3,7 +3,6 @@ import React, {FC, useState} from 'react';
 import {useQuery} from "react-query";
 import {fetchUserById} from "@/fetching/users";
 import Image from "next/image";
-import {type} from "node:os";
 import UserReviews from "@/components/user-reviews";
 import UserBio from "@/components/user-bio";
 import {SingleUser} from "@/types/user";
@@ -50,16 +49,24 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
             </span>
             <h3 className="font-bold">{user?.city}</h3>
           </div>
+        <div className="flex">
+          <span className="material-symbols-outlined">
+            stars
+          </span>
+          {/*TODO fix this to make the | stay in the middle of the screen.*/}
+          <h4 className="font-bold">{user?.averageRating}/5 | {user?.totalReviews} Reviews</h4>
+        </div>
       </div>
       <div className="flex justify-center gap-4 mb-10">
-        <button className="px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black w-28">Contact</button>
+        {/*TODO add some kind of action here for sending a request to make a contact*/}
+        <button className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>
         <button
-          className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28"
+          className="basis-1/3 justify-center px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
           onClick={() => setCurrentView('reviews')}>
           Reviews
         </button>
         <button
-          className="px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400 w-28"
+          className="basis-1/3 px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
           onClick={() => setCurrentView('bio')}>
           Bio
         </button>
