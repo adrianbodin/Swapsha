@@ -1,11 +1,14 @@
 ﻿import React, {FC} from 'react';
 import {SingleUser} from "@/types/user";
 
-type UserBioProps = Pick<SingleUser, 'skills' | 'wantedSkills'>;
+type UserBioProps = Pick<SingleUser, 'skills' | 'wantedSkills' | 'bio'>;
 
-const UserBio:FC<UserBioProps> = ( { skills, wantedSkills } ) => {
+const UserBio:FC<UserBioProps> = ( { skills, wantedSkills, bio } ) => {
   return (
     <section>
+      <div className="my-10">
+        {bio && <p>{bio}</p>}
+      </div>
       <div className="mb-10">
         <h3 className="font-bold text-2xl mb-2">I am good at:</h3>
         <ul className="ml-5">

@@ -73,7 +73,7 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
         </button>
       </div>
       {currentView === 'bio' &&
-        <UserBio skills={user?.skills} wantedSkills={user?.wantedSkills} />}
+        <UserBio bio={user?.bio} skills={user?.skills} wantedSkills={user?.wantedSkills} />}
       {currentView === 'reviews' &&
         <UserReviews userId={userId} />}
     </section>
