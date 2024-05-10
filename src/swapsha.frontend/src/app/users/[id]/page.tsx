@@ -57,11 +57,12 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
           <h4 className="font-bold">{user?.averageRating}/5 | {user?.totalReviews} Reviews</h4>
         </div>
       </div>
+      {/*TODO fix the bug here where all the buttons are not the same size*/}
       <div className="flex justify-center gap-4 mb-10">
         {/*TODO add some kind of action here for sending a request to make a contact*/}
         <button className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>
         <button
-          className="basis-1/3 justify-center px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
+          className="basis-1/3 px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
           onClick={() => setCurrentView('reviews')}>
           Reviews
         </button>

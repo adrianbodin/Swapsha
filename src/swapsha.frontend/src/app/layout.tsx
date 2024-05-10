@@ -5,7 +5,7 @@ import "./globals.css";
 import "./global-icons.css";
 import NavMenu from "@/components/nav-menu";
 import Footer from "@/components/footer";
-import {Toaster, toast} from 'sonner';
+import {Toaster} from 'sonner';
 import {useStore} from "@/stores/user-store";
 import {useEffect} from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -29,10 +29,10 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="bg-light-grey">
-      <body className={`${inter.className} flex flex-col`}>
+      <body className={`${inter.className} flex flex-col items-center`}>
         <QueryClientProvider client={queryClient}>
           <NavMenu/>
-          <div className="max-w-screen-xl min-h-screen flex-grow px-2 sm:px-10 md:px-16 lg:px-48">
+          <div className="max-w-screen-xl min-h-screen px-2 sm:px-10 md:px-16 lg:px-48">
             {children}
           </div>
           <Footer/>
