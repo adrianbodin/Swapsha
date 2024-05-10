@@ -47,6 +47,7 @@ public record GetUserResponse(
     string UserId,
     string? FullName,
     string? City,
+    string? Bio,
     string? ProfilePictureUrl,
     int? TotalReviews,
     int? AverageRating,
