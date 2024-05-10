@@ -79,6 +79,7 @@ public class UserService : IUserService
             u.Id,
             u.FirstName + " " + u.LastName,
             u.City.Name,
+            u.Bio,
             u.ProfilePictureUrl,
             u.Reviews.Count(),
             u.Reviews.Any() ? (int?)u.Reviews.Average(r => r.Rating) : null,

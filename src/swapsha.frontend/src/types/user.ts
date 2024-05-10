@@ -12,6 +12,7 @@ export interface SingleUser{
   userId: string | undefined;
   fullName: string | undefined;
   city: string | undefined;
+  bio: string | undefined;
   profilePictureUrl?: string | undefined;
   totalReviews: number | null;
   averageRating: number | null;
