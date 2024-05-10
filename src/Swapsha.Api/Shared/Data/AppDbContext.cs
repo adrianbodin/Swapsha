@@ -111,6 +111,10 @@ public class AppDbContext : IdentityDbContext<CustomUser>
             .HasMaxLength(100);
 
         builder.Entity<CustomUser>()
+            .Property(u => u.Bio)
+            .HasMaxLength(1000);
+
+        builder.Entity<CustomUser>()
             .Property(b => b.MiddleName)
             .HasMaxLength(100);
 
