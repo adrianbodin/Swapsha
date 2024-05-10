@@ -16,6 +16,8 @@ public class CustomUser : IdentityUser
     public int CityId { get; set; }
     public City City { get; set; }
 
+    public string? Bio { get; set; }
+
     public string? ProfilePictureUrl { get; set; }
 
     public ICollection<Review> Reviews { get; } = [];
