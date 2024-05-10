@@ -18,3 +18,11 @@ förhoppningsvis byta tjänster med varandra.
 - Registrering och inloggning.
 - Navigation för att ta sig mellan olika sidor.
 - En sida där man har alla sina konversationer.
+
+## Funktioner som är implementerade
+- Registrering av användare.
+- Inloggning av användare.
+- Lista av alla användare.
+- Filtrering och sortering av alla användare.
+- Navigation, olika om man är inloggad eller inte.
+- Individuella sidor för varje användare, här finns bio, vad användaren har för kunskaper, vad användaren är ute efter för kunskap och även recensioner på användaren.
