@@ -248,14 +248,17 @@ public class UserEndpoints : ControllerBase
         OperationId = "GetProfile")]
     [SwaggerResponse(200, "Returns the id of the user hitting the endpoint")]
     #endregion
-    public async Task<IActionResult> GetProfile()
+    public async Task<ActionResult<GetProfileResponse>> GetProfile()
     {
         var user =  await _userManager.GetUserAsync(HttpContext.User);
-        return Ok(new
+
+        if (user is null)
         {
-            user.Id,
-            user.FirstName,
-            user.LastName,
-        });
+            return Problem(statusCode: 404, detail: "The user from the http context could not be read");
+        }
+
+        var response = await _userService.GetProfile(user);
+
+        return Ok(response);
     }
 }

@@ -194,4 +194,34 @@ public class UserService : IUserService
 
         await _db.SaveChangesAsync();
     }
+
+    public async Task<GetProfileResponse> GetProfile(CustomUser user)
+    {
+        var userResult = await _db.Users
+            .AsNoTracking()
+            .Where(u => u.Id == user.Id)
+            .Select(u => new GetProfileResponse(
+                u.Id,
+                u.FirstName,
+                u.MiddleName,
+                u.LastName,
+                u.City.Name,
+                u.UserSkills.Select(us => new GetUserSkillDto(
+                    us.Skill.SkillId,
+                    us.Skill.Name
+                )).ToList(),
+                u.UserWantedSkills.Select(uws => new GetUserSkillDto(
+                    uws.Skill.SkillId,
+                    uws.Skill.Name
+                    )).ToList()
+            ))
+            .FirstOrDefaultAsync();
+
+        if (userResult is null)
+        {
+            throw new UserNotFoundException("The user could not be found");
+        }
+
+        return userResult;
+    }
 }

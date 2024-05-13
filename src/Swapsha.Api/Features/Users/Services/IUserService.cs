@@ -17,4 +17,6 @@ public interface IUserService
     Task AddSkillToUser(string id, int skillId);
 
     Task AddWantedSkillToUser(string id, int skillId);
+
+    Task<GetProfileResponse> GetProfile(CustomUser user);
 }
