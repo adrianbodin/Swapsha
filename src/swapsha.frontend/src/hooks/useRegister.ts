@@ -131,6 +131,7 @@ const UseRegister = () => {
         throw new Error("There was an error adding the profile picture to your profile");
       }
 
+
       //TODO change to include full name maybe
       setUser({
         isLoggedIn: true,
@@ -138,7 +139,7 @@ const UseRegister = () => {
         name: formData.firstName,
       });
 
-      router.push('/');
+      router.push('/users');
 
     }catch(error){
       if (error instanceof Error) {
