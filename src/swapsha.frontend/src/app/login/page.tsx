@@ -87,7 +87,7 @@ const Page = () => {
           name: userInfo.firstName,
         });
 
-        router.push('/');
+        router.push('/users');
 
       } catch (error){
         if(error instanceof Error){
