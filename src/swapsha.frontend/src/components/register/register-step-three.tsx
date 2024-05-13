@@ -1,6 +1,6 @@
 ﻿import React, {FC, useEffect, useState} from 'react';
 import Input from "@/components/input";
-import {cropToCircle} from "@/helpers/crop-image-to-circle";
+import {cropToSquare} from "@/helpers/crop-image-to-circle";
 import Image from "next/image";
 
 interface RegisterStepThreeProps {
@@ -14,7 +14,7 @@ const RegisterStepThree: FC<RegisterStepThreeProps> = ({  handleFormData, submit
 
   useEffect(() => {
     if (selectedImage) {
-      cropToCircle(selectedImage, {x:0, y:0, width:400, height:400})
+      cropToSquare(selectedImage, {x:0, y:0, width:400, height:400})
         .then((croppedImage) => {
           if (croppedImage) {
             setCropedImage(croppedImage);

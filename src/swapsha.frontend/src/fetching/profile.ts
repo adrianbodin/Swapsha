@@ -14,3 +14,20 @@ export async function getProfileInfo(): Promise<Profile> {
       return res.json();
     });
 }
+
+export async function updateProfilePicture(file: File, userId: string): Promise<any> {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  return fetch(`${apiRoutes.root}/users/${userId}/profilepic`, {
+    method: 'POST',
+    body: formData,
+    credentials: 'include'
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error uploading profile picture');
+      }
+      return response.json();
+    });
+}
