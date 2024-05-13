@@ -1,11 +1,20 @@
-﻿import React from 'react';
+﻿'use client'
+import React from 'react';
+import EditProfilePic from "@/components/profile/EditProfilePic";
+import {useQuery} from "react-query";
+import {getProfileInfo} from "@/fetching/profile";
 
-const Page = () => {
+const ProfilePage = () => {
+  const { data: profile, isLoading, isError } = useQuery({
+    queryKey: 'profile',
+    queryFn: () => getProfileInfo()
+  })
+
   return (
-    <div>
-      hello
-    </div>
+    <section className="w-full h-screen">
+      <EditProfilePic profilePicUrl={profile?.profilePicUrl || ''}/>
+    </section>
   );
 };
 
-export default Page;
+export default ProfilePage;

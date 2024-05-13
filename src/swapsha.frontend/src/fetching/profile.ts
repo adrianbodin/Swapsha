@@ -1,8 +1,11 @@
 ﻿import {SingleUser} from "@/types/user";
 import {apiRoutes} from "@/api-routes";
+import {Profile} from "@/types/profile";
 
-export async function getProfileInfo(): Promise<SingleUser> {
-  return fetch(apiRoutes.profile)
+export async function getProfileInfo(): Promise<Profile> {
+  return fetch(apiRoutes.profile, {
+    credentials: 'include'
+  })
     .then(res => {
       if (!res.ok) {
         //QUESTION is this safe to write out.
