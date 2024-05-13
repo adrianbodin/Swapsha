@@ -13,7 +13,7 @@ public class CustomUser : IdentityUser
 
     public string? LastName { get; set; }
 
-    public int CityId { get; set; }
+    public int? CityId { get; set; }
     public City City { get; set; }
 
     public string? Bio { get; set; }
