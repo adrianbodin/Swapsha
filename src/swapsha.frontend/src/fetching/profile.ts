@@ -1,5 +1,4 @@
-﻿import {SingleUser} from "@/types/user";
-import {apiRoutes} from "@/api-routes";
+﻿import {apiRoutes} from "@/api-routes";
 import {Profile} from "@/types/profile";
 
 export async function getProfileInfo(): Promise<Profile> {
