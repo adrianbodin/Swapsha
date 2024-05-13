@@ -205,6 +205,7 @@ public class UserService : IUserService
                 u.FirstName,
                 u.MiddleName,
                 u.LastName,
+                u.ProfilePictureUrl,
                 u.City.Name,
                 u.UserSkills.Select(us => new GetUserSkillDto(
                     us.Skill.SkillId,

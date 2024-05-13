@@ -89,6 +89,7 @@ public record GetProfileResponse(
     string FirstName,
     string? Middlename,
     string Lastname,
+    string ProfilePicUrl,
     string City,
     List<GetUserSkillDto> Skills,
     List<GetUserSkillDto> WantedSkills
