@@ -87,6 +87,8 @@ const Page = () => {
           name: userInfo.firstName,
         });
 
+        toast.success(`Welcome, ${userInfo.firstName}!`)
+
         router.push('/users');
 
       } catch (error){

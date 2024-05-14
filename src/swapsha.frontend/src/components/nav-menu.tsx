@@ -4,15 +4,44 @@ import React, {useState} from 'react';
 import Image from 'next/image';
 import Link from "next/link";
 import {useStore} from "@/stores/user-store";
+import {useMutation} from "@tanstack/react-query";
+import {apiRoutes} from "@/api-routes";
+import {toast} from "sonner";
 
 
 //TODO: Refactor this into smaller parts
 const NavMenu = () => {
   const [expanded, setExpanded] = useState(false);
   const isLoggedIn = useStore((state) => state.isLoggedIn);
+  const setUser = useStore((state) => state.setUser);
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return fetch(apiRoutes.logout, {
+        method: 'POST',
+        credentials: 'include'
+      })
+    },
+    onSuccess: () => {
+      setUser({
+        isLoggedIn: false,
+        id: null,
+        name: null
+      })
+      toast.info("You have been logged out!");
+    },
+    onError: () => {
+      toast.error("There was an error logging you out.")
+    }
+  })
 
   function toggleExpand(){
     setExpanded(!expanded)
+  }
+
+  function logout(){
+    mutation.mutate();
+    setExpanded(false);
   }
 
   function collapseNav(){
@@ -43,6 +72,13 @@ const NavMenu = () => {
                 person
               </span>
               {expanded && <span className="hover:underline">Profile</span>}
+            </Link>
+            <hr className="hidden sm:block"/>
+            <Link className="flex gap-3" onClick={logout} href="/">
+              <span className="material-symbols-outlined">
+                logout
+              </span>
+              {expanded && <span className="hover:underline">Logout</span>}
             </Link>
           </>
           :
