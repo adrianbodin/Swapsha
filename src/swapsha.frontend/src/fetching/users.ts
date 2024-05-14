@@ -32,7 +32,7 @@ export async function getUserReviewsById(userId: string): Promise<UserReviewsRes
     });
 }
 
-export async function getAllUsers(pageIndex: number = 1, sortBy?: SortUsersType, skillId?: number, pageSize: number = 10 ): Promise<GetAllUsersResponse> {
+export async function getAllUsers(pageIndex: number = 1, sortBy?: string, skillId?: number, pageSize: number = 10 ): Promise<GetAllUsersResponse> {
 
   const baseUrl = new URL(apiRoutes.users);
   const params = new URLSearchParams({

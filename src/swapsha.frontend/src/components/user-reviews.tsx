@@ -1,7 +1,7 @@
 ﻿import React, {FC} from 'react';
-import {useQuery} from "react-query";
 import {getUserReviewsById} from "@/fetching/users";
 import Link from "next/link";
+import {useQuery} from "@tanstack/react-query";
 
 interface UserReviewProps{
   userId: string;
