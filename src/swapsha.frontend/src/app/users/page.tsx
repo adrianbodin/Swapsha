@@ -1,12 +1,38 @@
 ﻿'use client'
 import UserCard from "@/components/user-card";
 import LoadingSpinner from "@/components/loading-spinner";
-import {useFetchUsers} from "@/hooks/useFetchUsers";
+import {keepPreviousData, useQuery} from "@tanstack/react-query";
+import {getAllUsers} from "@/fetching/users";
+import {useState} from "react";
+import {getAllSkills} from "@/fetching/skills";
+
+interface AllUsersState{
+  page: number;
+  sortBy: string;
+  skillId?: number;
+}
 
 const UserPage = () => {
-  const {state, handleSkillChange, handleSortChange, nextPage, previousPage} = useFetchUsers()
+  const [state, setState] = useState<AllUsersState>({
+    page: 1,
+    sortBy: "best-rating",
+    skillId: undefined
+  })
 
-  const totalPages = Math.ceil(state.pageInfo.totalRecords / state.pageInfo.pageSize);
+  const {data, isError, isLoading} = useQuery({
+    queryKey: ['users', state.page, state.sortBy, state.skillId],
+    queryFn: () => getAllUsers(state.page, state.sortBy, state.skillId),
+    placeholderData: keepPreviousData,
+  });
+
+  const { data: skills } = useQuery({
+    queryKey: ['skills'],
+    queryFn: () => getAllSkills()
+  });
+
+  const { data: users, pageIndex, pageSize, totalRecords } = data || {};
+
+  const totalPages = Math.ceil((totalRecords ?? 1) / (pageSize ?? 1));
 
   return (
     <section className="mt-10 mb-40">
@@ -17,56 +43,66 @@ const UserPage = () => {
           <select className="p-2 rounded-md block"
                   name="skill-select"
                   id="skill-select"
-                  onChange={handleSkillChange}>
+                  onChange={(e) => {
+                    if(skills) {
+                      const chosenSkill = skills.find(skill => skill.name === e.target.value);
+                      setState({...state, skillId: chosenSkill?.id})
+                    }}}>
             <option value="">All</option>
-            {state.skills && state.skills.map((skill) =>
+            {skills && skills.map((skill) =>
               <option key={skill.id} value={skill.name}>{skill.name}</option>)}
           </select>
-          <p className="text-dark-grey mt-2"><span className="font-bold underline">{state.pageInfo.totalRecords}</span> users</p>
+          <p className="text-dark-grey mt-2"><span className="font-bold underline">{totalRecords}</span> users</p>
         </div>
         <div>
           <label className="font-bold" htmlFor="skill-select">Sort by</label>
           <select className="p-2 rounded-md block"
                   name="skill-select"
                   id="skill-select"
-                  onChange={handleSortChange}>
+                  onChange={(e) => setState({...state, sortBy: e.target.value})}>
             <option value="best-rating">Best Rating</option>
             <option value="most-ratings">Most Ratings</option>
           </select>
         </div>
       </div>
-      {state.loading &&
-          <div className="flex justify-center items-center h-dvh">
-              <LoadingSpinner />
-          </div>}
-      {state.error &&
+      {isLoading &&
+        <div className="flex justify-center items-center h-dvh">
+        <LoadingSpinner />
+        </div>
+      }
+      {isError &&
           <div className="flex justify-center items-center h-dvh">
               <h3 className="underline font-bold text-2xl">Error, please try again later.</h3>
           </div>}
-      {state.users.length === 0 &&
+      {users && users.length === 0 &&
           <div className="flex justify-center items-center h-dvh">
               <h3 className="underline font-bold text-2xl">There was no users found.</h3>
           </div>}
       <div className="grid grid-cols-1 gap-10 mt-2 md:grid-cols-2">
-        {!state.loading && state.users.map(user =>
+        {users && users.map(user =>
               <UserCard key={user.userId} user={user}/>
           )}
       </div>
       <div className="flex justify-center pt-10">
         <div className="flex">
           <button
-            disabled={state.pageInfo.pageIndex === 1}
-            onClick={previousPage}
-            className={state.pageInfo.pageIndex === 1 ? `opacity-25` : `opacity-100`}>
+            disabled={pageIndex === 1}
+            onClick={() => {
+              setState(prevState => ({...prevState, page: prevState.page - 1}));
+              window.scrollTo(0, 0);}}
+            className={pageIndex === 1 ? `opacity-25` : `opacity-100`}>
             <span className="material-symbols-outlined">
               arrow_back_ios
             </span>
           </button>
-          <span className="pr-1">Page {state.pageInfo.pageIndex} of {totalPages}</span>
+          <span className="pr-1">Page {pageIndex} of {totalPages}</span>
           <button
-            disabled={state.pageInfo.pageIndex === totalPages}
-            className={state.pageInfo.pageIndex === totalPages ? `opacity-25` : `opacity-100`}
-            onClick={nextPage}>
+            disabled={pageIndex === totalPages}
+            className={pageIndex === totalPages ? `opacity-25` : `opacity-100`}
+            onClick={() => {
+              setState(prevState => ({...prevState, page: prevState.page + 1}));
+              window.scrollTo(0, 0);
+            }}>
             <span className="material-symbols-outlined">
               arrow_forward_ios
             </span>

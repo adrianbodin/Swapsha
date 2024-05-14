@@ -1,5 +1,6 @@
 ﻿export interface User {
   userId: string;
+  email: string;
   fullName: string;
   city: string;
   profilePictureUrl?: string;
@@ -27,6 +28,13 @@ interface Review {
   dateCreated: string;
   postedById: string;
   postedBy: string;
+}
+
+export interface GetAllUsersResponse{
+  pageIndex: number;
+  pageSize: number;
+  totalRecords: number;
+  data: User[];
 }
 
 export interface UserReviewsResponse{

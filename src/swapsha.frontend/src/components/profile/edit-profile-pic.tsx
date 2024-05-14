@@ -1,10 +1,11 @@
-﻿import React, {FC, useEffect, useRef, useState} from 'react';
+﻿'use client'
+import React, {FC, useEffect, useRef, useState} from 'react';
 import Image from "next/image";
 import Dialog from "@/components/dialog";
 import {cropToSquare} from "@/helpers/crop-image-to-circle";
-import {useMutation, useQueryClient} from "react-query";
 import {updateProfilePicture} from "@/fetching/profile";
 import {toast} from "sonner";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 interface EditProfilePicProps{
   picUrl: string;
@@ -17,6 +18,7 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [croppedImage, setCroppedImage] = useState<File | null>(null);
+  const [cacheBuster, setCacheBuster] = useState(Date.now());
   const queryClient = useQueryClient();
 
 
@@ -24,9 +26,13 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
     mutationFn: (newProfilePic: File) => {
       return updateProfilePicture(newProfilePic, userId)
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       //This makes it update the queries that will not be in sync after the post
-      queryClient.invalidateQueries({ queryKey: ['profile', userId] });
+      await queryClient.invalidateQueries({ queryKey: ['profile', userId] });
+      //This fixed everything with the image not updating, its because the
+      //caching in the browser that caches the image, and dont fetch the new image
+      //because it is the same url
+      setCacheBuster(Date.now()); // Update the cache-buster
       toast.success("Your profile picture was successfully updated.");
     },
     onError: () => {
@@ -69,7 +75,7 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
       <div className="relative w-80 h-80 overflow-hidden rounded-full">
         {picUrl && (
           <Image
-            src={picUrl}
+            src={`${picUrl}?${cacheBuster}`}
             alt="Profile picture"
             fill
             object-fit="cover"

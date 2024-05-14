@@ -1,11 +1,11 @@
 ﻿'use client'
 import React, {FC, useState} from 'react';
-import {useQuery} from "react-query";
 import {fetchUserById} from "@/fetching/users";
 import Image from "next/image";
 import UserReviews from "@/components/user-reviews";
 import UserBio from "@/components/user-bio";
 import {SingleUser} from "@/types/user";
+import {useQuery} from "@tanstack/react-query";
 
 interface UserPageProps {
   params: {
