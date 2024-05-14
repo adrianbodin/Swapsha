@@ -2,7 +2,9 @@
 import {apiRoutes} from "@/api-routes";
 
 export async function fetchUserById(id: string): Promise<SingleUser> {
-  return fetch(`${apiRoutes.root}/users/${id}`)
+  return fetch(`${apiRoutes.root}/users/${id}`, {
+    credentials: 'include'
+  })
     .then(res => {
       if (!res.ok) {
         //QUESTION is this safe to write out.
@@ -14,7 +16,9 @@ export async function fetchUserById(id: string): Promise<SingleUser> {
 }
 
 export async function getUserReviewsById(userId: string): Promise<UserReviewsResponse> {
-  return fetch(`${apiRoutes.root}/users/${userId}/reviews`)
+  return fetch(`${apiRoutes.root}/users/${userId}/reviews`, {
+    credentials: 'include'
+  })
     .then(res => {
       if (!res.ok) {
         //QUESTION is this safe to write out.

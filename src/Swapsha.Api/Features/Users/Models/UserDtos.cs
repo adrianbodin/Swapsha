@@ -83,3 +83,14 @@ public record PostFirstNameRequest
 public record GetProfilePicResponse(
     string UserId,
     string? ProfilePicUrl);
+
+public record GetProfileResponse(
+    string Id,
+    string FirstName,
+    string? Middlename,
+    string Lastname,
+    string ProfilePicUrl,
+    string City,
+    List<GetUserSkillDto> Skills,
+    List<GetUserSkillDto> WantedSkills
+);
