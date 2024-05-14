@@ -1,9 +1,9 @@
 ﻿'use client'
 import React from 'react';
 import EditProfilePic from "@/components/profile/edit-profile-pic";
-import {useQuery} from "react-query";
 import {getProfileInfo} from "@/fetching/profile";
 import {useStore} from "@/stores/user-store";
+import {useQuery} from "@tanstack/react-query";
 
 const ProfilePage = () => {
   const profileId = useStore((state) => state.id);

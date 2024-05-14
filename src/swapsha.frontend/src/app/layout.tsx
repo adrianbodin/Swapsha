@@ -8,7 +8,7 @@ import Footer from "@/components/footer";
 import {Toaster} from 'sonner';
 import {useStore} from "@/stores/user-store";
 import {useEffect} from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const inter = Inter({ subsets: ["latin"] });
 
