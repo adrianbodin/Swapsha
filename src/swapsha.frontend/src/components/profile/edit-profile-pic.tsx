@@ -11,22 +11,23 @@ interface EditProfilePicProps{
   userId: string;
 }
 
+
 //TODO fix a bug here where the new image does not show directly
 const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [croppedImage, setCroppedImage] = useState<File | null>(null);
-
   const queryClient = useQueryClient();
+
 
   const mutation = useMutation({
     mutationFn: (newProfilePic: File) => {
       return updateProfilePicture(newProfilePic, userId)
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       //This makes it update the queries that will not be in sync after the post
+      queryClient.invalidateQueries({ queryKey: ['profile', userId] });
       toast.success("Your profile picture was successfully updated.");
-      queryClient.invalidateQueries('profile');
     },
     onError: () => {
       toast.error("There was an error uploading your profile picture.")
