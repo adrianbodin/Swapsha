@@ -174,7 +174,7 @@ public class UserEndpoints : ControllerBase
 
         await _userManager.UpdateAsync(user);
 
-        return Created(new Uri(user.ProfilePictureUrl), result);
+        return Created(new Uri(user.ProfilePictureUrl), new { url = result});
     }
 
     [HttpGet("{id}/profilepic")]

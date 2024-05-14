@@ -1,4 +1,4 @@
-﻿import React, { FC, useRef, useState } from 'react';
+﻿import React, {FC, useEffect, useRef, useState} from 'react';
 import Image from "next/image";
 import Dialog from "@/components/dialog";
 import {cropToSquare} from "@/helpers/crop-image-to-circle";
@@ -11,6 +11,7 @@ interface EditProfilePicProps{
   userId: string;
 }
 
+//TODO fix a bug here where the new image does not show directly
 const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -22,7 +23,7 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
     mutationFn: (newProfilePic: File) => {
       return updateProfilePicture(newProfilePic, userId)
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       //This makes it update the queries that will not be in sync after the post
       toast.success("Your profile picture was successfully updated.");
       queryClient.invalidateQueries('profile');
@@ -65,12 +66,15 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
   return (
     <div className="relative">
       <div className="relative w-80 h-80 overflow-hidden rounded-full">
-        <Image
-          src={picUrl}
-          alt="Profile picture"
-          fill
-          objectFit="cover"
-        />
+        {picUrl && (
+          <Image
+            src={picUrl}
+            alt="Profile picture"
+            fill
+            object-fit="cover"
+            priority
+          />
+        )}
       </div>
       <button
         onClick={handleButtonClick}
@@ -87,18 +91,20 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
       {isDialogOpen && (
         <Dialog onNo={() => setIsDialogOpen(false)} onYes={uploadNewProfilePic}>
           <div className="relative w-64 h-64 lg:h-80 lg:w-80 overflow-hidden rounded-full">
-            <Image
-              src={croppedImage ? URL.createObjectURL(croppedImage) : ""}
-              alt="Profile picture"
-              fill
-              objectFit="cover"
-            />
+            {croppedImage && (
+              <Image
+                src={URL.createObjectURL(croppedImage)}
+                alt="Profile picture"
+                fill
+                object-fit="cover"
+              />
+            )}
           </div>
           <h4 className="font-bold text-lg lg:text-xl text-center">Are you sure you want to change profile picture to this one?</h4>
         </Dialog>
       )}
     </div>
-  )
+  );
 };
 
 export default EditProfilePic;

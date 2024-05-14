@@ -29,5 +29,8 @@ export async function updateProfilePicture(file: File, userId: string): Promise<
         throw new Error('Error uploading profile picture');
       }
       return response.json();
+    })
+    .catch(error => {
+      console.error('Error parsing response as JSON:', error);
     });
 }
