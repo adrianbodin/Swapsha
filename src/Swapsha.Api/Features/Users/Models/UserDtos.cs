@@ -87,8 +87,8 @@ public record GetProfilePicResponse(
 public record GetProfileResponse(
     string Id,
     string FirstName,
-    string? Middlename,
-    string Lastname,
+    string? MiddleName,
+    string LastName,
     string ProfilePicUrl,
     string City,
     List<GetUserSkillDto> Skills,
