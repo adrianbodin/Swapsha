@@ -7,10 +7,12 @@ interface InputProps {
   onChange?: (e:React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   data?: string;
-  disabled?: boolean
+  disabled?: boolean;
+  onBlur?: () => void;
+  onFocus?: () => void;
 }
 
-const Input: FC<InputProps> = ({ type, placeholder, error, onChange, name, disabled, data }) => {
+const Input: FC<InputProps> = ({ type, placeholder, error, onChange, name, disabled, data, onBlur, onFocus }) => {
 
   return (
     <div className="flex flex-col">
@@ -22,6 +24,8 @@ const Input: FC<InputProps> = ({ type, placeholder, error, onChange, name, disab
         value={data}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
         className={`p-2 rounded ${error ? 'border-red-500' : 'border-light-grey' } border-2`}/>
     </div>
   );

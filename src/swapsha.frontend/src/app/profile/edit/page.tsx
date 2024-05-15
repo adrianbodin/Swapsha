@@ -21,17 +21,13 @@ const Page = () => {
     return <div>Error...</div>;
   }
 
-  console.log('First Name:', profile?.firstName);
-  console.log('Middle Name:', profile?.middleName);
-  console.log('Last Name:', profile?.lastName);
-
   return (
     <section className="w-full flex flex-col gap-5 items-center h-screen py-5">
       <EditProfilePic picUrl={profile?.profilePicUrl || ''} userId={profile?.id || ''}/>
       <div className="flex flex-col gap-5">
-        <EditName name={profile?.firstName || ''} nameType="firstname"/>
-        <EditName name={profile?.middleName || ''} nameType="middlename"/>
-        <EditName name={profile?.lastName || ''} nameType="lastname"/>
+        <EditName name={profile?.firstName || ''} nameType="firstname" userId={profile.id}/>
+        <EditName name={profile?.middleName || ''} nameType="middlename" userId={profile.id}/>
+        <EditName name={profile?.lastName || ''} nameType="lastname" userId={profile.id}/>
       </div>
     </section>
   );
