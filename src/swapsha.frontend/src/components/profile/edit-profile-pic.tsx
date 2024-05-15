@@ -29,8 +29,8 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
     onSuccess: async () => {
       //This makes it update the queries that will not be in sync after the post
       await queryClient.invalidateQueries({ queryKey: ['profile', userId] });
-      //This fixed everything with the image not updating, its because the
-      //caching in the browser that caches the image, and dont fetch the new image
+      //This fixed everything with the image not updating, it's because the
+      //caching in the browser that caches the image, and don't fetch the new image
       //because it is the same url
       setCacheBuster(Date.now()); // Update the cache-buster
       toast.success("Your profile picture was successfully updated.");

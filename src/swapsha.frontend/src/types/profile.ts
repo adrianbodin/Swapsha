@@ -1,4 +1,6 @@
-﻿export interface Profile{
+﻿import {Skill} from "@/types/skills";
+
+export interface Profile{
   id: string;
   firstName: string;
   middleName?: string;

@@ -123,20 +123,20 @@ public class UserEndpoints : ControllerBase
     }
     
     [Authorize]
-    [HttpPost("{id}/firstname")]
+    [HttpPatch("{id}/firstname")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
     [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Posts a new firstname for a user",
         Description = "Posts a new firstname of the user, only the user hitting the endpoint can change it",
-        OperationId = "PostFirstName")]
+        OperationId = "UpdateFirstName")]
     [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
     [SwaggerResponse(400, "If the validation of the Dto was not passed")]
-    [SwaggerResponse(201, "Returns the firstname if successful")]
-    [SwaggerResponse(500, "If the usermanager returns a not successful result")]
+    [SwaggerResponse(201, "Returns if successful")]
+    [SwaggerResponse(500, "If the userma nager returns a not successful result")]
     #endregion
-    public async Task<IActionResult> PostFirstName(string id, [FromBody] PostFirstNameRequest request)
+    public async Task<IActionResult> UpdateFirstName(string id, [FromBody] UpdateFirstNameRequest request)
     {
         var user = HttpContext.Items["User"] as CustomUser;
 
@@ -150,6 +150,64 @@ public class UserEndpoints : ControllerBase
             : Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
     }
 
+    [Authorize]
+    [HttpPatch("{id}/middlename")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Posts a new middle name for a user",
+        Description = "Posts a new firs of the user, only the user hitting the endpoint can change it",
+        OperationId = "UpdateMiddleName")]
+    [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
+    [SwaggerResponse(400, "If the validation of the Dto was not passed")]
+    [SwaggerResponse(200, "Returns if successful")]
+    [SwaggerResponse(500, "If the user manager returns a not successful result")]
+    #endregion
+    public async Task<IActionResult> UpdateMiddleName(string id, [FromBody] UpdateMiddleNameRequest request)
+    {
+        var user = HttpContext.Items["User"] as CustomUser;
+
+        user.MiddleName = request.MiddleName;
+
+        var result = await _userManager.UpdateAsync(user);
+
+        //TODO: make a better return here
+        return result.Succeeded
+            ? Ok()
+            : Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
+    }
+
+    [Authorize]
+    [HttpPatch("{id}/lastname")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Posts a new last name for a user",
+        Description = "Posts a new last name of the user, only the user hitting the endpoint can change it",
+        OperationId = "UpdateLastName")]
+    [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
+    [SwaggerResponse(400, "If the validation of the Dto was not passed")]
+    [SwaggerResponse(200, "Returns if successful")]
+    [SwaggerResponse(500, "If the user manager returns a not successful result")]
+    #endregion
+    public async Task<IActionResult> UpdateLastName(string id, [FromBody] UpdateLastNameRequest request)
+    {
+        var user = HttpContext.Items["User"] as CustomUser;
+
+        user.LastName = request.LastName;
+
+        var result = await _userManager.UpdateAsync(user);
+
+        //TODO: make a better return here
+        return result.Succeeded
+            ? Ok()
+            : Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
+    }
+
+
+    //QUESTION would this be better as a patch?
     [Authorize]
     [HttpPost("{id}/profilepic")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
