@@ -123,7 +123,7 @@ public class UserEndpoints : ControllerBase
     }
     
     [Authorize]
-    [HttpPost("{id}/firstname")]
+    [HttpPatch("{id}/firstname")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
     [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
@@ -136,7 +136,7 @@ public class UserEndpoints : ControllerBase
     [SwaggerResponse(201, "Returns the firstname if successful")]
     [SwaggerResponse(500, "If the usermanager returns a not successful result")]
     #endregion
-    public async Task<IActionResult> PostFirstName(string id, [FromBody] PostFirstNameRequest request)
+    public async Task<IActionResult> UpdateFirstName(string id, [FromBody] PostFirstNameRequest request)
     {
         var user = HttpContext.Items["User"] as CustomUser;
 

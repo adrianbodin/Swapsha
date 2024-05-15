@@ -7,14 +7,14 @@ using static Swapsha.Api.Tests.IntegrationTests.Controllers.Users.UserUtils;
 namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 
 [Collection("TestCollection")]
-public class PostFirstNameTests(ApiFactory factory) : BaseTest(factory)
+public class UpdateFirstNameTests(ApiFactory factory) : BaseTest(factory)
 {
     [Fact]
     public async Task Unauthorized_When_Not_Authenticated()
     {
         var randomGuid = Guid.NewGuid().ToString();
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
+        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -29,7 +29,7 @@ public class PostFirstNameTests(ApiFactory factory) : BaseTest(factory)
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", ValidFirstNameDto());
+        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -43,7 +43,7 @@ public class PostFirstNameTests(ApiFactory factory) : BaseTest(factory)
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", InvalidFirstNameDto());
+        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", InvalidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -58,7 +58,7 @@ public class PostFirstNameTests(ApiFactory factory) : BaseTest(factory)
         await AuthenticateUser(_client, validUser);
 
         //Act
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
+        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
