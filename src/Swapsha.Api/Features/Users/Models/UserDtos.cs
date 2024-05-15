@@ -73,11 +73,25 @@ public record GetNamesResponse(
     string MiddleName,
     string LastName);
 
-public record PostFirstNameRequest
+public record UpdateFirstNameRequest
 {
     [Required(ErrorMessage = "First name is required.")]
     [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
     public string FirstName { get; init; }
+}
+
+public record UpdateMiddleNameRequest
+{
+    [Required(ErrorMessage = "Middle name is required.")]
+    [StringLength(50, ErrorMessage = "Middle name cannot be longer than 50 characters.")]
+    public string MiddleName { get; init; }
+}
+
+public record UpdateLastNameRequest
+{
+    [Required(ErrorMessage = "Last name is required.")]
+    [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
+    public string LastName { get; init; }
 }
 
 public record GetProfilePicResponse(
