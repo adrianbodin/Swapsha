@@ -29,7 +29,7 @@ public class CustomUser : IdentityUser
 
     public ICollection<UserWantedSkill> UserWantedSkills { get; } = [];
 
-    public ICollection<Contact> Contacts { get; } = [];
+    public ICollection<CustomUser> Contacts { get; } = [];
 
     public ICollection<ContactRequest> SentRequests { get; } = [];
 

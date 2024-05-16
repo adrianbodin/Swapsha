@@ -22,6 +22,21 @@ namespace Swapsha.Api.Shared.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CustomUserCustomUser", b =>
+                {
+                    b.Property<string>("ContactsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CustomUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ContactsId", "CustomUserId");
+
+                    b.HasIndex("CustomUserId");
+
+                    b.ToTable("CustomUserCustomUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -155,27 +170,6 @@ namespace Swapsha.Api.Shared.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Swapsha.Api.Features.Contacts.Models.Contact", b =>
-                {
-                    b.Property<string>("User1Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("User2Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ContactId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("User1Id", "User2Id");
-
-                    b.HasIndex("User2Id");
-
-                    b.ToTable("Contacts");
-                });
-
             modelBuilder.Entity("Swapsha.Api.Features.Contacts.Models.ContactRequest", b =>
                 {
                     b.Property<string>("ContactRequestId")
@@ -236,858 +230,858 @@ namespace Swapsha.Api.Shared.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ReviewId = "8bbfb08c-71aa-434b-8833-9ce9d31fc50d",
+                            ReviewId = "998ad3ee-da6e-4c9a-adce-b032c1b1189f",
                             Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6514),
-                            PostedById = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2270),
+                            PostedById = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            Rating = (byte)5,
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9"
+                        },
+                        new
+                        {
+                            ReviewId = "b24ab3f3-1ad8-405a-9958-2f1371be05c9",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2378),
+                            PostedById = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
                             Rating = (byte)1,
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b"
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9"
                         },
                         new
                         {
-                            ReviewId = "d3d92062-d1d3-4fdd-9a0b-4fbeead47444",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6742),
-                            PostedById = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            Rating = (byte)2,
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b"
-                        },
-                        new
-                        {
-                            ReviewId = "ad0d7403-0057-494f-85cf-39b716e36698",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6748),
-                            PostedById = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            Rating = (byte)5,
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b"
-                        },
-                        new
-                        {
-                            ReviewId = "31706625-afc7-4957-a5fd-d2ff5963c13b",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6775),
-                            PostedById = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            Rating = (byte)5,
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b"
-                        },
-                        new
-                        {
-                            ReviewId = "f6856503-5715-4270-8140-3deffaca4d4f",
+                            ReviewId = "1627dd12-115a-420b-aeee-27172645c349",
                             Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6781),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
-                            Rating = (byte)2,
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2382),
+                            PostedById = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            Rating = (byte)1,
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9"
                         },
                         new
                         {
-                            ReviewId = "06d37f25-ef99-4190-b2a2-4e893b2b8dd6",
+                            ReviewId = "cdee3e9f-e137-4fa1-8821-aa8df0ae9f43",
                             Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6809),
-                            PostedById = "465881e1-59cc-4f73-839e-69205eeadf7f",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2385),
+                            PostedById = "9eca72d8-a394-43a3-be5b-34729f06ed71",
                             Rating = (byte)3,
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88"
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9"
                         },
                         new
                         {
-                            ReviewId = "351ba78d-a2ae-4254-a8ed-e782ad910ee2",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6822),
-                            PostedById = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            Rating = (byte)4,
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88"
-                        },
-                        new
-                        {
-                            ReviewId = "216536eb-c94f-4301-82aa-1754a8808c7e",
+                            ReviewId = "3b498d5f-6ec3-4303-b81d-f6b9a6cddad0",
                             Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6829),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
-                            Rating = (byte)2,
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88"
-                        },
-                        new
-                        {
-                            ReviewId = "e1559e85-2c7d-42f0-8dab-b5bf66b147cd",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6832),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            Rating = (byte)4,
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88"
-                        },
-                        new
-                        {
-                            ReviewId = "b8fc6ab1-3bb1-488c-af3b-f60cd307a25f",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6838),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2387),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             Rating = (byte)5,
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88"
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9"
                         },
                         new
                         {
-                            ReviewId = "cac17028-4efd-46d5-90ad-155244412e6d",
+                            ReviewId = "1b35b86a-f1a6-45ab-966e-944b24675ab9",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2424),
+                            PostedById = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            Rating = (byte)3,
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997"
+                        },
+                        new
+                        {
+                            ReviewId = "3e7c52b7-f653-4563-bd12-2ef52ae0e6ca",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2433),
+                            PostedById = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            Rating = (byte)4,
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997"
+                        },
+                        new
+                        {
+                            ReviewId = "1587088e-ac71-42b5-8ffa-416770c1b5e1",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2437),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)2,
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997"
+                        },
+                        new
+                        {
+                            ReviewId = "486e4229-400a-4049-8d9d-71cc574962a6",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2441),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)3,
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997"
+                        },
+                        new
+                        {
+                            ReviewId = "dd01c181-4298-4602-a7c7-aa61a1893f00",
+                            Comment = "Excellent!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2445),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            Rating = (byte)4,
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997"
+                        },
+                        new
+                        {
+                            ReviewId = "63bc6248-5c5c-489a-a10b-6e5113a68101",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6850),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)4,
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2"
-                        },
-                        new
-                        {
-                            ReviewId = "88bac95e-fb8d-4d7f-985f-dbdf033f7d1d",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6860),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2453),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
                             Rating = (byte)1,
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2"
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2"
                         },
                         new
                         {
-                            ReviewId = "99aafb35-0936-43f8-a78a-0c53b346ccbe",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6865),
-                            PostedById = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            Rating = (byte)2,
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2"
-                        },
-                        new
-                        {
-                            ReviewId = "76cc3723-20bb-4cfd-b822-f049be8ae543",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(6984),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            Rating = (byte)1,
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2"
-                        },
-                        new
-                        {
-                            ReviewId = "805bfd6f-0c00-4173-9795-62d6a39b9598",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7011),
-                            PostedById = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            Rating = (byte)1,
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2"
-                        },
-                        new
-                        {
-                            ReviewId = "27afa036-7149-47a8-b483-d7da0856b5ff",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7046),
-                            PostedById = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            Rating = (byte)1,
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5"
-                        },
-                        new
-                        {
-                            ReviewId = "2a1b7e16-f8d0-43c6-9ef5-3f3c31d8f8e7",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7052),
-                            PostedById = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            Rating = (byte)5,
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5"
-                        },
-                        new
-                        {
-                            ReviewId = "6ba41a9d-e39d-4bb4-8f37-aa023ac1db96",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7056),
-                            PostedById = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            Rating = (byte)1,
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5"
-                        },
-                        new
-                        {
-                            ReviewId = "9378880a-d1aa-4379-acfe-ed0f0bef4423",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7058),
-                            PostedById = "206111c5-e732-4383-862a-659908abb8a0",
-                            Rating = (byte)5,
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5"
-                        },
-                        new
-                        {
-                            ReviewId = "8f8c3492-6843-4215-a1cf-42767c052b92",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7063),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            Rating = (byte)1,
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5"
-                        },
-                        new
-                        {
-                            ReviewId = "eb799975-d099-460a-9396-2e8ec5f74569",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7066),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
-                            Rating = (byte)1,
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf"
-                        },
-                        new
-                        {
-                            ReviewId = "e19019ef-c568-4abd-b297-b57d00212118",
+                            ReviewId = "383c86f0-5825-4776-9f5e-a302f8ce2359",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7068),
-                            PostedById = "8887df59-e1a1-4601-8a37-6804053c3102",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2457),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             Rating = (byte)4,
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf"
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2"
                         },
                         new
                         {
-                            ReviewId = "b421b9fc-6c87-4c07-886d-19960c6974b0",
+                            ReviewId = "49f709f3-76dc-4d32-83e5-95bc8df20a72",
                             Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7070),
-                            PostedById = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            Rating = (byte)1,
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf"
-                        },
-                        new
-                        {
-                            ReviewId = "befbeffc-0533-4a58-9bf0-2529f8bc104a",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7073),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2459),
+                            PostedById = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
                             Rating = (byte)2,
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf"
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2"
                         },
                         new
                         {
-                            ReviewId = "b069112f-4e80-4c16-aa09-737c62f3b3f2",
-                            Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7076),
-                            PostedById = "206111c5-e732-4383-862a-659908abb8a0",
-                            Rating = (byte)3,
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf"
+                            ReviewId = "a5e01c4f-bb12-4295-9ac3-969ac5ed2675",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2462),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)2,
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2"
                         },
                         new
                         {
-                            ReviewId = "b13c1968-5fa5-4afc-be0b-8611c1827e77",
-                            Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7078),
-                            PostedById = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            Rating = (byte)3,
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53"
-                        },
-                        new
-                        {
-                            ReviewId = "5bdd23d6-2514-4ce0-8640-0b2805b7e474",
-                            Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7082),
-                            PostedById = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            Rating = (byte)4,
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53"
-                        },
-                        new
-                        {
-                            ReviewId = "aae29405-17a2-453d-8094-e45ac53b3e6d",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7085),
-                            PostedById = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            Rating = (byte)5,
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53"
-                        },
-                        new
-                        {
-                            ReviewId = "c9f79241-ac9d-442d-bee4-7e6280ed1a92",
+                            ReviewId = "e09a4688-97cd-4871-970b-9fcd273c88a3",
                             Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7088),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2481),
+                            PostedById = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
                             Rating = (byte)2,
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53"
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2"
                         },
                         new
                         {
-                            ReviewId = "ee8b36af-df93-4714-a9d1-520a326a3657",
+                            ReviewId = "637357e6-1543-45bb-9416-9b947db42fb8",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2503),
+                            PostedById = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            Rating = (byte)2,
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23"
+                        },
+                        new
+                        {
+                            ReviewId = "ed200467-a94a-4635-be54-d207df14cef1",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2508),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            Rating = (byte)3,
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23"
+                        },
+                        new
+                        {
+                            ReviewId = "b718ee79-704e-4d11-ae0c-6bac7c1f4eb5",
                             Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7101),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            Rating = (byte)2,
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2563),
+                            PostedById = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            Rating = (byte)1,
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23"
                         },
                         new
                         {
-                            ReviewId = "ec5c9eb8-328d-49d0-825c-4310c9e42b9e",
+                            ReviewId = "ec344f4c-a544-4138-8e35-c4c9b7f7e89d",
+                            Comment = "Excellent!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2567),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            Rating = (byte)4,
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23"
+                        },
+                        new
+                        {
+                            ReviewId = "5acdb4c4-5d02-4ce2-8c68-57d5f44c084f",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2570),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            Rating = (byte)5,
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23"
+                        },
+                        new
+                        {
+                            ReviewId = "e030c543-22bb-4e8f-a4e7-161ba09aeef8",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2573),
+                            PostedById = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            Rating = (byte)5,
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51"
+                        },
+                        new
+                        {
+                            ReviewId = "9dc410e5-b864-4815-b8bc-db04df0dce8c",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2576),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)2,
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51"
+                        },
+                        new
+                        {
+                            ReviewId = "e0a62ed0-ad40-4a92-a8a6-bcd7195ef28f",
                             Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7162),
-                            PostedById = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            Rating = (byte)3,
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1"
-                        },
-                        new
-                        {
-                            ReviewId = "833ab8b9-924e-490c-8749-c2a2cc8de20c",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7166),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)1,
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1"
-                        },
-                        new
-                        {
-                            ReviewId = "b25e084c-8f5f-40c7-b14b-79c5281c5bec",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7169),
-                            PostedById = "206111c5-e732-4383-862a-659908abb8a0",
-                            Rating = (byte)1,
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1"
-                        },
-                        new
-                        {
-                            ReviewId = "d6e95934-50bf-4da6-a59d-9f8c1fce0a1d",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7172),
-                            PostedById = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2578),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             Rating = (byte)2,
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1"
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51"
                         },
                         new
                         {
-                            ReviewId = "98d84c60-9409-4a8f-bb9a-99af94169829",
+                            ReviewId = "69fe136f-5b74-4115-be50-33306af5bffc",
+                            Comment = "Excellent!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2580),
+                            PostedById = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            Rating = (byte)2,
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51"
+                        },
+                        new
+                        {
+                            ReviewId = "104046e0-602e-4746-a6b6-c40929cdd89a",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2585),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            Rating = (byte)4,
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51"
+                        },
+                        new
+                        {
+                            ReviewId = "02678778-6c60-4aee-98f3-815a4d83c108",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2589),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            Rating = (byte)5,
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd"
+                        },
+                        new
+                        {
+                            ReviewId = "4dbcb9ca-2fe4-4132-b4a0-81a75d9f5e7e",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2591),
+                            PostedById = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            Rating = (byte)5,
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd"
+                        },
+                        new
+                        {
+                            ReviewId = "f1f7269f-4dcc-4b6d-bb60-1d0f991f47fb",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2593),
+                            PostedById = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            Rating = (byte)2,
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd"
+                        },
+                        new
+                        {
+                            ReviewId = "d0442171-3a01-49fb-9975-f68b70f6d248",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(2595),
+                            PostedById = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            Rating = (byte)4,
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd"
+                        },
+                        new
+                        {
+                            ReviewId = "e549b86b-e49f-4c30-b8cd-8a4f9fd12766",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3295),
+                            PostedById = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            Rating = (byte)3,
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd"
+                        },
+                        new
+                        {
+                            ReviewId = "e2c76b92-f8be-421c-a7e6-e17b594cdada",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3371),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            Rating = (byte)5,
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5"
+                        },
+                        new
+                        {
+                            ReviewId = "68f34c01-2769-4f72-a649-db63cd36895a",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3376),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)3,
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5"
+                        },
+                        new
+                        {
+                            ReviewId = "66899472-1ad7-426f-93c0-fed53b87a5c0",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3381),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            Rating = (byte)4,
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5"
+                        },
+                        new
+                        {
+                            ReviewId = "35162754-4f7d-43e3-b956-57c8846bf972",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3390),
+                            PostedById = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            Rating = (byte)1,
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5"
+                        },
+                        new
+                        {
+                            ReviewId = "fa257297-ca2c-4da5-9c9d-478e52f58fc4",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3393),
+                            PostedById = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            Rating = (byte)1,
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5"
+                        },
+                        new
+                        {
+                            ReviewId = "418316e1-3940-452d-b8c0-586ac0381df9",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3396),
+                            PostedById = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            Rating = (byte)3,
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f"
+                        },
+                        new
+                        {
+                            ReviewId = "8e2b79ce-a1e0-45f8-ba82-497de7006ef2",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3398),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            Rating = (byte)3,
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f"
+                        },
+                        new
+                        {
+                            ReviewId = "59691883-d895-4f1e-8081-18ca1b4dfba2",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7174),
-                            PostedById = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            Rating = (byte)1,
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3400),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)2,
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f"
                         },
                         new
                         {
-                            ReviewId = "00d12c29-1bb4-4c6b-a4ed-489cf383dce5",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7179),
-                            PostedById = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            Rating = (byte)4,
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0"
-                        },
-                        new
-                        {
-                            ReviewId = "27085d51-3d3a-4bbe-9594-c807f478a555",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7181),
-                            PostedById = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            Rating = (byte)4,
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0"
-                        },
-                        new
-                        {
-                            ReviewId = "d8c84097-0e49-4adb-a511-9029dc717b31",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7183),
-                            PostedById = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
-                            Rating = (byte)1,
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0"
-                        },
-                        new
-                        {
-                            ReviewId = "dc210725-9244-42af-90a0-9abd4df2ee82",
+                            ReviewId = "63bbc0eb-2bda-4438-a70d-3dc15a33cc3d",
                             Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7186),
-                            PostedById = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            Rating = (byte)5,
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3402),
+                            PostedById = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            Rating = (byte)2,
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f"
                         },
                         new
                         {
-                            ReviewId = "3f6c6be5-d7d5-43fa-927f-f33f2e0c010b",
+                            ReviewId = "531aebf8-04bb-493e-889b-396d7f12aaa7",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3404),
+                            PostedById = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            Rating = (byte)3,
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f"
+                        },
+                        new
+                        {
+                            ReviewId = "e16e1672-5e9f-46c5-9681-23e7879808ba",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3408),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            Rating = (byte)3,
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930"
+                        },
+                        new
+                        {
+                            ReviewId = "07e99734-cba3-4251-a25a-ebcf5946de62",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3411),
+                            PostedById = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            Rating = (byte)2,
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930"
+                        },
+                        new
+                        {
+                            ReviewId = "7f3fc226-0edd-4d6c-af19-7e5c15b7e9aa",
                             Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7188),
-                            PostedById = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            Rating = (byte)5,
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3413),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            Rating = (byte)1,
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930"
                         },
                         new
                         {
-                            ReviewId = "65f1fc6f-b607-4dc5-8c00-6b3af5774f31",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7191),
-                            PostedById = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            Rating = (byte)5,
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973"
+                            ReviewId = "b5d337f8-0eed-41e9-9491-2b48da447f14",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3415),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            Rating = (byte)1,
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930"
                         },
                         new
                         {
-                            ReviewId = "c6d11fef-9a87-4c68-b7fc-75af68be3ae8",
+                            ReviewId = "9da9bf78-d3ff-415b-a971-68d8c2681203",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3417),
+                            PostedById = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            Rating = (byte)2,
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930"
+                        },
+                        new
+                        {
+                            ReviewId = "ebfc78bb-83de-41ab-8cb7-18c9df6711d5",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3420),
+                            PostedById = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
+                            Rating = (byte)2,
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c"
+                        },
+                        new
+                        {
+                            ReviewId = "9e16924a-9cd9-4175-909e-6e6141ef503f",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7193),
-                            PostedById = "206111c5-e732-4383-862a-659908abb8a0",
-                            Rating = (byte)5,
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973"
-                        },
-                        new
-                        {
-                            ReviewId = "7fa6904f-a5c7-4fb4-8478-f13005b748f9",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7195),
-                            PostedById = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            Rating = (byte)1,
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973"
-                        },
-                        new
-                        {
-                            ReviewId = "04e188c0-a168-44d9-b656-d2867a9cf7fb",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7200),
-                            PostedById = "c533144b-2b33-403f-b0bc-22fa1f898651",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3422),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
                             Rating = (byte)3,
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973"
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c"
                         },
                         new
                         {
-                            ReviewId = "9d3f2e50-34da-4ce1-a5ae-6906e5b29ca8",
+                            ReviewId = "e88b1ffc-57e9-4c4f-86c5-f181e388501c",
                             Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7203),
-                            PostedById = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3424),
+                            PostedById = "9eca72d8-a394-43a3-be5b-34729f06ed71",
                             Rating = (byte)4,
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973"
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c"
                         },
                         new
                         {
-                            ReviewId = "00b870cf-a87c-43bf-b373-61b4565e4d15",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7206),
-                            PostedById = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            Rating = (byte)2,
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5"
-                        },
-                        new
-                        {
-                            ReviewId = "2a746fdb-cb24-4231-a333-83a035b7cf1d",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7209),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            Rating = (byte)5,
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5"
-                        },
-                        new
-                        {
-                            ReviewId = "69972a4b-3506-40f6-b1d0-eac5a8b85ad3",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7211),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)5,
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5"
-                        },
-                        new
-                        {
-                            ReviewId = "265b6776-e315-41f4-b112-7d3df77b01b1",
+                            ReviewId = "f8e879c4-8c6a-49e9-a98e-d7ae35a929f2",
                             Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7214),
-                            PostedById = "5149e113-8855-417f-b888-62718e57ba53",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3427),
+                            PostedById = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
                             Rating = (byte)2,
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5"
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c"
                         },
                         new
                         {
-                            ReviewId = "e932aa58-d6d3-46c0-b48b-4ca445473dc3",
+                            ReviewId = "06bb40e5-545a-45db-a6b0-739b3f145293",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3430),
+                            PostedById = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            Rating = (byte)4,
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c"
+                        },
+                        new
+                        {
+                            ReviewId = "de3933bb-1cce-4b47-9e93-2e8ff28a2704",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3432),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            Rating = (byte)3,
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105"
+                        },
+                        new
+                        {
+                            ReviewId = "e2750d60-076a-4d06-afe9-5a066303f855",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3434),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            Rating = (byte)1,
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105"
+                        },
+                        new
+                        {
+                            ReviewId = "54f419c1-d617-47d6-962e-c8320c27c258",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3436),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            Rating = (byte)4,
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105"
+                        },
+                        new
+                        {
+                            ReviewId = "7480ad74-89d7-4d9d-b3f2-90c30f39532c",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3439),
+                            PostedById = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            Rating = (byte)5,
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105"
+                        },
+                        new
+                        {
+                            ReviewId = "97c696ef-5dad-4288-8cf5-f4d1c861dcaf",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3441),
+                            PostedById = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            Rating = (byte)5,
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105"
+                        },
+                        new
+                        {
+                            ReviewId = "de1c7573-f0df-4128-8e4a-8b7b362f3cd4",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7216),
-                            PostedById = "d73920ec-84bc-4476-ba20-a519a5dc231b",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3443),
+                            PostedById = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             Rating = (byte)3,
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5"
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc"
                         },
                         new
                         {
-                            ReviewId = "818d69ad-4b3e-403a-8867-93b8a5397fc8",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7219),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)3,
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3"
-                        },
-                        new
-                        {
-                            ReviewId = "3f475276-5d22-4135-9f3b-fa4de679e815",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7223),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)4,
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3"
-                        },
-                        new
-                        {
-                            ReviewId = "57e9d119-81cc-4373-b9d0-6f021b4c0ae5",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7225),
-                            PostedById = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            Rating = (byte)3,
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3"
-                        },
-                        new
-                        {
-                            ReviewId = "e80f8101-0882-45c2-8966-855a7b5ec4c6",
+                            ReviewId = "0277d46e-e5b3-48c3-959e-a402e249aca2",
                             Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7227),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3447),
+                            PostedById = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            Rating = (byte)3,
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc"
+                        },
+                        new
+                        {
+                            ReviewId = "f512198d-d055-4aae-809d-c67fca27f764",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3449),
+                            PostedById = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            Rating = (byte)4,
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc"
+                        },
+                        new
+                        {
+                            ReviewId = "936000fd-10c6-4fea-b72c-a8288d905605",
+                            Comment = "Excellent!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3451),
+                            PostedById = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
                             Rating = (byte)5,
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3"
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc"
                         },
                         new
                         {
-                            ReviewId = "a74a8768-1866-4c20-a3cb-c6a87b43e42e",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7229),
-                            PostedById = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
-                            Rating = (byte)4,
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3"
-                        },
-                        new
-                        {
-                            ReviewId = "e2067bba-44e3-4d24-8dda-19f7087cdc24",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7267),
-                            PostedById = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            Rating = (byte)1,
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102"
-                        },
-                        new
-                        {
-                            ReviewId = "14bf1012-4929-43b4-b24a-f0f4ec89201f",
+                            ReviewId = "c343b56b-018d-4733-b9ba-e8aa943e23d8",
                             Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7270),
-                            PostedById = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            Rating = (byte)2,
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3484),
+                            PostedById = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            Rating = (byte)1,
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc"
                         },
                         new
                         {
-                            ReviewId = "bb8c1285-e462-4137-accc-37ba4622794e",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7272),
-                            PostedById = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            Rating = (byte)2,
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102"
+                            ReviewId = "fac3edb0-0cc4-411f-b33f-29247a5eb82c",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3487),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            Rating = (byte)5,
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5"
                         },
                         new
                         {
-                            ReviewId = "38357f84-fc53-4b93-8163-6baa5d1610cb",
+                            ReviewId = "4dc3fb91-e63e-4c46-b2e7-1ccd73ae53ff",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3489),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            Rating = (byte)3,
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5"
+                        },
+                        new
+                        {
+                            ReviewId = "3384c96b-eac3-44bf-bc39-829e58311085",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3492),
+                            PostedById = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            Rating = (byte)2,
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5"
+                        },
+                        new
+                        {
+                            ReviewId = "3e41ae4e-fae1-494d-8d20-35ceebe0da9d",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7275),
-                            PostedById = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
-                            Rating = (byte)5,
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3494),
+                            PostedById = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            Rating = (byte)1,
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5"
                         },
                         new
                         {
-                            ReviewId = "8c067857-c323-41af-bf19-5b5199825598",
+                            ReviewId = "ebeb0fb7-77d0-4350-b08d-38a6c077f065",
                             Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7279),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            Rating = (byte)2,
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102"
-                        },
-                        new
-                        {
-                            ReviewId = "5c9f360d-8519-4a5e-a0be-1fc9752a24de",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7282),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3497),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
                             Rating = (byte)3,
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56"
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5"
                         },
                         new
                         {
-                            ReviewId = "5e90af29-4317-4c98-bc83-eca4bf496ca7",
+                            ReviewId = "79863cf8-48c3-43af-be0a-67f3b61f3e35",
                             Comment = "I'm not very satisfied.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7284),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            Rating = (byte)4,
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56"
-                        },
-                        new
-                        {
-                            ReviewId = "53c886f7-41a0-4d6a-b565-2d6e5ff4d19f",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7287),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3500),
+                            PostedById = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
                             Rating = (byte)2,
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56"
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7"
                         },
                         new
                         {
-                            ReviewId = "2c208694-4e83-4c36-8ff5-d040b26bfc7d",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7289),
-                            PostedById = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            Rating = (byte)2,
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56"
-                        },
-                        new
-                        {
-                            ReviewId = "49b02ccf-112c-40ba-96ce-c1a2d0395495",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7292),
-                            PostedById = "5149e113-8855-417f-b888-62718e57ba53",
-                            Rating = (byte)4,
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56"
-                        },
-                        new
-                        {
-                            ReviewId = "a9cc23ad-16ff-48e1-b1f9-dcb99c0e41f3",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7295),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)3,
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb"
-                        },
-                        new
-                        {
-                            ReviewId = "d30459bc-7468-4ea1-ada4-9a2e88a98f67",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7297),
-                            PostedById = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            Rating = (byte)1,
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb"
-                        },
-                        new
-                        {
-                            ReviewId = "eea10bf8-8c33-4d6a-9b0c-fe8362f3377c",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7301),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            Rating = (byte)4,
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb"
-                        },
-                        new
-                        {
-                            ReviewId = "cfb9aef0-ce35-46ca-a3c5-db84218c033c",
+                            ReviewId = "1781f227-56ec-4d6d-9e5f-57a7947a3b1f",
                             Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7304),
-                            PostedById = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            Rating = (byte)1,
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb"
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3502),
+                            PostedById = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            Rating = (byte)4,
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7"
                         },
                         new
                         {
-                            ReviewId = "615b22f1-dc3e-4b95-b1f7-a379c87e0c3a",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7306),
-                            PostedById = "5149e113-8855-417f-b888-62718e57ba53",
-                            Rating = (byte)5,
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb"
+                            ReviewId = "d5be89be-fead-46e8-b12f-022331d23a10",
+                            Comment = "I'm not very satisfied.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3504),
+                            PostedById = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            Rating = (byte)4,
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7"
                         },
                         new
                         {
-                            ReviewId = "a307e6fc-5f5b-440b-8a43-f4f2b4140edc",
+                            ReviewId = "971f9e47-f917-4560-be7d-e264dc2fa96d",
                             Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7309),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3506),
+                            PostedById = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             Rating = (byte)1,
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5"
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7"
                         },
                         new
                         {
-                            ReviewId = "c6408017-0f26-470e-b1df-261fc9bf67d6",
+                            ReviewId = "e20c9605-1702-4597-9a6d-3a248468358b",
                             Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7311),
-                            PostedById = "5149e113-8855-417f-b888-62718e57ba53",
-                            Rating = (byte)4,
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5"
-                        },
-                        new
-                        {
-                            ReviewId = "edd06464-e15e-47be-a9e3-cf75dbf99500",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7313),
-                            PostedById = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            Rating = (byte)5,
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5"
-                        },
-                        new
-                        {
-                            ReviewId = "1329087a-f35f-4f42-b445-3504a022e7a1",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7316),
-                            PostedById = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3508),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
                             Rating = (byte)3,
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5"
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7"
                         },
                         new
                         {
-                            ReviewId = "8866bc33-d00f-4a94-b488-56d08e16c55b",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7318),
-                            PostedById = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            Rating = (byte)4,
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5"
-                        },
-                        new
-                        {
-                            ReviewId = "81ac6e97-8a90-4fbd-8547-e7051d70eb4d",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7323),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            Rating = (byte)1,
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864"
-                        },
-                        new
-                        {
-                            ReviewId = "eb466e2c-7397-4b33-808e-ac51c8cd589b",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7325),
-                            PostedById = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            Rating = (byte)4,
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864"
-                        },
-                        new
-                        {
-                            ReviewId = "6b51a4c2-5ca8-41f4-8ec6-4f7c1931b737",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7327),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
-                            Rating = (byte)2,
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864"
-                        },
-                        new
-                        {
-                            ReviewId = "3f561759-2b3a-4989-a38c-cbd93c2a30fe",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7329),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
-                            Rating = (byte)3,
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864"
-                        },
-                        new
-                        {
-                            ReviewId = "eb8aa50e-c9b3-41e1-9ee1-feb0f534ccce",
+                            ReviewId = "4ea2e03f-4faa-437c-9718-1ce1aea4d6dc",
                             Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7331),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3510),
+                            PostedById = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            Rating = (byte)3,
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935"
+                        },
+                        new
+                        {
+                            ReviewId = "4b25d8f0-ee74-44c6-b6a8-932ebea03d94",
+                            Comment = "I'm not very satisfied.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3512),
+                            PostedById = "f2199f96-9232-4607-a49a-2e10130302e5",
                             Rating = (byte)2,
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864"
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935"
                         },
                         new
                         {
-                            ReviewId = "cec41a49-d8b1-410d-a42c-00f42bca1dab",
-                            Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7334),
-                            PostedById = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            Rating = (byte)1,
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f"
-                        },
-                        new
-                        {
-                            ReviewId = "b19b7cd2-778c-4527-b021-0e178bee535c",
-                            Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7336),
-                            PostedById = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            ReviewId = "5f6ce4ce-3326-48b9-b1e6-0c72709b3140",
+                            Comment = "Excellent!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3516),
+                            PostedById = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
                             Rating = (byte)5,
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f"
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935"
                         },
                         new
                         {
-                            ReviewId = "ad0a7951-7fe6-495d-8044-fed0c4e73ae1",
+                            ReviewId = "b98c5768-8e02-4c38-a9eb-f2ed97ab6dac",
+                            Comment = "Excellent!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3518),
+                            PostedById = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            Rating = (byte)5,
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935"
+                        },
+                        new
+                        {
+                            ReviewId = "88ece764-11d5-4cbf-b613-54f2c2167ee9",
                             Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7338),
-                            PostedById = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3519),
+                            PostedById = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            Rating = (byte)1,
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935"
+                        },
+                        new
+                        {
+                            ReviewId = "0a695230-bb1b-43f4-89a5-0b166226c17e",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3522),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
                             Rating = (byte)2,
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f"
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de"
                         },
                         new
                         {
-                            ReviewId = "19711dd1-e350-4eae-9790-5242d973342d",
+                            ReviewId = "c42b534e-a21f-44ac-8c41-66584b9cd9f9",
                             Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7342),
-                            PostedById = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3524),
+                            PostedById = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            Rating = (byte)3,
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de"
+                        },
+                        new
+                        {
+                            ReviewId = "9ce55a37-00af-4ea9-b2e9-0bb2dffdf763",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3526),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            Rating = (byte)2,
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de"
+                        },
+                        new
+                        {
+                            ReviewId = "38bc9f7f-22ce-458d-a1fa-0ed091fe6603",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3528),
+                            PostedById = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
                             Rating = (byte)4,
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f"
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de"
                         },
                         new
                         {
-                            ReviewId = "bd00b4e9-4cf5-4534-bfac-445f958f661b",
-                            Comment = "Could be better.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7344),
-                            PostedById = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            Rating = (byte)5,
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f"
-                        },
-                        new
-                        {
-                            ReviewId = "a30dbe72-c263-4257-9404-29dcbf680ca2",
+                            ReviewId = "1fff3b23-5536-485a-86b3-fda803dbfd4a",
                             Comment = "I would not recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7347),
-                            PostedById = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            Rating = (byte)5,
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651"
-                        },
-                        new
-                        {
-                            ReviewId = "728a2e18-74e9-4980-95c2-e2ebe1820c07",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7349),
-                            PostedById = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            Rating = (byte)2,
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651"
-                        },
-                        new
-                        {
-                            ReviewId = "51e9b35b-ff20-45a1-aab1-52ef8ad1cb99",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7352),
-                            PostedById = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            Rating = (byte)5,
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651"
-                        },
-                        new
-                        {
-                            ReviewId = "d0d866e8-c9ad-4f84-a1a5-fc811add3bdb",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7354),
-                            PostedById = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3529),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
                             Rating = (byte)3,
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651"
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de"
                         },
                         new
                         {
-                            ReviewId = "a34396fd-13cd-42d2-aced-02d4b548ddfe",
-                            Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7356),
-                            PostedById = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            Rating = (byte)2,
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651"
-                        },
-                        new
-                        {
-                            ReviewId = "7d34d077-035f-43c3-82c9-166e59fbc730",
-                            Comment = "I would recommend this service to anyone.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7358),
-                            PostedById = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            Rating = (byte)3,
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932"
-                        },
-                        new
-                        {
-                            ReviewId = "ffb4e0ea-eb64-4fd3-af09-a33a664bad2e",
-                            Comment = "I had a wonderful experience.",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7362),
-                            PostedById = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
-                            Rating = (byte)3,
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932"
-                        },
-                        new
-                        {
-                            ReviewId = "f82836ba-b8d6-412f-ae41-a441a073878b",
+                            ReviewId = "5a0ecd16-deb4-4dcf-a493-e90689bf811c",
                             Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7365),
-                            PostedById = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3533),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
                             Rating = (byte)5,
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932"
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9"
                         },
                         new
                         {
-                            ReviewId = "03a2a9a4-9e1a-4129-904c-b1da91c2ec32",
+                            ReviewId = "458ba59a-432b-45be-b688-663f735c5fe4",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3535),
+                            PostedById = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            Rating = (byte)5,
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9"
+                        },
+                        new
+                        {
+                            ReviewId = "f63967dc-26d1-4122-ba53-12b0a081f981",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3537),
+                            PostedById = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            Rating = (byte)2,
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9"
+                        },
+                        new
+                        {
+                            ReviewId = "5bb86d47-2a2f-4d9e-aa86-216382410a6b",
                             Comment = "Great service!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7367),
-                            PostedById = "206111c5-e732-4383-862a-659908abb8a0",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3539),
+                            PostedById = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            Rating = (byte)4,
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9"
+                        },
+                        new
+                        {
+                            ReviewId = "2e2bad2c-b916-482e-bea4-60f9d54316e5",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3541),
+                            PostedById = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            Rating = (byte)2,
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9"
+                        },
+                        new
+                        {
+                            ReviewId = "16e88434-b979-42ee-9ceb-2951b0f223e2",
+                            Comment = "I had a wonderful experience.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3543),
+                            PostedById = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            Rating = (byte)3,
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71"
+                        },
+                        new
+                        {
+                            ReviewId = "bcbd070f-ad18-419b-ba61-4d14d62c2c5d",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3545),
+                            PostedById = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            Rating = (byte)5,
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71"
+                        },
+                        new
+                        {
+                            ReviewId = "f205916e-2ccc-4160-b7a3-7e72b4c5f088",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3547),
+                            PostedById = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            Rating = (byte)3,
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71"
+                        },
+                        new
+                        {
+                            ReviewId = "06592032-195f-4392-8dce-08fedcdfb78f",
+                            Comment = "I would not recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3551),
+                            PostedById = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
                             Rating = (byte)1,
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932"
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71"
                         },
                         new
                         {
-                            ReviewId = "32d7966b-8f42-4afa-b9d8-a6e72bc87e4f",
+                            ReviewId = "09a076ac-e97f-4417-b034-e8b25d49f4fb",
+                            Comment = "I'm not very satisfied.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3553),
+                            PostedById = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            Rating = (byte)1,
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71"
+                        },
+                        new
+                        {
+                            ReviewId = "d2f38c91-0819-4f9d-b087-c2384de1b89b",
                             Comment = "Excellent!",
-                            DateCreated = new DateTime(2024, 5, 16, 11, 37, 1, 778, DateTimeKind.Local).AddTicks(7370),
-                            PostedById = "607774ec-e980-4454-998a-a061313f4cfb",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3555),
+                            PostedById = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            Rating = (byte)3,
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a"
+                        },
+                        new
+                        {
+                            ReviewId = "797b5f7b-209b-4386-be08-723282c60cc1",
+                            Comment = "Great service!",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3557),
+                            PostedById = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            Rating = (byte)2,
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a"
+                        },
+                        new
+                        {
+                            ReviewId = "eda0488d-7ef6-47f2-89cd-4c3c739d8410",
+                            Comment = "I'm not very satisfied.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3559),
+                            PostedById = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            Rating = (byte)4,
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a"
+                        },
+                        new
+                        {
+                            ReviewId = "b3d18f69-a486-4962-8707-8a140e13b684",
+                            Comment = "Could be better.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3561),
+                            PostedById = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
                             Rating = (byte)5,
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932"
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a"
+                        },
+                        new
+                        {
+                            ReviewId = "1f89be50-a316-4f79-9892-470869a31bb1",
+                            Comment = "I would recommend this service to anyone.",
+                            DateCreated = new DateTime(2024, 5, 16, 15, 41, 18, 437, DateTimeKind.Local).AddTicks(3563),
+                            PostedById = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            Rating = (byte)4,
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a"
                         });
                 });
 
@@ -1671,11 +1665,11 @@ namespace Swapsha.Api.Shared.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d73920ec-84bc-4476-ba20-a519a5dc231b",
+                            Id = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
                             AccessFailedCount = 0,
                             Bio = "I'm Adam, a cheerful individual with a passion for helping others. My expertise lies in gardening and I'm seeking assistance with bricklaying projects.",
                             CityId = 2,
-                            ConcurrencyStamp = "0bc5f680-4374-405a-a73f-7f80c3803592",
+                            ConcurrencyStamp = "8e6cfd8f-86b1-488f-be44-63631087e978",
                             Email = "test1@example.com",
                             EmailConfirmed = false,
                             FirstName = "Adam",
@@ -1684,20 +1678,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Karl",
                             NormalizedEmail = "TEST1@EXAMPLE.COM",
                             NormalizedUserName = "TEST1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOwUc8A8vdnSZMBhPlpmxXlA5YzX5lxPeB5YMGitSDDUlBEYPMcCPxRoYtHih+qHmA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBL534XFUNSZMhwvWN0wzdKQRQPrPAaeSq4URiWhcG46muke3vZAajF8MZXxs0kIjg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser1/profilepic.jpg",
-                            SecurityStamp = "0a50e216-787c-4f4b-89d9-64cf3b9db128",
+                            SecurityStamp = "93acdbfa-6bdb-4c31-8267-fde0d43de0b8",
                             TwoFactorEnabled = false,
                             UserName = "test1@example.com"
                         },
                         new
                         {
-                            Id = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
+                            Id = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             AccessFailedCount = 0,
                             Bio = "Hello, I'm Adrian. I'm a professional with a diverse skill set, always ready to learn and take on new challenges.",
                             CityId = 5,
-                            ConcurrencyStamp = "04f4d04d-a513-4993-8ac3-29f9f2b6318c",
+                            ConcurrencyStamp = "5859767d-949d-4cc5-a002-518d937f3ede",
                             Email = "test2@example.com",
                             EmailConfirmed = false,
                             FirstName = "Adrian",
@@ -1706,20 +1700,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Nils",
                             NormalizedEmail = "TEST2@EXAMPLE.COM",
                             NormalizedUserName = "TEST2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMXbeDrVdZz6vg64I+ST/CABeGLR79CMn5JUGTInrpTJWDP2O9Ksf2U2pHMdeiwQWg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECzn+FE0nvdEw9nBNviXA+lcyW5ootlODXICmJAfPBJ8ue0ic01h14DGeeJQJ9v8Sw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser2/profilepic.jpg",
-                            SecurityStamp = "da8f2dc4-9129-4644-9a02-488d46fef9f1",
+                            SecurityStamp = "2e994a06-3ad9-49c2-84f8-4e1c81cad2f9",
                             TwoFactorEnabled = false,
                             UserName = "test2@example.com"
                         },
                         new
                         {
-                            Id = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
+                            Id = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
                             AccessFailedCount = 0,
                             Bio = "I'm Fredrik, a dedicated and hardworking individual. I enjoy problem-solving and always strive for excellence in everything I do.",
                             CityId = 8,
-                            ConcurrencyStamp = "f23bfc59-717c-430f-a703-48ccffa19f0e",
+                            ConcurrencyStamp = "6be2fde8-6696-4ad9-ba82-6629e9d12bba",
                             Email = "test3@example.com",
                             EmailConfirmed = false,
                             FirstName = "Fredrik",
@@ -1728,20 +1722,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Johan",
                             NormalizedEmail = "TEST3@EXAMPLE.COM",
                             NormalizedUserName = "TEST3@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL1SOoe63TdzFx+1SChkvSYGJvDrB9C/p2HnXQHNt2TCw3CXvZhJJbKMFhPG+lscVA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPI1KLz0Pr/SwH5KOjfzpP85JuyJ7eWU7s/+qHKD7TDgFMfuEerAaDeIPBiqK1lWLw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser3/profilepic.jpg",
-                            SecurityStamp = "3f449aac-226c-4fdc-93e3-978a0085704a",
+                            SecurityStamp = "f15cf0bf-1d80-43ab-ad59-fcaf39efbd6a",
                             TwoFactorEnabled = false,
                             UserName = "test3@example.com"
                         },
                         new
                         {
-                            Id = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
+                            Id = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
                             AccessFailedCount = 0,
                             Bio = "Hi, I'm Lisa. I'm passionate about continuous learning and improvement. I believe in the power of positivity and hard work.",
                             CityId = 8,
-                            ConcurrencyStamp = "6d282d6b-decc-47c7-8f0b-32f1f6df5882",
+                            ConcurrencyStamp = "815de40e-1f72-4bd6-8605-5a8c63ae9cb7",
                             Email = "test4@example.com",
                             EmailConfirmed = false,
                             FirstName = "Lisa",
@@ -1750,20 +1744,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Caroline",
                             NormalizedEmail = "TEST4@EXAMPLE.COM",
                             NormalizedUserName = "TEST4@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENxzi+TfdSpiJwFVanNdk1vRQoW3ZcmlhsFJnO74zIxhgX7bUa/eKqhxOEQQGHfplA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIj+gdvA/52rqDjuc4sW9mVNNqZy7yNUR7cxl1RJU1pk6CUIDa2CUDJJWUFe95BVQg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser4/profilepic.jpg",
-                            SecurityStamp = "1a9aaf2a-6ed5-4e00-acf9-80fca9168a09",
+                            SecurityStamp = "8e5d9dc3-0a58-4822-909c-94e61d7e5a8f",
                             TwoFactorEnabled = false,
                             UserName = "test4@example.com"
                         },
                         new
                         {
-                            Id = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            Id = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
                             AccessFailedCount = 0,
                             Bio = "I'm Emma, a creative thinker with a knack for finding innovative solutions. I love to explore new ideas and concepts.",
                             CityId = 1,
-                            ConcurrencyStamp = "7cc30b2f-6796-4137-bcac-f4aa240c806c",
+                            ConcurrencyStamp = "f3709d3d-8dfe-43bd-af37-837929187d6f",
                             Email = "test5@example.com",
                             EmailConfirmed = false,
                             FirstName = "Emma",
@@ -1772,20 +1766,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Sofia",
                             NormalizedEmail = "TEST5@EXAMPLE.COM",
                             NormalizedUserName = "TEST5@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPPujZK1WQnyDlwhuL9W3Dn7JLWrPZhtd1KISI0Nse+FxzOiIu8J6pQWmDzgl2pj0A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO5EfuLmT9ZBoi0f+15w5ZNlisuhgD4+htSUT9FqC6qbQFZqsxh67SDdxjyVH4I3rg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser5/profilepic.jpg",
-                            SecurityStamp = "ee896fa4-d26b-43ae-8afd-ac2db2083003",
+                            SecurityStamp = "f266bd3b-b135-4ab7-95f4-b3f9e72c47f8",
                             TwoFactorEnabled = false,
                             UserName = "test5@example.com"
                         },
                         new
                         {
-                            Id = "5149e113-8855-417f-b888-62718e57ba53",
+                            Id = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
                             AccessFailedCount = 0,
                             Bio = "Hello, I'm John. I'm a highly motivated individual with a strong work ethic. I'm always ready to take on new challenges and learn new skills.",
                             CityId = 11,
-                            ConcurrencyStamp = "b9193c4e-b2cd-420f-9f1c-6a9a06bfa5c5",
+                            ConcurrencyStamp = "7098a92e-0ff6-4f12-b221-b53db7f18d41",
                             Email = "test6@example.com",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -1794,20 +1788,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Robert",
                             NormalizedEmail = "TEST6@EXAMPLE.COM",
                             NormalizedUserName = "TEST6@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIG1jxoe1+istj3mjZsCaQ3pv6cnXa+6cliWnNo+1ws2IbtRSLjjqdqZha74u1G0XA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL6o2joQP0SFlHX5Ca+syeHELTBDdweM6i6mmo7cBbMDMLKz67povSc5a2NTc1Hr9Q==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser6/profilepic.jpg",
-                            SecurityStamp = "ef2b8d0b-5a19-4e59-b8fd-d446dd972786",
+                            SecurityStamp = "f3ab9506-bc50-4bb8-b50d-d3e5ad4b818c",
                             TwoFactorEnabled = false,
                             UserName = "test6@example.com"
                         },
                         new
                         {
-                            Id = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
+                            Id = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
                             AccessFailedCount = 0,
                             Bio = "Hi, I'm Alice. I'm a detail-oriented professional who takes pride in producing high-quality work. I'm always eager to learn and grow professionally.",
                             CityId = 10,
-                            ConcurrencyStamp = "0d623f82-57ea-435b-82c2-c140d709afa5",
+                            ConcurrencyStamp = "d2e6a0d4-09cf-4ffd-82bd-57f6a754cfda",
                             Email = "test7@example.com",
                             EmailConfirmed = false,
                             FirstName = "Alice",
@@ -1816,20 +1810,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Grace",
                             NormalizedEmail = "TEST7@EXAMPLE.COM",
                             NormalizedUserName = "TEST7@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECIqyTR+4Kw3afxkqQDy9SE+HB7vhQYCw64TEfx0xGVqlk+b4BYu8QTEJ8WmdwMY9Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED7yB0FLjholBaj5nczCBsZYZuWwJq+W3SAX8xUt4/qXCUwDYrFiLaGfR5+7IrkOcQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser7/profilepic.jpg",
-                            SecurityStamp = "1c69c0db-85ac-4ada-842c-33587e0685c9",
+                            SecurityStamp = "f4455229-875a-469c-a08f-8349a065d9a6",
                             TwoFactorEnabled = false,
                             UserName = "test7@example.com"
                         },
                         new
                         {
-                            Id = "206111c5-e732-4383-862a-659908abb8a0",
+                            Id = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
                             AccessFailedCount = 0,
                             Bio = "I'm Michael, a dedicated professional with a passion for learning. I'm always looking for opportunities to expand my skill set and contribute to a team.",
                             CityId = 9,
-                            ConcurrencyStamp = "53896670-fea1-4b2d-8baf-55970a70cc94",
+                            ConcurrencyStamp = "528c5ec6-53c6-412e-87a7-063e2e1a6858",
                             Email = "test8@example.com",
                             EmailConfirmed = false,
                             FirstName = "Michael",
@@ -1838,20 +1832,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "David",
                             NormalizedEmail = "TEST8@EXAMPLE.COM",
                             NormalizedUserName = "TEST8@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGHsd1c0dsEamgF1wGSWk9v7P4S5Ux4IyHx+8AowOsXtFaMkmBN1evjp5RBPtaFJvg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIe7eDOqT5ns0t1gDHhudmsYV4x0ETMlcS/FtfajdHoTaDchf9RNBe4PQmNEKxU72w==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser8/profilepic.jpg",
-                            SecurityStamp = "6117a9fd-f84f-4745-a3c6-6ff73810aa8d",
+                            SecurityStamp = "74c80b2b-a109-460a-84b3-6f70ed80db07",
                             TwoFactorEnabled = false,
                             UserName = "test8@example.com"
                         },
                         new
                         {
-                            Id = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
+                            Id = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             AccessFailedCount = 0,
                             Bio = "Hello, I'm Emily. I'm a proactive individual with a passion for learning and growth. I'm always looking for ways to improve and take on new challenges.",
                             CityId = 7,
-                            ConcurrencyStamp = "217381a3-ec1b-4e96-8334-ab7dca0522e0",
+                            ConcurrencyStamp = "c53dd6b7-850d-4279-9fa5-9ee4da239ca4",
                             Email = "test9@example.com",
                             EmailConfirmed = false,
                             FirstName = "Emily",
@@ -1860,20 +1854,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Anne",
                             NormalizedEmail = "TEST9@EXAMPLE.COM",
                             NormalizedUserName = "TEST9@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEYREftaJknRU7HEq+tFASrkU+EqJV7CBaotzIdZYypfhCn2sJGfLi/tHIaIhQkW5A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDV3K94ghHfWiJnHxYhot25ox3qkfDL9jUHDqHcNVd4oEtI29532MyAuvYNCX2uLZg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser9/profilepic.jpg",
-                            SecurityStamp = "39e77f46-c345-4b62-a89e-c2a7a3d9a9a4",
+                            SecurityStamp = "e22c943f-65ff-4d10-8089-0b7a4f651e30",
                             TwoFactorEnabled = false,
                             UserName = "test9@example.com"
                         },
                         new
                         {
-                            Id = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
+                            Id = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
                             AccessFailedCount = 0,
                             Bio = "I'm David, a hardworking professional with a passion for excellence. I'm always ready to take on new challenges and learn new skills.",
                             CityId = 13,
-                            ConcurrencyStamp = "c7d57a5e-b8d0-4e59-8bff-fbb69a759419",
+                            ConcurrencyStamp = "33e20a90-afea-485c-b118-64137f7ae9f0",
                             Email = "test10@example.com",
                             EmailConfirmed = false,
                             FirstName = "David",
@@ -1882,20 +1876,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Paul",
                             NormalizedEmail = "TEST10@EXAMPLE.COM",
                             NormalizedUserName = "TEST10@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGSddIeZYbccoB0YPihzF+IUzyNQ+Vyh12UeDnH4e6Rgxlwe52vh7nhJZZgGlSpKhw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH9Jox8rTTW95a4hFt3Kuq08sXPrZ7ge4zw/iERVxdykcAGcynbuUbkkV91KIE/ayA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser10/profilepic.jpg",
-                            SecurityStamp = "cf538273-d72c-486d-8e34-3556b89ea513",
+                            SecurityStamp = "96e434cb-23e7-4829-9e48-f120432883f0",
                             TwoFactorEnabled = false,
                             UserName = "test10@example.com"
                         },
                         new
                         {
-                            Id = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
+                            Id = "accbc71e-960c-4f9a-880d-d660ac645105",
                             AccessFailedCount = 0,
                             Bio = "Hi, I'm Sarah. I'm a dedicated professional with a passion for learning. I'm always looking for opportunities to expand my skill set and contribute to a team.",
                             CityId = 12,
-                            ConcurrencyStamp = "1eb85e99-94e9-4958-8c0b-abb354e21994",
+                            ConcurrencyStamp = "1a9654b0-7353-4b9a-9db6-e82c17d8b3f1",
                             Email = "test11@example.com",
                             EmailConfirmed = false,
                             FirstName = "Sarah",
@@ -1904,20 +1898,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Jane",
                             NormalizedEmail = "TEST11@EXAMPLE.COM",
                             NormalizedUserName = "TEST11@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM6S40h3UK7ttzw4zBntoAySaoAcbvN1Fily2a0MRalWRKqTLdn2KHG/wDCtGhrYWQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELHXR/6fk3oJ0/ZiNNvj9aw6udGfoeUG6z7V3Pp07KQcIusL8rlapV5yIiXVLZFf4g==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser11/profilepic.jpg",
-                            SecurityStamp = "8acce759-9bc7-450c-a7a1-d3621829f153",
+                            SecurityStamp = "9f925fcc-f490-4cec-bfcf-d6a0a26bbc19",
                             TwoFactorEnabled = false,
                             UserName = "test11@example.com"
                         },
                         new
                         {
-                            Id = "8887df59-e1a1-4601-8a37-6804053c3102",
+                            Id = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
                             AccessFailedCount = 0,
                             Bio = "I'm Daniel, a motivated individual with a strong work ethic. I'm always ready to take on new challenges and learn new skills.",
                             CityId = 14,
-                            ConcurrencyStamp = "25e1bf45-6493-49f4-9283-e65c84dffb20",
+                            ConcurrencyStamp = "42a0c9c8-6cb2-4e20-868a-0938036db61c",
                             Email = "test12@example.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -1926,20 +1920,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Carlos",
                             NormalizedEmail = "TEST12@EXAMPLE.COM",
                             NormalizedUserName = "TEST12@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHnxMuUxpk4UFPYFJKk3qBrTykWkkWxH1btCW9tWVeLOkPzrBV4n9vdw36ycRuzdfg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAFpN2ZHgarTn5TKl3T/gvq5m1dvtsQjYzonnVvhUl35pRMw+RPiEax+Q87ES79cfA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser12/profilepic.jpg",
-                            SecurityStamp = "52b56dec-3778-4756-b4a0-b65ba4eb76fd",
+                            SecurityStamp = "b633b725-bbd2-4828-92df-4ef5a842e9df",
                             TwoFactorEnabled = false,
                             UserName = "test12@example.com"
                         },
                         new
                         {
-                            Id = "9b67880c-9a18-4a86-83eb-6a062c340b56",
+                            Id = "f2199f96-9232-4607-a49a-2e10130302e5",
                             AccessFailedCount = 0,
                             Bio = "Hello, I'm Olivia. I'm a detail-oriented professional who takes pride in producing high-quality work. I'm always eager to learn and grow professionally.",
                             CityId = 15,
-                            ConcurrencyStamp = "d8c8d567-3277-47e3-8621-c3b0f99a0629",
+                            ConcurrencyStamp = "ec027163-f632-4a7d-b25f-e9a4122b13d6",
                             Email = "test13@example.com",
                             EmailConfirmed = false,
                             FirstName = "Olivia",
@@ -1948,20 +1942,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Maria",
                             NormalizedEmail = "TEST13@EXAMPLE.COM",
                             NormalizedUserName = "TEST13@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELrTYmHGYjtAkFMn67yJTT98JAJa9iPHA5sBd0S+Q+O3l1R8M0hb/FDwVvXu5CK2Jw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPeoy0WRic35AgRHlZCjCWRjLchj7VB7ubJkerzki67kzP0v8y4tAxkL+cbHF1gvQQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser13/profilepic.jpg",
-                            SecurityStamp = "804c9f2a-2eff-4a06-87ce-b4327df883ab",
+                            SecurityStamp = "eeac7b10-409f-47a6-81f5-6f214b04a6dd",
                             TwoFactorEnabled = false,
                             UserName = "test13@example.com"
                         },
                         new
                         {
-                            Id = "607774ec-e980-4454-998a-a061313f4cfb",
+                            Id = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
                             AccessFailedCount = 0,
                             Bio = "I'm William, a dedicated professional with a passion for learning. I'm always looking for opportunities to expand my skill set and contribute to a team.",
                             CityId = 16,
-                            ConcurrencyStamp = "04efd449-23e8-40f2-b0bb-f2ff1e2ff0b1",
+                            ConcurrencyStamp = "735fe442-0950-4a90-8418-ddf74e4c8ffc",
                             Email = "test14@example.com",
                             EmailConfirmed = false,
                             FirstName = "William",
@@ -1970,20 +1964,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Alexander",
                             NormalizedEmail = "TEST14@EXAMPLE.COM",
                             NormalizedUserName = "TEST14@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDgHngxMdAzkoazZP8/a3myclIeSGNrcZaBaKJiSgXzzds4l5zfAoyK57CP9aezr9Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBR5kmkmxTblbxzRJ8DfqnWzfHJ0dOY2cBd1zWjGLpx5w6KpjvxDbXhLE4exa/KydA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser14/profilepic.jpg",
-                            SecurityStamp = "13054242-7a56-4b15-9d41-ac3914ee676f",
+                            SecurityStamp = "ef1a637c-d87f-45c2-8aae-f1222c3cc1b7",
                             TwoFactorEnabled = false,
                             UserName = "test14@example.com"
                         },
                         new
                         {
-                            Id = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
+                            Id = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
                             AccessFailedCount = 0,
                             Bio = "Hi, I'm Ethan. I'm a proactive individual with a passion for learning and growth. I'm always looking for ways to improve and take on new challenges.",
                             CityId = 5,
-                            ConcurrencyStamp = "ad23814a-97bc-4203-bf24-6b86e3609fe8",
+                            ConcurrencyStamp = "15f78c58-9515-4d4f-8f55-986cdccf588f",
                             Email = "test15@example.com",
                             EmailConfirmed = false,
                             FirstName = "Ethan",
@@ -1992,20 +1986,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Gabriel",
                             NormalizedEmail = "TEST15@EXAMPLE.COM",
                             NormalizedUserName = "TEST15@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAWG9f+EjM7knIJqJqhltyFQhOdsXO0mPOHa9FI+P2Tz5O/Cst2dWo+qXIhTisOcPA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGIVEtmob6aLUqrLAqn1c3jrJ5NUVz9qcAZu0fczuXb199qYqILXE+06EW9ZWd4Dmw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser15/profilepic.jpg",
-                            SecurityStamp = "aeb1c74a-fd7a-4e00-a46e-1de76339ca20",
+                            SecurityStamp = "472733eb-f22a-4bb3-a5dc-d008db42b5e9",
                             TwoFactorEnabled = false,
                             UserName = "test15@example.com"
                         },
                         new
                         {
-                            Id = "1dadb75e-85a3-41c2-9415-68715f0eb864",
+                            Id = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
                             AccessFailedCount = 0,
                             Bio = "I'm James, a hardworking professional with a passion for excellence. I'm always ready to take on new challenges and learn new skills.",
                             CityId = 3,
-                            ConcurrencyStamp = "0d2590a5-8b60-417b-a9df-5ddda8a14957",
+                            ConcurrencyStamp = "d5fb4bd4-1a1f-435f-86a5-231b94c6f5a0",
                             Email = "test16@example.com",
                             EmailConfirmed = false,
                             FirstName = "James",
@@ -2014,20 +2008,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Andrew",
                             NormalizedEmail = "TEST16@EXAMPLE.COM",
                             NormalizedUserName = "TEST16@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC/d7pbZfGjD1gjg9QiQI8PIKTbQ82klMet6HZuopLUyqQnMsSSEmM/3JBUs2TEN+Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHZ+Z9jgXFJMEHm6Mw4niCwXZkvhrJpnYGLg6qNYCP6IANYgrvS93qi6TaOaUxO07A==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser16/profilepic.jpg",
-                            SecurityStamp = "4dd8b1be-ae53-42f2-9097-b53d5f1fb0f9",
+                            SecurityStamp = "499fe322-5d23-4e66-bd92-0ad358562661",
                             TwoFactorEnabled = false,
                             UserName = "test16@example.com"
                         },
                         new
                         {
-                            Id = "465881e1-59cc-4f73-839e-69205eeadf7f",
+                            Id = "ff26cc45-87e6-489c-b403-4989f248fbd9",
                             AccessFailedCount = 0,
                             Bio = "Hello, I'm Benjamin. I'm a motivated individual with a strong work ethic. I'm always ready to take on new challenges and learn new skills.",
                             CityId = 1,
-                            ConcurrencyStamp = "ba6e1db0-e3ba-49e4-9e7b-6640cbb927fb",
+                            ConcurrencyStamp = "91207f88-5b7c-4a61-b179-301ca0d5a6ed",
                             Email = "test17@example.com",
                             EmailConfirmed = false,
                             FirstName = "Benjamin",
@@ -2036,20 +2030,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Joseph",
                             NormalizedEmail = "TEST17@EXAMPLE.COM",
                             NormalizedUserName = "TEST17@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHUElxq1uvwJrzpk8HLyV9okcSF2B2orjJo+rCkT3NuUb7BrrS9XCL5LaFrUG8fMqg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELFb00V3R1/+4ULCU0eP6ecezS059p8Go5d+/1JYWyXPXZajaoKLdqpDqPwDhaC9iA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser17/profilepic.jpg",
-                            SecurityStamp = "f2014235-79c4-4174-a5ab-827253f96196",
+                            SecurityStamp = "e181c340-8ba4-4adc-ae1d-12044fc7e629",
                             TwoFactorEnabled = false,
                             UserName = "test17@example.com"
                         },
                         new
                         {
-                            Id = "c533144b-2b33-403f-b0bc-22fa1f898651",
+                            Id = "9eca72d8-a394-43a3-be5b-34729f06ed71",
                             AccessFailedCount = 0,
                             Bio = "I'm Sophia, a detail-oriented professional who takes pride in producing high-quality work. I'm always eager to learn and grow professionally.",
                             CityId = 9,
-                            ConcurrencyStamp = "ad1b6356-1f33-4f7e-8a35-89bfd1270ba6",
+                            ConcurrencyStamp = "b45bc593-bf06-4b81-8b5a-dd15625c04d3",
                             Email = "test18@example.com",
                             EmailConfirmed = false,
                             FirstName = "Sophia",
@@ -2058,20 +2052,20 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Isabella",
                             NormalizedEmail = "TEST18@EXAMPLE.COM",
                             NormalizedUserName = "TEST18@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPJwZV2AzNcvLDZw62PB0rUbghXftwoJZes/166s6zi7mVlvbp3SKWDd7D1J+TobJg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECP9JqnsyVt74XU1KcDifLFVaBiHucCf90M6KwoMaezslWU+sEivTmgGmrEO2WeEDg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser18/profilepic.jpg",
-                            SecurityStamp = "dd38b49a-cce8-47e4-85e1-e6c1f3c60cf0",
+                            SecurityStamp = "9855800a-caf0-4899-91d7-a98b4d943ca2",
                             TwoFactorEnabled = false,
                             UserName = "test18@example.com"
                         },
                         new
                         {
-                            Id = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            Id = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
                             AccessFailedCount = 0,
                             Bio = "Hi, I'm Mia. I'm a dedicated professional with a passion for learning. I'm always looking for opportunities to expand my skill set and contribute to a team.",
                             CityId = 11,
-                            ConcurrencyStamp = "f5a87877-b98c-4d5a-af9a-dd4318235c08",
+                            ConcurrencyStamp = "d9bfa245-fe30-41a9-aef5-4689f7f655ef",
                             Email = "test19@example.com",
                             EmailConfirmed = false,
                             FirstName = "Mia",
@@ -2080,10 +2074,10 @@ namespace Swapsha.Api.Shared.Data.Migrations
                             MiddleName = "Sophia",
                             NormalizedEmail = "TEST19@EXAMPLE.COM",
                             NormalizedUserName = "TEST19@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAXRHbFEKwEBZxiLJ7ykgOb6dUT0DOD1rKDatpT+6OEWFtr5Ndd4nnA0dug10n/QYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOn5tAgdfJTIlkmzJD3KdTDHVrBJl23sFxdaPRXFf4EefSnXzmt7aDl8IrDgsNyHyg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://swapshastorage.blob.core.windows.net/seeduser19/profilepic.jpg",
-                            SecurityStamp = "8eab3edb-7b52-421e-923a-a43bcda55b40",
+                            SecurityStamp = "4b041c2b-2729-4f52-9002-fee6b750a15f",
                             TwoFactorEnabled = false,
                             UserName = "test19@example.com"
                         });
@@ -2106,423 +2100,413 @@ namespace Swapsha.Api.Shared.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 2
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            SkillId = 13
                         },
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 10
-                        },
-                        new
-                        {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 12
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
                             SkillId = 4
                         },
                         new
                         {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
                             SkillId = 1
                         },
                         new
                         {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
                             SkillId = 10
                         },
                         new
                         {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            SkillId = 11
+                        },
+                        new
+                        {
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            SkillId = 7
+                        },
+                        new
+                        {
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 12
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 11
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            SkillId = 12
+                        },
+                        new
+                        {
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
                             SkillId = 5
                         },
                         new
                         {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            SkillId = 12
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            SkillId = 6
                         },
                         new
                         {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
                             SkillId = 13
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
                             SkillId = 1
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 15
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
                             SkillId = 5
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
-                            SkillId = 2
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
+                            SkillId = 15
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             SkillId = 7
                         },
                         new
                         {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             SkillId = 6
                         },
                         new
                         {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             SkillId = 11
                         },
                         new
                         {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 12
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            SkillId = 4
                         },
                         new
                         {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
                             SkillId = 3
                         },
                         new
                         {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 1
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            SkillId = 7
                         },
                         new
                         {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            SkillId = 15
-                        },
-                        new
-                        {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
                             SkillId = 17
                         },
                         new
                         {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            SkillId = 11
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            SkillId = 15
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
                             SkillId = 9
                         },
                         new
                         {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 3
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            SkillId = 5
                         },
                         new
                         {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 9
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            SkillId = 6
                         },
                         new
                         {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
                             SkillId = 10
                         },
                         new
                         {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 15
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            SkillId = 3
                         },
                         new
                         {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            SkillId = 12
-                        },
-                        new
-                        {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
                             SkillId = 8
                         },
                         new
                         {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
                             SkillId = 17
                         },
                         new
                         {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 12
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
                             SkillId = 1
                         },
                         new
                         {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 11
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            SkillId = 3
                         },
                         new
                         {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 7
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            SkillId = 13
                         },
                         new
                         {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
                             SkillId = 17
                         },
                         new
                         {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
                             SkillId = 6
                         },
                         new
                         {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
                             SkillId = 11
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
                             SkillId = 6
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            SkillId = 3
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 5
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            SkillId = 7
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 8
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 15
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 12
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
                             SkillId = 13
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
                             SkillId = 4
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 10
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 14
                         });
                 });
 
@@ -2543,419 +2527,439 @@ namespace Swapsha.Api.Shared.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 15
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            SkillId = 1
                         },
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 3
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            SkillId = 14
                         },
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
-                            SkillId = 12
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            SkillId = 17
                         },
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
                             SkillId = 2
                         },
                         new
                         {
-                            UserId = "d73920ec-84bc-4476-ba20-a519a5dc231b",
+                            UserId = "cb94b014-9c22-4fc8-9191-8acccbbde6c9",
+                            SkillId = 12
+                        },
+                        new
+                        {
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             SkillId = 16
                         },
                         new
                         {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             SkillId = 11
                         },
                         new
                         {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 15
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "12f3e5cb-a517-4d45-bad5-717c09c6dc88",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            UserId = "4bdd9bda-fe19-48e1-97bf-3d206cc5c6a2",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "30069b0f-73c6-45b1-a528-e3f4fd05c5e5",
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             SkillId = 10
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
                             SkillId = 12
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "7219fd7d-7f03-48e4-b0fc-608edf748997",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "94821a96-8cda-43dd-9489-741fe0aa6ba2",
                             SkillId = 7
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
                             SkillId = 8
                         },
                         new
                         {
-                            UserId = "033fd7a2-dcd4-4016-b7a5-17e846ee42bf",
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "45fc2467-b141-45c3-98d7-f2b08eaa6c23",
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 10
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            UserId = "dd66ee6f-7551-4088-80eb-764c8e3aaf51",
+                            SkillId = 7
+                        },
+                        new
+                        {
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
                             SkillId = 11
                         },
                         new
                         {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 5
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
+                            SkillId = 9
                         },
                         new
                         {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
                             SkillId = 8
                         },
                         new
                         {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "5149e113-8855-417f-b888-62718e57ba53",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "01fb7ddb-1de0-428b-ba0f-204099a6d1c1",
-                            SkillId = 15
-                        },
-                        new
-                        {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "206111c5-e732-4383-862a-659908abb8a0",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            UserId = "6aaafa7c-3bb3-42a7-977c-d9c1bdde6973",
+                            UserId = "665cc649-9aa5-48d0-afb6-edac41e0c4cd",
                             SkillId = 16
                         },
                         new
                         {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
                             SkillId = 1
                         },
                         new
                         {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
                             SkillId = 2
                         },
                         new
                         {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
+                            UserId = "79f3bc0a-93b7-4f7e-a79d-8dd893b859b5",
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
                             SkillId = 11
                         },
                         new
                         {
-                            UserId = "e5f23d6b-b1dc-47be-a1b9-d43c60c79ee5",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
                             SkillId = 12
                         },
                         new
                         {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
+                            UserId = "51ee0a09-b2e7-45e0-a5f0-c551a8d45c1f",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             SkillId = 8
                         },
                         new
                         {
-                            UserId = "6a17c85a-4199-4103-9ad3-e60ed11ac8a3",
-                            SkillId = 5
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
+                            SkillId = 12
                         },
                         new
                         {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 9
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
+                            SkillId = 7
                         },
                         new
                         {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "8887df59-e1a1-4601-8a37-6804053c3102",
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
+                            UserId = "4dd5e1d5-ec1c-4a69-b17b-ed3554ffb930",
                             SkillId = 10
                         },
                         new
                         {
-                            UserId = "9b67880c-9a18-4a86-83eb-6a062c340b56",
-                            SkillId = 1
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            SkillId = 16
                         },
                         new
                         {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            UserId = "607774ec-e980-4454-998a-a061313f4cfb",
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
                             SkillId = 9
                         },
                         new
                         {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            UserId = "9802c454-61c5-4ebf-8fa2-78be959fb7d5",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            UserId = "1dadb75e-85a3-41c2-9415-68715f0eb864",
-                            SkillId = 12
-                        },
-                        new
-                        {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
-                            SkillId = 15
-                        },
-                        new
-                        {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
                             SkillId = 13
                         },
                         new
                         {
-                            UserId = "465881e1-59cc-4f73-839e-69205eeadf7f",
+                            UserId = "a6100bfc-ca75-423a-8e22-fe66700c9d7c",
+                            SkillId = 10
+                        },
+                        new
+                        {
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "accbc71e-960c-4f9a-880d-d660ac645105",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            SkillId = 10
+                        },
+                        new
+                        {
+                            UserId = "c6ecbe10-e8d9-4249-b789-baf3c8cf0ecc",
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 11
+                        },
+                        new
+                        {
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 15
+                        },
+                        new
+                        {
+                            UserId = "f2199f96-9232-4607-a49a-2e10130302e5",
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            UserId = "35f6fe63-bf8f-4bac-ada1-c4562cc7a5d7",
+                            SkillId = 15
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 15
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
+                            SkillId = 12
+                        },
+                        new
+                        {
+                            UserId = "ac131c35-26b3-498b-b3f4-ca3eb3942935",
                             SkillId = 3
                         },
                         new
                         {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
                             SkillId = 10
                         },
                         new
                         {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            SkillId = 12
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            SkillId = 17
                         },
                         new
                         {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            SkillId = 6
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            SkillId = 8
                         },
                         new
                         {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
-                            SkillId = 15
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
+                            SkillId = 9
                         },
                         new
                         {
-                            UserId = "c533144b-2b33-403f-b0bc-22fa1f898651",
+                            UserId = "04dfc8fb-c004-4814-a7d5-6ad1512ce5de",
                             SkillId = 16
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
                             SkillId = 5
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
-                            SkillId = 13
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 12
                         },
                         new
                         {
-                            UserId = "9573a539-6fe7-4fc2-8c07-97e894155932",
+                            UserId = "ff26cc45-87e6-489c-b403-4989f248fbd9",
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
                             SkillId = 6
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            SkillId = 15
+                        },
+                        new
+                        {
+                            UserId = "9eca72d8-a394-43a3-be5b-34729f06ed71",
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            UserId = "e42ee470-a376-4580-bf09-9bbf3ed9ff0a",
+                            SkillId = 10
                         });
+                });
+
+            modelBuilder.Entity("CustomUserCustomUser", b =>
+                {
+                    b.HasOne("Swapsha.Api.Features.Users.Models.CustomUser", null)
+                        .WithMany()
+                        .HasForeignKey("ContactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Swapsha.Api.Features.Users.Models.CustomUser", null)
+                        .WithMany()
+                        .HasForeignKey("CustomUserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -3007,25 +3011,6 @@ namespace Swapsha.Api.Shared.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Swapsha.Api.Features.Contacts.Models.Contact", b =>
-                {
-                    b.HasOne("Swapsha.Api.Features.Users.Models.CustomUser", "User1")
-                        .WithMany("Contacts")
-                        .HasForeignKey("User1Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Swapsha.Api.Features.Users.Models.CustomUser", "User2")
-                        .WithMany()
-                        .HasForeignKey("User2Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User1");
-
-                    b.Navigation("User2");
                 });
 
             modelBuilder.Entity("Swapsha.Api.Features.Contacts.Models.ContactRequest", b =>
@@ -3141,8 +3126,6 @@ namespace Swapsha.Api.Shared.Data.Migrations
 
             modelBuilder.Entity("Swapsha.Api.Features.Users.Models.CustomUser", b =>
                 {
-                    b.Navigation("Contacts");
-
                     b.Navigation("PostedReviews");
 
                     b.Navigation("ReceivedRequests");
