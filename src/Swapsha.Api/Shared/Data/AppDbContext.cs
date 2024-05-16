@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data.Seed;
+using Swapsha.Api.Features.Contacts.Models;
 using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Features.Skills.Models;
 using Swapsha.Api.Features.Skills.Seed;
@@ -23,6 +24,8 @@ public class AppDbContext : IdentityDbContext<CustomUser>
     public DbSet<UserWantedSkill> UserWantedSkills { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
+    public DbSet<ContactRequest> ContactRequests { get; set; }
 
    protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -35,6 +38,8 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         ConfigureSkillEntity(builder);
         ConfigureCityEntity(builder);
         ConfigureSubSkillEntity(builder);
+        ConfigureContactEntity(builder);
+        ConfigureContactRequestEntity(builder);
 
         SeedData(builder);
     }
@@ -141,7 +146,42 @@ public class AppDbContext : IdentityDbContext<CustomUser>
             .HasMany(u => u.Reviews)
             .WithOne(r => r.User)
             .HasForeignKey(r => r.UserId);
+    }
 
+    private void ConfigureContactEntity(ModelBuilder builder)
+    {
+        builder.Entity<Contact>()
+            .HasKey(c => new { c.User1Id, c.User2Id });
+
+        builder.Entity<Contact>()
+            .HasOne(c => c.User1)
+            .WithMany(u => u.Contacts)
+            .HasForeignKey(c => c.User1Id)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Entity<Contact>()
+            .HasOne(c => c.User2)
+            .WithMany()
+            .HasForeignKey(c => c.User2Id)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+
+    private void ConfigureContactRequestEntity(ModelBuilder builder)
+    {
+        builder.Entity<ContactRequest>()
+            .HasKey(cr => cr.ContactRequestId);
+
+        builder.Entity<ContactRequest>()
+            .HasOne(cr => cr.Sender)
+            .WithMany(u => u.SentRequests)
+            .HasForeignKey(cr => cr.SenderId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Entity<ContactRequest>()
+            .HasOne(cr => cr.Receiver)
+            .WithMany(u => u.ReceivedRequests)
+            .HasForeignKey(cr => cr.ReceiverId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
     private void ConfigureReviewEntity(ModelBuilder builder)

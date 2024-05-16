@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Swapsha.Api.Features.Contacts.Models;
 using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Shared.Models;
 
@@ -27,4 +28,10 @@ public class CustomUser : IdentityUser
     public ICollection<UserSkill> UserSkills { get; } = [];
 
     public ICollection<UserWantedSkill> UserWantedSkills { get; } = [];
+
+    public ICollection<Contact> Contacts { get; } = [];
+
+    public ICollection<ContactRequest> SentRequests { get; } = [];
+
+    public ICollection<ContactRequest> ReceivedRequests { get; } = [];
 }
