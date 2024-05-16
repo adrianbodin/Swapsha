@@ -27,17 +27,17 @@ public static class UserUtils
         };
     }
 
-    internal static PostFirstNameRequest ValidFirstNameDto()
+    internal static UpdateFirstNameRequest ValidFirstNameDto()
     {
-        return new PostFirstNameRequest
+        return new UpdateFirstNameRequest
         {
             FirstName = "Adrian"
         };
     }
 
-    internal static PostFirstNameRequest InvalidFirstNameDto()
+    internal static UpdateFirstNameRequest InvalidFirstNameDto()
     {
-        return new PostFirstNameRequest
+        return new UpdateFirstNameRequest
         {
             FirstName = ""
         };
