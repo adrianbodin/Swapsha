@@ -9,9 +9,9 @@ public class GetReviewsTests(ApiFactory factory) : BaseTest(factory)
     [Fact]
     public async Task OK_When_Reviews_Found()
     {
-        var validUser = await GetValidUser(_client);
+        var validUser = await GetValidUser(client);
 
-        var response = await _client.GetAsync($"api/v1/users/{validUser.UserId}/reviews");
+        var response = await client.GetAsync($"api/v1/users/{validUser.UserId}/reviews");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
@@ -21,7 +21,7 @@ public class GetReviewsTests(ApiFactory factory) : BaseTest(factory)
     {
         var randomUserId = Guid.NewGuid().ToString();
 
-        var response = await _client.GetAsync($"api/v1/users/{randomUserId}/reviews");
+        var response = await client.GetAsync($"api/v1/users/{randomUserId}/reviews");
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
