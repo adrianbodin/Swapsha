@@ -14,7 +14,7 @@ public class UpdateFirstNameTests(ApiFactory factory) : BaseTest(factory)
     {
         var randomGuid = Guid.NewGuid().ToString();
         //Act
-        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
+        var response = await client.PatchAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -25,11 +25,10 @@ public class UpdateFirstNameTests(ApiFactory factory) : BaseTest(factory)
     public async Task OK_When_Authenticated()
     {
         // Arrange
-        var validUser = await GetValidUser(_client);
-        await AuthenticateUser(_client, validUser);
+        var validUser = await AuthenticateUser();
 
         //Act
-        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", ValidFirstNameDto());
+        var response = await client.PatchAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -39,11 +38,10 @@ public class UpdateFirstNameTests(ApiFactory factory) : BaseTest(factory)
     public async Task BadRequest_When_Invalid_Data()
     {
         // Arrange
-        var validUser = await GetValidUser(_client);
-        await AuthenticateUser(_client, validUser);
+        var validUser = await AuthenticateUser();
 
         //Act
-        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", InvalidFirstNameDto());
+        var response = await client.PatchAsJsonAsync($"/api/v1/users/{validUser.UserId}/firstname", InvalidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -54,11 +52,10 @@ public class UpdateFirstNameTests(ApiFactory factory) : BaseTest(factory)
     {
         // Arrange
         var randomGuid = Guid.NewGuid().ToString();
-        var validUser = await GetValidUser(_client);
-        await AuthenticateUser(_client, validUser);
+        await AuthenticateUser();
 
         //Act
-        var response = await _client.PatchAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
+        var response = await client.PatchAsJsonAsync($"/api/v1/users/{randomGuid}/firstname", ValidFirstNameDto());
 
         //Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);

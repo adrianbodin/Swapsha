@@ -22,7 +22,8 @@ public class SkillEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Gets all skills",
         Description = "Get all skills and its subskills.",
-        OperationId = "GetAllSkills")]
+        OperationId = "GetAllSkills",
+        Tags = ["Skills"])]
     [SwaggerResponse(200, "Returns a list of SkillDto objects", typeof(IEnumerable<SkillDto>))]
     [SwaggerResponse(404, "The skills could not be found")]
     [SwaggerResponse(500, "An error occurred while retrieving the skills")]
@@ -39,7 +40,8 @@ public class SkillEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Get a skill by its id",
         Description = "Get a skill by its it and its subskills.",
-        OperationId = "GetSkillById")]
+        OperationId = "GetSkillById",
+        Tags = ["Skills"])]
     [SwaggerResponse(200, "Returns a SkillDto object", typeof(SkillDto))]
     [SwaggerResponse(400, "The id has to be more than 1")]
     [SwaggerResponse(404, "The skill with the Id:{id} could not be found")]

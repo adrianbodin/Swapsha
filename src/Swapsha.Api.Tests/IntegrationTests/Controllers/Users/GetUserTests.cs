@@ -12,9 +12,9 @@ public class GetUserTests(ApiFactory factory) : BaseTest(factory)
     [Fact]
     public async Task OK_When_Getting_User()
     {
-        var validUser = await GetValidUser(_client);
+        var validUser = await GetValidUser(client);
 
-        var response = await _client.GetAsync($"/api/v1/users/{validUser.UserId}");
+        var response = await client.GetAsync($"/api/v1/users/{validUser.UserId}");
         var userResponse = await response.Content.ReadFromJsonAsync<GetUserResponse>();
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -27,7 +27,7 @@ public class GetUserTests(ApiFactory factory) : BaseTest(factory)
     {
         var randomGuid = new Guid().ToString();
 
-        var response = await _client.GetAsync($"/api/v1/users/{randomGuid}");
+        var response = await client.GetAsync($"/api/v1/users/{randomGuid}");
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }

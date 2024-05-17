@@ -16,7 +16,8 @@ public class IdentityEndpoints : ControllerBase
         Summary = "Logs out the user from the application",
         Description = @"This endpoint logs out the user, it remove the 
                         httponly cookie from the client",
-        OperationId = "Logout")]
+        OperationId = "Logout",
+        Tags = ["Identity"])]
     [SwaggerResponse(200, "If the cookie was deleted")]
     #endregion
     public async Task<IActionResult> Logout()

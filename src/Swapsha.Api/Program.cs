@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
+using Swapsha.Api.Features.Contacts.Services;
 using Swapsha.Api.Features.Reviews.Services;
 using Swapsha.Api.Features.Skills.Services;
 using Swapsha.Api.Features.Users.Models;
@@ -35,6 +36,7 @@ builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IImageService, ImageService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
@@ -119,7 +121,8 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.MapGroup("/api/v1/identity")
-    .MapIdentityApi<CustomUser>();
+    .MapIdentityApi<CustomUser>()
+    .WithTags("Identity");
 
 app.UseAuthorization();
 app.Run();

@@ -32,10 +32,10 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Get all users",
         Description = "Get all users and their skills and wanted skills, paginated",
-        OperationId = "GetAllUsers")]
+        OperationId = "GetAllUsers",
+        Tags = ["Users"])]
     [SwaggerResponse(200, "Returns a paginated response of GetAllUsersResponse objects")]
     [SwaggerResponse(500, "If there was a internal server error")]
-
     #endregion
     [HttpGet]
     public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers([FromQuery]GetAllUsersRequest request)
@@ -48,9 +48,11 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Get a specific user",
         Description = "Get a specific user based on the id in the route",
-        OperationId = "GetUser")]
+        OperationId = "GetUser",
+        Tags = ["Users"])]
     [SwaggerResponse(200, "Returns a GetUserResponse object if the operation was successful")]
     [SwaggerResponse(404, "If the user could not be found from the id passed")]
+    [SwaggerResponse(400, "If the id passed was not a valid Guid")]
     #endregion
     [HttpGet("{id}")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
@@ -60,20 +62,21 @@ public class UserEndpoints : ControllerBase
         return Ok(response);
     }
 
-    [Authorize]
-    [HttpPost("{id}/names")]
-    [TypeFilter(typeof(ValidGuidFilterAttribute))]
-    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Add user names",
         Description = "Add the firstname, middlename, and lastname to the user.",
-        OperationId = "PostNames")]
+        OperationId = "PostNames",
+        Tags = ["Users"])]
     [SwaggerResponse(200, "The user names have been updated")]
     [SwaggerResponse(400, "The user names could not be updated")]
     [SwaggerResponse(401, "You are not authorized to perform this action")]
     [SwaggerResponse(500, "An error occurred while adding the user names")]
     #endregion
+    [Authorize]
+    [HttpPost("{id}/names")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     public async Task<IActionResult> PostNames([FromBody] PostNamesRequest request, string id)
     {
         var user = HttpContext.Items["User"] as CustomUser;
@@ -83,7 +86,6 @@ public class UserEndpoints : ControllerBase
         user.LastName = request.LastName;
 
         var result = await _userManager.UpdateAsync(user);
-
 
         return result.Succeeded
             ? Ok()
@@ -96,9 +98,11 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Get names for a specific user",
         Description = "Get firstname, middlename and lastname from the userid passed as the route parameter",
-        OperationId = "GetNames")]
+        OperationId = "GetNames",
+        Tags = ["Users"])]
     [SwaggerResponse(200, "Returning the names if the operation was successful")]
     [SwaggerResponse(404, "The user could not be found from the id passed")]
+    [SwaggerResponse(400, "If the id passed was not a valid Guid")]
     #endregion
     public async Task<ActionResult<GetNamesResponse>> GetNames(string id)
     {
@@ -112,9 +116,11 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Get the firstname of a specific user",
         Description = "Gets the firstname of a specific user based on the id in the route",
-        OperationId = "GetFirstName")]
+        OperationId = "GetFirstName",
+        Tags = ["Users"])]
     [SwaggerResponse(404, "If the route id could not match with a user in the database")]
     [SwaggerResponse(200, "Returns the firstname if successful")]
+    [SwaggerResponse(400, "If the id passed was not a valid Guid")]
     #endregion
     public async Task<ActionResult<PostNamesRequest>> GetFirstName(string id)
     {
@@ -130,11 +136,12 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Posts a new firstname for a user",
         Description = "Posts a new firstname of the user, only the user hitting the endpoint can change it",
-        OperationId = "UpdateFirstName")]
+        OperationId = "UpdateFirstName",
+        Tags = ["Users"])]
     [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
     [SwaggerResponse(400, "If the validation of the Dto was not passed")]
     [SwaggerResponse(201, "Returns if successful")]
-    [SwaggerResponse(500, "If the userma nager returns a not successful result")]
+    [SwaggerResponse(500, "If the user manager returns a not successful result")]
     #endregion
     public async Task<IActionResult> UpdateFirstName(string id, [FromBody] UpdateFirstNameRequest request)
     {
@@ -158,7 +165,8 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Posts a new middle name for a user",
         Description = "Posts a new firs of the user, only the user hitting the endpoint can change it",
-        OperationId = "UpdateMiddleName")]
+        OperationId = "UpdateMiddleName",
+        Tags = ["Users"])]
     [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
     [SwaggerResponse(400, "If the validation of the Dto was not passed")]
     [SwaggerResponse(200, "Returns if successful")]
@@ -186,7 +194,8 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Posts a new last name for a user",
         Description = "Posts a new last name of the user, only the user hitting the endpoint can change it",
-        OperationId = "UpdateLastName")]
+        OperationId = "UpdateLastName",
+        Tags = ["Users"])]
     [SwaggerResponse(401, "If the id of the route is not the same as the id of the user hitting the endpoint")]
     [SwaggerResponse(400, "If the validation of the Dto was not passed")]
     [SwaggerResponse(200, "Returns if successful")]
@@ -206,7 +215,7 @@ public class UserEndpoints : ControllerBase
             : Problem(statusCode: 500, detail:"An error occurred while adding the firstname");
     }
 
-
+    //todo move to profile
     //QUESTION would this be better as a patch?
     [Authorize]
     [HttpPost("{id}/profilepic")]
@@ -217,7 +226,8 @@ public class UserEndpoints : ControllerBase
         Summary = "Posts a new profile picture for a specific user",
         Description = @"This endpoint is for adding OR overriding the current picture.
                         Only the user logged in can hit this endpoint and change their picture",
-        OperationId = "PostProfilePic")]
+        OperationId = "PostProfilePic",
+        Tags = ["Users"])]
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
     [SwaggerResponse(201, "If the profile picture has been updated/added successfully")]
     [SwaggerResponse(500, "If there was a internal server error")]
@@ -235,6 +245,7 @@ public class UserEndpoints : ControllerBase
         return Created(new Uri(user.ProfilePictureUrl), new { url = result});
     }
 
+    //todo move to profile
     [HttpGet("{id}/profilepic")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
     #region SwaggerDocs
@@ -242,7 +253,8 @@ public class UserEndpoints : ControllerBase
         Summary = "Gets the profile picture url for a specific user",
         Description = @"Gets the url where you can access the profile picture of the user,
                         from the id passed in the route of the request",
-        OperationId = "GetProfilePic")]
+        OperationId = "GetProfilePic",
+        Tags = ["Users"])]
     [SwaggerResponse(404, "The user could not be found by the id from the route")]
     [SwaggerResponse(200, "Returns the id of the user and the Url to the profile picture")]
     [SwaggerResponse(500, "If there was a internal server error")]
@@ -254,6 +266,7 @@ public class UserEndpoints : ControllerBase
         return Ok(response);
     }
 
+    //todo move to profile
     //TODO: fix better shallow validation for the skillId
     [Authorize]
     [HttpPost("{id}/skills")]
@@ -263,7 +276,8 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Add a skill to a user",
         Description = "Add a skill to a user based on the id in the route and the skill id in the body",
-        OperationId = "AddSkillToUser")]
+        OperationId = "AddSkillToUser",
+        Tags = ["Users"])]
     [SwaggerResponse(404, "If the user or the skill could not be found")]
     [SwaggerResponse(400, "If the user already has the skill")]
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
@@ -276,6 +290,7 @@ public class UserEndpoints : ControllerBase
         return Ok();
     }
 
+    //todo move to profile
     [Authorize]
     [HttpPost("{id}/wantedskills")]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
@@ -284,7 +299,8 @@ public class UserEndpoints : ControllerBase
     [SwaggerOperation(
         Summary = "Add a wanted skill to a user",
         Description = "Add a wanted skill to a user based on the id in the route and the skill id in the body",
-        OperationId = "AddWantedSkillToUser")]
+        OperationId = "AddWantedSkillToUser",
+        Tags = ["Users"])]
     [SwaggerResponse(404, "If the user or the skill could not be found")]
     [SwaggerResponse(400, "If the user already has the wanted skill")]
     [SwaggerResponse(401, "If the user hitting the endpoint does not match with the route id")]
@@ -296,14 +312,14 @@ public class UserEndpoints : ControllerBase
         return Ok();
     }
 
-
     [Authorize]
     [HttpGet("profile")]
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Gets information about the user hitting the endpoint",
         Description = "Gets the id of the user hitting the endpoint",
-        OperationId = "GetProfile")]
+        OperationId = "GetProfile",
+        Tags = ["Profile"])]
     [SwaggerResponse(200, "Returns the id of the user hitting the endpoint")]
     #endregion
     public async Task<ActionResult<GetProfileResponse>> GetProfile()

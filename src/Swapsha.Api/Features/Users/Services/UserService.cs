@@ -133,6 +133,7 @@ public class UserService : IUserService
     public async Task<GetProfilePicResponse> GetProfilePicById(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
+
         if (user is null)
         {
             throw new UserNotFoundException($"The user with id: {id} could not be found");

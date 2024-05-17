@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Features.Skills.Models;
 using Swapsha.Api.Shared.Data;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Swapsha.Api.Features.Skills;
 
@@ -17,6 +18,14 @@ public class SubSkillEndpoints : ControllerBase
     }
 
     [HttpGet]
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Gets all subskills",
+        Description = "Get all subskills.",
+        OperationId = "GetAllSubSkills",
+        Tags = ["Skills"]
+    )]
+    #endregion
     public async Task<IActionResult> GetAll()
     {
         try
@@ -41,6 +50,14 @@ public class SubSkillEndpoints : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Get a subskill by its id",
+        Description = "Get a subskill by its id.",
+        OperationId = "GetSubSkillById",
+        Tags = ["Skills"]
+    )]
+    #endregion
     public async Task<IActionResult> GetById(int id)
     {
         if (!(id >= 1))

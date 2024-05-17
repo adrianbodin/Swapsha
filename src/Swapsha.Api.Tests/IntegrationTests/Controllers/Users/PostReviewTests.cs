@@ -12,18 +12,10 @@ namespace Swapsha.Api.Tests.IntegrationTests.Controllers.Users;
 [Collection("TestCollection")]
 public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
 {
-    private GetAllUsersResponse _user;
-
-    public override async Task InitializeAsync()
-    {
-        await base.InitializeAsync();
-        _user = await GetValidUser(_client);
-    }
-
     [Fact]
     public async Task OK_When_Review_AddedSuccessfully()
     {
-        var recievingUser = await GetValidUser(_client);
+        var recievingUser = await GetValidUser(client);
 
         var validReview = new PostReviewRequest
         {
@@ -31,9 +23,9 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
             UserId = recievingUser.UserId
         };
 
-        await AuthenticateUser(_client, _user);
+        var validUser = await AuthenticateUser();
 
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{_user.UserId}/reviews", validReview);
+        var response = await client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId}/reviews", validReview);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
@@ -41,14 +33,14 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
     [Fact]
     public async Task BadRequest_When_Request_Body_Is_Invalid()
     {
-        await AuthenticateUser(_client, _user);
+        var validUser = await AuthenticateUser();
         var notValidRequest = new PostReviewRequest
         {
             Rating = 0,
             UserId = Guid.NewGuid().ToString()
         };
 
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{_user.UserId}/reviews", notValidRequest);
+        var response = await client.PostAsJsonAsync($"/api/v1/users/{validUser.UserId}/reviews", notValidRequest);
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
@@ -63,9 +55,9 @@ public class PostReviewTests(ApiFactory factory) : BaseTest(factory)
             UserId = invalidUserId
         };
 
-        await AuthenticateUser(_client, _user);
+        await AuthenticateUser();
 
-        var response = await _client.PostAsJsonAsync($"/api/v1/users/{invalidUserId}/reviews", validRequest);
+        var response = await client.PostAsJsonAsync($"/api/v1/users/{invalidUserId}/reviews", validRequest);
 
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }

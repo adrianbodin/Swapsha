@@ -11,10 +11,10 @@ public class GetFirstNameTests(ApiFactory factory) : BaseTest(factory)
     public async Task OK_When_Getting_FirstName()
     {
         // Arrange
-        var validUser = await GetValidUser(_client);
+        var validUser = await GetValidUser(client);
 
         // Act
-        var response = await _client.GetAsync($"/api/v1/users/{validUser.UserId}/firstname");
+        var response = await client.GetAsync($"/api/v1/users/{validUser.UserId}/firstname");
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -23,7 +23,7 @@ public class GetFirstNameTests(ApiFactory factory) : BaseTest(factory)
     [Fact]
     public async Task BadRequest_When_RouteId_Is_Not_Valid_Guid()
     {
-        var response = await _client.GetAsync($"/api/v1/users/546489/firstname");
+        var response = await client.GetAsync($"/api/v1/users/546489/firstname");
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
@@ -33,7 +33,7 @@ public class GetFirstNameTests(ApiFactory factory) : BaseTest(factory)
     {
         var randomGuid = Guid.NewGuid().ToString();
 
-        var response = await _client.GetAsync($"/api/v1/users/{randomGuid}/firstname");
+        var response = await client.GetAsync($"/api/v1/users/{randomGuid}/firstname");
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }

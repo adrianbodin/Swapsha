@@ -43,7 +43,7 @@ public static class UserUtils
         };
     }
 
-    internal static async Task AuthenticateUser(HttpClient client, GetAllUsersResponse validUser)
+    internal static async Task LoginUser(HttpClient client, GetAllUsersResponse validUser)
     {
         var loginResponse = await client.PostAsJsonAsync("/api/v1/identity/login", new LoginDto(validUser.Email, "Admin123!"));
         var loginResult = await loginResponse.Content.ReadFromJsonAsync<LoginResultDto>();
