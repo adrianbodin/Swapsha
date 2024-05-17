@@ -9,5 +9,7 @@ public interface IContactService
 
     Task<ContactRequest> GetContactRequest(string requestId);
 
-    Task<List<SentRequestDto>> GetAllSentRequests(string userId);
+    Task<List<SentRequestDto>> GetAllSentRequests(string? userId);
+
+    Task<List<ReceivedRequestDto>> GetAllReceivedRequests(string? userId);
 }

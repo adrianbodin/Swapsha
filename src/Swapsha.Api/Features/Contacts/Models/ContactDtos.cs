@@ -8,3 +8,10 @@ public record SentRequestDto(
     string ReceiverName,
     string Status
 );
+
+public record ReceivedRequestDto(
+    string RequestId,
+    string SenderId,
+    string SenderName,
+    string Status
+);

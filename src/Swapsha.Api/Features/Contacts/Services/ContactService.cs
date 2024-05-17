@@ -44,7 +44,7 @@ public class ContactService: IContactService
         return request;
     }
 
-    public async Task<List<SentRequestDto>> GetAllSentRequests(string userId)
+    public async Task<List<SentRequestDto>> GetAllSentRequests(string? userId)
     {
         var requests = await _db.ContactRequests
             .Where(cr => cr.SenderId == userId)
@@ -60,5 +60,22 @@ public class ContactService: IContactService
 
         return requests;
 
+    }
+
+    public async Task<List<ReceivedRequestDto>> GetAllReceivedRequests(string? userId)
+    {
+        var requests = await _db.ContactRequests
+            .Where(cr => cr.ReceiverId == userId)
+            .Select(cr => new ReceivedRequestDto(
+                cr.ContactRequestId,
+                cr.SenderId,
+                cr.Sender.FirstName + " " + cr.Sender.LastName,
+                cr.Status.ToString()
+            ))
+            .ToListAsync();
+
+        //todo add some error handling here
+
+        return requests;
     }
 }

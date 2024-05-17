@@ -96,5 +96,24 @@ public class ContactEndpoints : ControllerBase
         return Ok(requests);
     }
 
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Get all pending received contact requests.",
+        Description = "Get all pending received contact requests. The requests are sent to the current user logged in.",
+        OperationId = "GetPendingReceivedRequests",
+        Tags = ["Profile"])]
+    [SwaggerResponse(200, "Received requests found. This might be empty.", typeof(List<ReceivedRequestDto>))]
+    [SwaggerResponse(401, "Unauthorized.")]
+    #endregion
+    [Authorize]
+    [HttpGet("profile/contact-requests/received")]
+    public async Task<ActionResult<List<ReceivedRequestDto>>> GetPendingReceivedRequests()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var requests = await _contactService.GetAllReceivedRequests(userId);
+        return Ok(requests);
+    }
+
+
 
 }
