@@ -68,7 +68,6 @@ public class ContactEndpoints : ControllerBase
     #endregion
     [Authorize]
     [HttpGet("profile/contact-requests/{requestId}")]
-    [TypeFilter(typeof(ValidateUserFilterAttribute))]
     [TypeFilter(typeof(ValidGuidFilterAttribute))]
     public async Task<ActionResult<ContactRequest>> GetContactRequest(string requestId)
     {
@@ -114,6 +113,24 @@ public class ContactEndpoints : ControllerBase
         return Ok(requests);
     }
 
-
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Approve a contact request.",
+        Description = "Approve a contact request. The request must be sent to the current user logged in.",
+        OperationId = "ApproveContactRequest",
+        Tags = ["Profile"])]
+    [SwaggerResponse(204, "Contact request approved.")]
+    [SwaggerResponse(401, "Unauthorized.")]
+    [SwaggerResponse(404, "Contact request not found.")]
+    #endregion
+    [Authorize]
+    [HttpPut("profile/contact-requests/{id}/approve")]
+    [TypeFilter(typeof(ValidGuidFilterAttribute))]
+    public async Task<IActionResult> ApproveContactRequest(string id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _contactService.ApproveContactRequest(userId, id);
+        return NoContent();
+    }
 
 }
