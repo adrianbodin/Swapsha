@@ -91,20 +91,15 @@ public class ContactService: IContactService
             throw new ContactRequestNotFoundException("The request could not be found");
         }
 
-        var senderTask = _db.Users
+        var sender = await _db.Users
             .AsNoTracking()
             .Where(u => u.Id == contactRequest.SenderId)
             .FirstOrDefaultAsync();
 
-        var receiverTask = _db.Users
+        var receiver = await _db.Users
             .AsNoTracking()
             .Where(u => u.Id == userId)
             .FirstOrDefaultAsync();
-
-        var result = await Task.WhenAll(senderTask, receiverTask);
-
-        var sender = result[0];
-        var receiver = result[1];
 
         if (sender is null)
         {
