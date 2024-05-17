@@ -15,3 +15,9 @@ public record ReceivedRequestDto(
     string SenderName,
     string Status
 );
+
+public record ContactDto(
+    string Id,
+    string Name,
+    string ProfilePictureUrl
+);

@@ -133,4 +133,22 @@ public class ContactEndpoints : ControllerBase
         return NoContent();
     }
 
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Get all contacts.",
+        Description = "Get all contacts. The contacts are the users that the current user is connected to.",
+        OperationId = "GetAllContacts",
+        Tags = ["Profile"])]
+    [SwaggerResponse(200, "Contacts found. This might be empty.", typeof(List<ContactDto>))]
+    [SwaggerResponse(401, "Unauthorized.")]
+    #endregion
+    [Authorize]
+    [HttpGet("profile/contacts")]
+    public async Task<ActionResult<List<ContactDto>>> GetAllContacts()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var contacts = await _contactService.GetAllContacts(userId);
+        return Ok(contacts);
+    }
+
 }

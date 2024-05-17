@@ -112,7 +112,28 @@ public class ContactService: IContactService
         contactRequest.Status = ContactRequestStatus.Accepted;
 
         receiver.Contacts.Add(sender);
+        sender.Contacts.Add(receiver);
 
         await _db.SaveChangesAsync();
+    }
+
+    public async Task<List<ContactDto>> GetAllContacts(string? userId)
+    {
+        var contacts = await _db.Users
+            .Where(u => u.Id == userId)
+            .Select(u => u.Contacts.Select(c => new ContactDto(
+                    c.Id,
+                    c.FirstName + " " + c.LastName,
+                    c.ProfilePictureUrl
+                    )).ToList()
+            )
+            .FirstOrDefaultAsync();
+
+        if (contacts is null)
+        {
+            throw new ContactNotFoundException("Contact could not be found for the user");
+        }
+
+        return contacts;
     }
 }

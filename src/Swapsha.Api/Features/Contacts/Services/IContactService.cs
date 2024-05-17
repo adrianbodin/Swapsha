@@ -14,4 +14,6 @@ public interface IContactService
     Task<List<ReceivedRequestDto>> GetAllReceivedRequests(string? userId);
 
     Task ApproveContactRequest(string? userId, string id);
+    
+    Task<List<ContactDto>> GetAllContacts(string? userId);
 }
