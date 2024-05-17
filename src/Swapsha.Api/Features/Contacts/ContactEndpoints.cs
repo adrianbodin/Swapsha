@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
@@ -73,4 +74,24 @@ public class ContactEndpoints : ControllerBase
         //todo change the return here
         return Ok(contactRequest);
     }
+
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Get all pending sent contact requests.",
+        Description = "Get all pending sent contact requests. The requests are sent by the current user logged in.",
+        OperationId = "GetPendingSentRequests",
+        Tags = ["Profile"])]
+    [SwaggerResponse(200, "Sent requests found. This might be empty.", typeof(List<SentRequestDto>))]
+    [SwaggerResponse(401, "Unauthorized.")]
+    #endregion
+    [Authorize]
+    [HttpGet("profile/contact-requests/sent")]
+    public async Task<ActionResult<List<SentRequestDto>>> GetPendingSentRequests()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var requests = await _contactService.GetAllSentRequests(userId);
+        return Ok(requests);
+    }
+
+
 }
