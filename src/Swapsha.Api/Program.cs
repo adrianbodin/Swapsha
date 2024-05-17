@@ -121,7 +121,8 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.MapGroup("/api/v1/identity")
-    .MapIdentityApi<CustomUser>();
+    .MapIdentityApi<CustomUser>()
+    .WithTags("Identity");
 
 app.UseAuthorization();
 app.Run();

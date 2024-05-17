@@ -30,9 +30,12 @@ public class ContactEndpoints : ControllerBase
         Summary = "Send a contact request to another user.",
         Description = @"Send a contact request to another user. 
                         The request will be pending until the other user accepts or declines it.",
-        OperationId = "SendContactRequest"
+        OperationId = "SendContactRequest",
+        Tags = ["Users"]
     )]
     [SwaggerResponse(201, "Contact request sent successfully.", typeof(SendContactRequestResponse))]
+    [SwaggerResponse(400, "Invalid user ID.")]
+    [SwaggerResponse(401, "Unauthorized.")]
     #endregion
     [Authorize]
     [HttpPost("users/{id}/contact")]
@@ -53,12 +56,12 @@ public class ContactEndpoints : ControllerBase
         return CreatedAtAction(nameof(GetContactRequest), new {requestId = contactRequest.ContactRequestId}, response);
     }
 
-
     #region SwaggerDocs
     [SwaggerOperation(
         Summary = "Get a contact request by its ID.",
         Description = "Get a contact request by its ID. The request must be sent to the current user logged in.",
-        OperationId = "GetContactRequest"
+        OperationId = "GetContactRequest",
+        Tags = ["Profile"]
     )]
     [SwaggerResponse(200, "Contact request found.", typeof(ContactRequest))]
     [SwaggerResponse(404, "Contact request not found.")]
