@@ -30,4 +30,16 @@ public class SendContactRequestTests(ApiFactory factory) : BaseTest(factory)
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
+
+    [Fact]
+    public async Task Created_When_Valid_Request()
+    {
+        await AuthenticateUser();
+
+        var validUser = await GetValidUser(client);
+
+        var response = await client.PostAsync($"api/v1/users/{validUser.UserId}/contact", new StringContent(""));
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+    }
 }
