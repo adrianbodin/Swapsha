@@ -92,12 +92,10 @@ public class ContactService: IContactService
         }
 
         var sender = await _db.Users
-            .AsNoTracking()
             .Where(u => u.Id == contactRequest.SenderId)
             .FirstOrDefaultAsync();
 
         var receiver = await _db.Users
-            .AsNoTracking()
             .Where(u => u.Id == userId)
             .FirstOrDefaultAsync();
 
