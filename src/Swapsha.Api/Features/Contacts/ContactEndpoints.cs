@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Swapsha.Api.Features.Contacts.Models;
 using Swapsha.Api.Features.Contacts.Services;
-using Swapsha.Api.Features.Users.Filters;
 using Swapsha.Api.Features.Users.Models;
 using Swapsha.Api.Shared.Filters;
 using Swashbuckle.AspNetCore.Annotations;

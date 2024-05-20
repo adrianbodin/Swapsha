@@ -1,12 +1,14 @@
 ﻿'use client'
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {fetchUserById} from "@/fetching/users";
 import Image from "next/image";
 import UserReviews from "@/components/user-reviews";
 import UserBio from "@/components/user-bio";
 import {SingleUser} from "@/types/user";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useStore} from "@/stores/user-store";
+import {getSentRequests, sendContactRequest} from "@/fetching/contacts";
+import {toast} from "sonner";
 
 interface UserPageProps {
   params: {
@@ -15,16 +17,41 @@ interface UserPageProps {
 }
 
 type ViewType = 'bio' | 'reviews'
+type ContactState = 'Contact' | 'Sent'
 
 const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
   const [currentView, setCurrentView] = useState<ViewType>('bio');
   const isLoggedIn = useStore((state) => state.isLoggedIn);
+  const [contactState, setContactState] = useState<ContactState>('Contact')
+  const queryClient = useQueryClient();
 
   const {data: user, isLoading, isError} = useQuery<SingleUser>({
     queryKey: ['user', userId],
     queryFn: () => fetchUserById(userId)
   })
 
+  const {data: sentRequests} = useQuery({
+    queryKey: ['sent-requests'],
+    queryFn: getSentRequests
+  })
+
+  const sendRequest = useMutation({
+    mutationFn: (userId: string) => sendContactRequest(userId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({queryKey: ['sent-requests']})
+      setContactState('Sent');
+      toast.success(`Contact request sent to ${user?.fullName}`);
+    },
+    onError: () => {
+      toast.error(`There was an error sending a request to ${user?.fullName}`)
+    }
+  })
+
+  useEffect(() => {
+    if (sentRequests?.some(request => request.receiverId === user?.userId)) {
+      setContactState('Sent');
+    }
+  }, [sentRequests, user?.userId]);
 
   //TODO fix better tags for these
   if (isLoading) return <p>Loading...</p>
@@ -55,15 +82,18 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
           <span className="material-symbols-outlined">
             stars
           </span>
-          {/*TODO fix this to make the | stay in the middle of the screen.*/}
           <h4 className="font-bold">{user?.averageRating}/5 | {user?.totalReviews} Reviews</h4>
         </div>
       </div>
-      {/*TODO fix the bug here where all the buttons are not the same size*/}
       <div className="flex justify-center gap-4 mb-10">
-        {/*TODO add some kind of action here for sending a request to make a contact*/}
         {isLoggedIn &&
-        <button className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>}
+        <button
+            className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black"
+            onClick={() => sendRequest.mutate(user?.userId || '')}
+            disabled={contactState === 'Sent'}>
+          {/* todo fix this to a better text*/}
+          {contactState}
+        </button>}
         <button
           className="basis-1/3 px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
           onClick={() => setCurrentView('reviews')}>

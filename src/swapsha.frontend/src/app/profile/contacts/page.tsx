@@ -8,7 +8,7 @@ import SentRequests from "@/components/profile/contacts/sent-requests";
 type ContactPageState = 'pending-requests' | 'sent-requests' | 'all-contacts'
 
 const ContactPage = () => {
-  const [state, setState] = useState<ContactPageState>('pending-requests');
+  const [state, setState] = useState<ContactPageState>('all-contacts');
 
   return (
     <section className="py-5">

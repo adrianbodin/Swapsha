@@ -6,6 +6,7 @@ public record SentRequestDto(
     string RequestId,
     string ReceiverId,
     string ReceiverName,
+    string ReceiverProfilePic,
     string Status
 );
 
