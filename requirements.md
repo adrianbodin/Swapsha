@@ -26,3 +26,6 @@ förhoppningsvis byta tjänster med varandra.
 - Filtrering och sortering av alla användare.
 - Navigation, olika om man är inloggad eller inte.
 - Individuella sidor för varje användare, här finns bio, vad användaren har för kunskaper, vad användaren är ute efter för kunskap och även recensioner på användaren.
+- Profil sida där användare kan redigera sin profil, här kan man redigera profilbild och alla sina olika namn. Detta är även implementerat i mitt api.
+- Nästan fått klart api funktionaliteten för att skapa en kontakt. Det betyder att man kan skicka kontakt förfrågan till varandra och
+  sedan acceptera eller avböja. Om den accepteras skapar detta en kontakt mellan dessa två andvändare. Kommer fortsätta på frontenden nästa vecka.
