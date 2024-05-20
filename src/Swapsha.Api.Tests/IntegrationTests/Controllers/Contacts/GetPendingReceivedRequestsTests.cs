@@ -19,7 +19,7 @@ public class GetPendingReceivedRequestsTests(ApiFactory factory) : BaseTest(fact
     {
         await AuthenticateUser();
 
-        var response = await client.GetAsync("api/v1/profile/contact-requests/received");
+        var response = await client.GetAsync("api/v1/profile/contact-requests/pending");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }

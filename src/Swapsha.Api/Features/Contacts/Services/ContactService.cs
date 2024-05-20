@@ -35,12 +35,9 @@ public class ContactService: IContactService
 
     public async Task<ContactRequest> GetContactRequest(string requestId)
     {
-        var request = await _db.ContactRequests.FirstOrDefaultAsync(cr => cr.ContactRequestId == requestId);
-
-        if (request == null)
-        {
-            throw new ContactRequestNotFoundException("Contact request not found.");
-        }
+        var request = await _db.ContactRequests
+            .FirstOrDefaultAsync(cr => cr.ContactRequestId == requestId)
+            ?? throw new ContactRequestNotFoundException("The request could not be found");
 
         return request;
     }
@@ -66,7 +63,7 @@ public class ContactService: IContactService
     public async Task<List<ReceivedRequestDto>> GetAllReceivedRequests(string? userId)
     {
         var requests = await _db.ContactRequests
-            .Where(cr => cr.ReceiverId == userId)
+            .Where(cr => cr.ReceiverId == userId && cr.Status == ContactRequestStatus.Pending)
             .Select(cr => new ReceivedRequestDto(
                 cr.ContactRequestId,
                 cr.SenderId,
@@ -84,30 +81,19 @@ public class ContactService: IContactService
     {
         var contactRequest = await _db.ContactRequests
             .Where(cr => cr.ContactRequestId == id && cr.ReceiverId == userId)
-            .FirstOrDefaultAsync();
-
-        if (contactRequest is null)
-        {
-            throw new ContactRequestNotFoundException("The request could not be found");
-        }
+            .FirstOrDefaultAsync()
+            ?? throw new ContactRequestNotFoundException("The request could not be found");
 
         var sender = await _db.Users
             .Where(u => u.Id == contactRequest.SenderId)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync()
+            ?? throw new UserNotFoundException($"The sender with ID {contactRequest.SenderId} could not be found");
 
         var receiver = await _db.Users
             .Where(u => u.Id == userId)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync()
+            ?? throw new UserNotFoundException($"The receiver with ID {userId} could not be found");
 
-        if (sender is null)
-        {
-            throw new UserNotFoundException($"The sender with ID {contactRequest.SenderId} could not be found");
-        }
-
-        if (receiver is null)
-        {
-            throw new UserNotFoundException($"The receiver with ID {userId} could not be found");
-        }
 
         contactRequest.Status = ContactRequestStatus.Accepted;
 
@@ -127,13 +113,21 @@ public class ContactService: IContactService
                     c.ProfilePictureUrl
                     )).ToList()
             )
-            .FirstOrDefaultAsync();
-
-        if (contacts is null)
-        {
-            throw new ContactNotFoundException("Contact could not be found for the user");
-        }
+            .FirstOrDefaultAsync()
+            ?? throw new ContactNotFoundException("Contact could not be found for the user");
 
         return contacts;
+    }
+
+    public async Task DeclineContactRequest(string? userId, string id)
+    {
+        var contactRequest = await _db.ContactRequests
+            .Where(cr => cr.ContactRequestId == id && cr.ReceiverId == userId)
+            .FirstOrDefaultAsync()
+            ?? throw new ContactRequestNotFoundException("The request could not be found");
+
+        contactRequest.Status = ContactRequestStatus.Declined;
+
+        await _db.SaveChangesAsync();
     }
 }

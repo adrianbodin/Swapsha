@@ -105,13 +105,14 @@ public class ContactEndpoints : ControllerBase
     [SwaggerResponse(401, "Unauthorized.")]
     #endregion
     [Authorize]
-    [HttpGet("profile/contact-requests/received")]
+    [HttpGet("profile/contact-requests/pending")]
     public async Task<ActionResult<List<ReceivedRequestDto>>> GetPendingReceivedRequests()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var requests = await _contactService.GetAllReceivedRequests(userId);
         return Ok(requests);
     }
+
 
     #region SwaggerDocs
     [SwaggerOperation(
@@ -130,6 +131,25 @@ public class ContactEndpoints : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         await _contactService.ApproveContactRequest(userId, id);
+        return NoContent();
+    }
+
+    #region SwaggerDocs
+    [SwaggerOperation(
+        Summary = "Decline a contact request.",
+        Description = "Decline a contact request. The request must be sent to the current user logged in.",
+        OperationId = "DeclineContactRequest",
+        Tags = ["Profile"])]
+    [SwaggerResponse(204, "Contact request declined.")]
+    [SwaggerResponse(401, "Unauthorized.")]
+    [SwaggerResponse(404, "Contact request not found.")]
+    #endregion
+    [Authorize]
+    [HttpPut("profile/contact-requests/{id}/decline")]
+    public async Task<IActionResult> DeclineContactRequest(string id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _contactService.DeclineContactRequest(userId, id);
         return NoContent();
     }
 
