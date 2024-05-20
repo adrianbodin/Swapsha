@@ -6,6 +6,7 @@ import UserReviews from "@/components/user-reviews";
 import UserBio from "@/components/user-bio";
 import {SingleUser} from "@/types/user";
 import {useQuery} from "@tanstack/react-query";
+import {useStore} from "@/stores/user-store";
 
 interface UserPageProps {
   params: {
@@ -17,6 +18,7 @@ type ViewType = 'bio' | 'reviews'
 
 const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
   const [currentView, setCurrentView] = useState<ViewType>('bio');
+  const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   const {data: user, isLoading, isError} = useQuery<SingleUser>({
     queryKey: ['user', userId],
@@ -60,7 +62,8 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
       {/*TODO fix the bug here where all the buttons are not the same size*/}
       <div className="flex justify-center gap-4 mb-10">
         {/*TODO add some kind of action here for sending a request to make a contact*/}
-        <button className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>
+        {isLoggedIn &&
+        <button className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>}
         <button
           className="basis-1/3 px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
           onClick={() => setCurrentView('reviews')}>
