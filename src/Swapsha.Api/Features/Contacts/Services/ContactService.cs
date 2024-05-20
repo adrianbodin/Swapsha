@@ -19,6 +19,16 @@ public class ContactService: IContactService
 
     public async Task<ContactRequest> SendContactRequest(string senderId, string receiverId)
     {
+        var contactRequestExists = await _db.ContactRequests
+            .AnyAsync(cr => cr.SenderId == senderId && cr.ReceiverId == receiverId)
+            || await _db.ContactRequests
+                .AnyAsync(cr => cr.SenderId == receiverId && cr.ReceiverId == senderId);
+
+        if (contactRequestExists)
+        {
+            throw new ContactRequestExistsException("A contact request already exists between the two users.");
+        }
+
         var contactRequest = new ContactRequest
         {
             ContactRequestId = Guid.NewGuid().ToString(),
@@ -45,11 +55,12 @@ public class ContactService: IContactService
     public async Task<List<SentRequestDto>> GetAllSentRequests(string? userId)
     {
         var requests = await _db.ContactRequests
-            .Where(cr => cr.SenderId == userId)
+            .Where(cr => cr.SenderId == userId && cr.Status == ContactRequestStatus.Pending)
             .Select(cr => new SentRequestDto(
                 cr.ContactRequestId,
                 cr.ReceiverId,
                 cr.Receiver.FirstName + " " + cr.Receiver.LastName,
+                cr.Receiver.ProfilePictureUrl,
                 cr.Status.ToString()
             ))
             .ToListAsync();
@@ -68,13 +79,13 @@ public class ContactService: IContactService
                 cr.ContactRequestId,
                 cr.SenderId,
                 cr.Sender.FirstName + " " + cr.Sender.LastName,
+                cr.Sender.ProfilePictureUrl,
                 cr.Status.ToString()
             ))
             .ToListAsync();
 
         //todo add some error handling here
-
-        return requests;
+        return requests ?? [];
     }
 
     public async Task ApproveContactRequest(string? userId, string id)
