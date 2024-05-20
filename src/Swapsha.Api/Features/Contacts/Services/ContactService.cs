@@ -68,13 +68,13 @@ public class ContactService: IContactService
                 cr.ContactRequestId,
                 cr.SenderId,
                 cr.Sender.FirstName + " " + cr.Sender.LastName,
+                cr.Sender.ProfilePictureUrl,
                 cr.Status.ToString()
             ))
             .ToListAsync();
 
         //todo add some error handling here
-
-        return requests;
+        return requests ?? [];
     }
 
     public async Task ApproveContactRequest(string? userId, string id)

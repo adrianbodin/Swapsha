@@ -13,6 +13,7 @@ public record ReceivedRequestDto(
     string RequestId,
     string SenderId,
     string SenderName,
+    string ProfilePicUrl,
     string Status
 );
 
