@@ -7,6 +7,7 @@ import {useStore} from "@/stores/user-store";
 import {useMutation} from "@tanstack/react-query";
 import {apiRoutes} from "@/api-routes";
 import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 
 //TODO: Refactor this into smaller parts
@@ -14,6 +15,7 @@ const NavMenu = () => {
   const [expanded, setExpanded] = useState(false);
   const isLoggedIn = useStore((state) => state.isLoggedIn);
   const setUser = useStore((state) => state.setUser);
+  const router = useRouter()
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -67,12 +69,27 @@ const NavMenu = () => {
               {expanded && <span className="hover:underline">Chat</span>}
             </Link>
             <hr className="hidden sm:block" />
-            <Link className="flex gap-3" onClick={collapseNav} href="/profile">
-              <span className="material-symbols-outlined">
+            <div className="flex gap-3 cursor-pointer">
+              <span
+                className="material-symbols-outlined"
+                onClick={() => {
+                  collapseNav;
+                  router.push('/profile/edit')}}>
                 person
               </span>
-              {expanded && <span className="hover:underline">Profile</span>}
-            </Link>
+              {expanded && <div className="flex flex-col">
+                  <span
+                      onClick={() => {
+                        collapseNav();
+                        router.push('/profile/edit');}}
+                      className="hover:underline">Edit Profile</span>
+                  <span
+                      onClick={() => {
+                        collapseNav();
+                        router.push('/profile/contacts');}}
+                      className="hover:underline">Contacts</span>
+              </div>}
+            </div>
             <hr className="hidden sm:block"/>
             <Link className="flex gap-3" onClick={logout} href="/">
               <span className="material-symbols-outlined">

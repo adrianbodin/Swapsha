@@ -37,7 +37,7 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
           {user.skills.length > 4  && <p>and {user.skills.length - 3} more...</p>}
         </ul>
         <Link href={`/users/${user.userId}`}>
-          <button className="inline-block px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Contact</button>
+          <button className="inline-block px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black">Details</button>
         </Link>
       </div>
     </div>

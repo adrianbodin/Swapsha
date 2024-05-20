@@ -12,7 +12,7 @@ const ContactPage = () => {
 
   return (
     <section className="py-5">
-      <div className="flex justify-center gap-4 mb-10">
+      <div className="flex justify-center gap-4 w-full mb-10">
         <button
           className={`basis-1/3 px-4 py-2 text-xl font-bold rounded-xl shadow-sm shadow-gray-400
            ${state === 'pending-requests' ? `text-main-white bg-light-green shadow-lg` : `bg-main-white`}`}
