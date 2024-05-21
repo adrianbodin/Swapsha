@@ -38,7 +38,8 @@ const SentRequests = () => {
               src={request.receiverProfilePic}
               alt="Profile picture"
               fill
-              objectFit="cover"
+              className="object-cover"
+              sizes="200px"
             />
           </div>
           <Link href={`/users/${request.receiverId}`}>

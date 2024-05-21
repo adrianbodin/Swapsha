@@ -66,7 +66,10 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
             src={user?.profilePictureUrl || ""}
             alt="Profile picture"
             fill
-            objectFit="cover"
+            className="object-cover"
+            priority
+            /*todo this might not be performant*/
+            sizes="1000px"
           />
         </div>
       </div>
@@ -85,7 +88,7 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
           <h4 className="font-bold">{user?.averageRating}/5 | {user?.totalReviews} Reviews</h4>
         </div>
       </div>
-      <div className="flex justify-center gap-4 mb-10">
+      <div className="flex justify-center gap-4 w-full mb-10">
         {isLoggedIn &&
         <button
             className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black"
@@ -95,7 +98,7 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
           {contactState}
         </button>}
         <button
-          className="basis-1/3 px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
+          className="basis-1/3  px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
           onClick={() => setCurrentView('reviews')}>
           Reviews
         </button>
@@ -105,10 +108,16 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
           Bio
         </button>
       </div>
-      {currentView === 'bio' &&
-        <UserBio bio={user?.bio} skills={user?.skills} wantedSkills={user?.wantedSkills} />}
-      {currentView === 'reviews' &&
-        <UserReviews userId={userId} />}
+      <div className="flex min-w-full justify-center">
+          {currentView === 'bio' &&
+              <div className="w-full sm:w-1/2 pb-20">
+                <UserBio bio={user?.bio} skills={user?.skills} wantedSkills={user?.wantedSkills} />
+              </div>}
+          {currentView === 'reviews' &&
+              <div className="w-full pb-20">
+                  <UserReviews userId={userId} />
+              </div>}
+      </div>
     </section>
   );
 };

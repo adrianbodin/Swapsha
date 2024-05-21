@@ -9,20 +9,22 @@ const UserBio:FC<UserBioProps> = ( { skills, wantedSkills, bio } ) => {
       <div className="my-10">
         {bio && <p>{bio}</p>}
       </div>
-      <div className="mb-10">
-        <h3 className="font-bold text-2xl mb-2">I am good at:</h3>
-        <ul className="ml-5">
-          {skills && skills.map(skill =>
-            <li className="list-disc text-xl" key={skill.id} >{skill.name}</li>
-          )}
-        </ul>
-      </div>
-      <div className="mb-10">
-        <h3 className="font-bold text-2xl mb-2">I am looking for:</h3>
-        <ul className="ml-5">
-          {wantedSkills && wantedSkills.map(wantedSkill =>
-            <li className="list-disc text-xl" key={wantedSkill.id} >{wantedSkill.name}</li>)}
-        </ul>
+      <div className="flex justify-center gap-20">
+        <div className="mb-10">
+          <h3 className="font-bold text-2xl mb-2">I am good at:</h3>
+          <ul className="ml-5">
+            {skills && skills.map(skill =>
+              <li className="list-disc text-xl" key={skill.id} >{skill.name}</li>
+            )}
+          </ul>
+        </div>
+        <div className="mb-10">
+          <h3 className="font-bold text-2xl mb-2">I am looking for:</h3>
+          <ul className="ml-5">
+            {wantedSkills && wantedSkills.map(wantedSkill =>
+              <li className="list-disc text-xl" key={wantedSkill.id} >{wantedSkill.name}</li>)}
+          </ul>
+        </div>
       </div>
     </section>
   );

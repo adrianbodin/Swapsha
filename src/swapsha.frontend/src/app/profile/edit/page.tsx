@@ -22,7 +22,7 @@ const Page = () => {
   }
 
   return (
-    <section className="w-full flex flex-col gap-5 items-center h-screen py-5">
+    <section className="w-full flex flex-col gap-5 items-center h-screen py-20">
       <EditProfilePic picUrl={profile?.profilePicUrl || ''} userId={profile?.id || ''}/>
       <div className="flex flex-col gap-5">
         <EditName name={profile?.firstName || ''} nameType="firstname" userId={profile.id}/>

@@ -72,14 +72,15 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
 
   return (
     <div className="relative">
-      <div className="relative w-80 h-80 overflow-hidden rounded-full">
+      <div className="relative w-96 h-96 overflow-hidden rounded-full">
         {picUrl && (
           <Image
             src={`${picUrl}?${cacheBuster}`}
             alt="Profile picture"
             fill
-            object-fit="cover"
-            priority
+            sizes="1000px"
+            className="object-cover"
+            priority={true}
           />
         )}
       </div>
@@ -103,7 +104,7 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
                 src={URL.createObjectURL(croppedImage)}
                 alt="Profile picture"
                 fill
-                object-fit="cover"
+                objectFit="cover"
               />
             )}
           </div>
