@@ -95,21 +95,22 @@ public class ContactService: IContactService
             .FirstOrDefaultAsync()
             ?? throw new ContactRequestNotFoundException("The request could not be found");
 
-        var sender = await _db.Users
-            .Where(u => u.Id == contactRequest.SenderId)
-            .FirstOrDefaultAsync()
-            ?? throw new UserNotFoundException($"The sender with ID {contactRequest.SenderId} could not be found");
-
-        var receiver = await _db.Users
-            .Where(u => u.Id == userId)
-            .FirstOrDefaultAsync()
-            ?? throw new UserNotFoundException($"The receiver with ID {userId} could not be found");
-
-
         contactRequest.Status = ContactRequestStatus.Accepted;
 
-        receiver.Contacts.Add(sender);
-        sender.Contacts.Add(receiver);
+        var contact1 = new Contact
+        {
+            User1Id = contactRequest.ReceiverId,
+            User2Id = contactRequest.SenderId
+        };
+
+        var contact2 = new Contact
+        {
+            User1Id = contactRequest.SenderId,
+            User2Id = contactRequest.ReceiverId
+        };
+
+        _db.Contacts.Add(contact1);
+        _db.Contacts.Add(contact2);
 
         await _db.SaveChangesAsync();
     }
@@ -119,9 +120,9 @@ public class ContactService: IContactService
         var contacts = await _db.Users
             .Where(u => u.Id == userId)
             .Select(u => u.Contacts.Select(c => new ContactDto(
-                    c.Id,
-                    c.FirstName + " " + c.LastName,
-                    c.ProfilePictureUrl
+                    c.User2.Id,
+                    c.User2.FirstName + " " + c.User2.LastName,
+                    c.User2.ProfilePictureUrl
                     )).ToList()
             )
             .FirstOrDefaultAsync()
