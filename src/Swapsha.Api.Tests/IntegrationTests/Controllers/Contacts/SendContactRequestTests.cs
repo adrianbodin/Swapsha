@@ -31,6 +31,9 @@ public class SendContactRequestTests(ApiFactory factory) : BaseTest(factory)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    //todo this has a bug, if the user already has a contact with the user, it will return 400
+    //todo check before what contacts the user has
+
     [Fact]
     public async Task Created_When_Valid_Request()
     {
