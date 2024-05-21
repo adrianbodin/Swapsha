@@ -30,7 +30,7 @@ public class CustomUser : IdentityUser
     public ICollection<UserWantedSkill> UserWantedSkills { get; } = [];
 
     //todo change name for this join table
-    public ICollection<CustomUser> Contacts { get; set; } = [];
+    public ICollection<Contact> Contacts { get; set; } = [];
 
     public ICollection<ContactRequest> SentRequests { get; } = [];
 

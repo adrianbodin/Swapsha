@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Swapsha.Api.Data.Seed;
 using Swapsha.Api.Features.Contacts.Models;
+using Swapsha.Api.Features.Contacts.Seed;
 using Swapsha.Api.Features.Reviews.Models;
 using Swapsha.Api.Features.Skills.Models;
 using Swapsha.Api.Features.Skills.Seed;
@@ -25,6 +26,7 @@ public class AppDbContext : IdentityDbContext<CustomUser>
     public DbSet<Review> Reviews { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<ContactRequest> ContactRequests { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
 
    protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -38,6 +40,7 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         ConfigureCityEntity(builder);
         ConfigureSubSkillEntity(builder);
         ConfigureContactRequestEntity(builder);
+        ConfigureContactEntity(builder);
 
         SeedData(builder);
     }
@@ -52,6 +55,8 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         var subSkills = SubSkillSeed.Seed();
         var userSkills = UserSkillsSeed.Seed(users, skills);
         var userWantedSkills = UserWantedSkillsSeed.Seed(users, skills);
+        var contacts = ContactSeed.Seed(users);
+        var contactRequests = ContactRequestSeed.Seed(users, contacts);
 
         builder.Entity<City>().HasData(cities);
         builder.Entity<CustomUser>().HasData(users);
@@ -60,6 +65,8 @@ public class AppDbContext : IdentityDbContext<CustomUser>
         builder.Entity<SubSkill>().HasData(subSkills);
         builder.Entity<UserSkill>().HasData(userSkills);
         builder.Entity<UserWantedSkill>().HasData(userWantedSkills);
+        builder.Entity<Contact>().HasData(contacts);
+        builder.Entity<ContactRequest>().HasData(contactRequests);
     }
 
     private void ConfigureUserSkillEntity(ModelBuilder builder)
@@ -144,10 +151,24 @@ public class AppDbContext : IdentityDbContext<CustomUser>
             .HasMany(u => u.Reviews)
             .WithOne(r => r.User)
             .HasForeignKey(r => r.UserId);
+    }
 
-        builder.Entity<CustomUser>()
-            .HasMany(u => u.Contacts)
-            .WithMany();
+    private void ConfigureContactEntity(ModelBuilder builder)
+    {
+        builder.Entity<Contact>()
+            .HasKey(c => new { c.User1Id, c.User2Id });
+
+        builder.Entity<Contact>()
+            .HasOne(c => c.User1)
+            .WithMany(u => u.Contacts)
+            .HasForeignKey(c => c.User1Id)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Contact>()
+            .HasOne(c => c.User2)
+            .WithMany()
+            .HasForeignKey(c => c.User2Id)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
     private void ConfigureContactRequestEntity(ModelBuilder builder)

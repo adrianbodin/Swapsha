@@ -7,8 +7,9 @@ import UserBio from "@/components/user-bio";
 import {SingleUser} from "@/types/user";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useStore} from "@/stores/user-store";
-import {getSentRequests, sendContactRequest} from "@/fetching/contacts";
+import {getAllContacts, getSentRequests, sendContactRequest} from "@/fetching/contacts";
 import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 interface UserPageProps {
   params: {
@@ -17,29 +18,36 @@ interface UserPageProps {
 }
 
 type ViewType = 'bio' | 'reviews'
-type ContactState = 'Contact' | 'Sent'
+type ContactState = 'Contact' | 'Request Sent' | 'Send Message'
 
 const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
   const [currentView, setCurrentView] = useState<ViewType>('bio');
   const isLoggedIn = useStore((state) => state.isLoggedIn);
   const [contactState, setContactState] = useState<ContactState>('Contact')
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {data: user, isLoading, isError} = useQuery<SingleUser>({
     queryKey: ['user', userId],
     queryFn: () => fetchUserById(userId)
   })
 
+  //todo fix so that if the user sent a request to the user, the button should be called Accept Request and accept it.
   const {data: sentRequests} = useQuery({
     queryKey: ['sent-requests'],
     queryFn: getSentRequests
   })
 
+  const {data: contacts} = useQuery({
+    queryKey: ['contacts'],
+    queryFn: getAllContacts
+  });
+
   const sendRequest = useMutation({
     mutationFn: (userId: string) => sendContactRequest(userId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({queryKey: ['sent-requests']})
-      setContactState('Sent');
+      setContactState('Request Sent');
       toast.success(`Contact request sent to ${user?.fullName}`);
     },
     onError: () => {
@@ -49,7 +57,10 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
 
   useEffect(() => {
     if (sentRequests?.some(request => request.receiverId === user?.userId)) {
-      setContactState('Sent');
+      setContactState('Request Sent');
+    }
+    else if (contacts?.some(contact => contact.id === user?.userId)) {
+      setContactState('Send Message');
     }
   }, [sentRequests, user?.userId]);
 
@@ -92,8 +103,11 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
         {isLoggedIn &&
         <button
             className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black"
-            onClick={() => sendRequest.mutate(user?.userId || '')}
-            disabled={contactState === 'Sent'}>
+            onClick={() => {
+              if(contactState === 'Contact') sendRequest.mutate(user?.userId || '');
+              if(contactState === 'Send Message') router.push('/chat')
+            }}
+            disabled={contactState === 'Request Sent'}>
           {/* todo fix this to a better text*/}
           {contactState}
         </button>}
