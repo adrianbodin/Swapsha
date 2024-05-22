@@ -7,7 +7,13 @@ import UserBio from "@/components/user-bio";
 import {SingleUser} from "@/types/user";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useStore} from "@/stores/user-store";
-import {getAllContacts, getSentRequests, sendContactRequest} from "@/fetching/contacts";
+import {
+  acceptRequest,
+  getAllContacts,
+  getPendingRequests,
+  getSentRequests,
+  sendContactRequest
+} from "@/fetching/contacts";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 
@@ -18,7 +24,7 @@ interface UserPageProps {
 }
 
 type ViewType = 'bio' | 'reviews'
-type ContactState = 'Contact' | 'Request Sent' | 'Send Message'
+type ContactState = 'Contact' | 'Request Sent' | 'Send Message' | 'Accept Request'
 
 const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
   const [currentView, setCurrentView] = useState<ViewType>('bio');
@@ -38,6 +44,11 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
     queryFn: getSentRequests
   })
 
+  const {data: pendingRequests} = useQuery({
+    queryKey: ['pending-requests'],
+    queryFn: getPendingRequests
+  })
+
   const {data: contacts} = useQuery({
     queryKey: ['contacts'],
     queryFn: getAllContacts
@@ -55,6 +66,20 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
     }
   })
 
+  const approveRequest = useMutation({
+    mutationFn: (requestId: string) => acceptRequest(requestId),
+    onSuccess: async () => {
+      toast.success("The request has been accepted! To to your contacts to view.")
+      await queryClient.invalidateQueries({queryKey: ['pending-requests']})
+      setContactState('Send Message');
+    },
+    onError: () => {
+      toast.error("There was an error accepting the request, please try again.")
+    }
+  })
+
+  const request = pendingRequests?.find(request => request.senderId === user?.userId);
+
   useEffect(() => {
     if (sentRequests?.some(request => request.receiverId === user?.userId)) {
       setContactState('Request Sent');
@@ -62,7 +87,10 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
     else if (contacts?.some(contact => contact.id === user?.userId)) {
       setContactState('Send Message');
     }
-  }, [sentRequests, user?.userId]);
+    else if (pendingRequests?.some(request => request.senderId === user?.userId)) {
+      setContactState('Accept Request');
+    }
+  }, [sentRequests, contacts, user?.userId]);
 
   //TODO fix better tags for these
   if (isLoading) return <p>Loading...</p>
@@ -106,6 +134,7 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
             onClick={() => {
               if(contactState === 'Contact') sendRequest.mutate(user?.userId || '');
               if(contactState === 'Send Message') router.push('/chat')
+              if(contactState === 'Accept Request') approveRequest.mutate(request?.requestId || '')
             }}
             disabled={contactState === 'Request Sent'}>
           {/* todo fix this to a better text*/}
