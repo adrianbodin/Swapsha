@@ -29,6 +29,12 @@ public class UserService : IUserService
                 .Where(u => u.UserSkills.Any(us => us.SkillId == request.SkillId));
         }
 
+        //This is used to filter out the logged-in user, if one is
+        if (loggedInUserId is not null)
+        {
+            userQuery = userQuery.Where(u => u.Id != loggedInUserId);
+        }
+
 
         //will add sorting if the query param was provided
         if (!string.IsNullOrEmpty(request.SortBy))
@@ -59,10 +65,6 @@ public class UserService : IUserService
             .Take(request.PageSize)
             .ToListAsync();
 
-        if (loggedInUserId is not null)
-        {
-            users = users.Where(u => u.UserId != loggedInUserId).ToList();
-        }
 
         return new PaginatedResponse<GetAllUsersResponse>
         (
