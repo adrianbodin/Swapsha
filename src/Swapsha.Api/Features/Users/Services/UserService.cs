@@ -19,7 +19,7 @@ public class UserService : IUserService
         _userManager = userManager;
     }
 
-    public async Task<PaginatedResponse<GetAllUsersResponse>> GetAllUsers(GetAllUsersRequest request)
+    public async Task<PaginatedResponse<GetAllUsersResponse>> GetAllUsers(GetAllUsersRequest request, string? loggedInUserId)
     {
         var userQuery = _db.Users.AsNoTracking();
 
@@ -27,6 +27,12 @@ public class UserService : IUserService
         {
             userQuery = userQuery
                 .Where(u => u.UserSkills.Any(us => us.SkillId == request.SkillId));
+        }
+
+        //This is used to filter out the logged-in user, if one is
+        if (loggedInUserId is not null)
+        {
+            userQuery = userQuery.Where(u => u.Id != loggedInUserId);
         }
 
 
@@ -58,6 +64,7 @@ public class UserService : IUserService
             .Skip((request.PageIndex - 1) * request.PageSize)
             .Take(request.PageSize)
             .ToListAsync();
+
 
         return new PaginatedResponse<GetAllUsersResponse>
         (

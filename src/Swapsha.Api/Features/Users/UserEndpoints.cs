@@ -40,7 +40,10 @@ public class UserEndpoints : ControllerBase
     [HttpGet]
     public async Task<ActionResult<PaginatedResponse<GetAllUsersResponse>>> GetAllUsers([FromQuery]GetAllUsersRequest request)
     {
-        var response = await _userService.GetAllUsers(request);
+        var loggedInUser = await _userManager.GetUserAsync(HttpContext.User);
+
+        var response = await _userService.GetAllUsers(request, loggedInUser?.Id);
+
         return Ok(response);
     }
 

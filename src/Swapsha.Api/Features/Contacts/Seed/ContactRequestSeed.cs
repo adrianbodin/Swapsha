@@ -28,15 +28,24 @@ public static class ContactRequestSeed
                     (c.User1Id == user.Id && c.User2Id == receiver.Id) ||
                     (c.User1Id == receiver.Id && c.User2Id == user.Id));
 
-                var status = existingContact != null ? ContactRequestStatus.Accepted : ContactRequestStatus.Pending;
+                // Check if a contact request already exists between the two users
+                var existingContactRequest = contactRequests.FirstOrDefault(c =>
+                    (c.SenderId == user.Id && c.ReceiverId == receiver.Id) ||
+                    (c.SenderId == receiver.Id && c.ReceiverId == user.Id));
 
-                contactRequests.Add(new ContactRequest
+                // If no contact request exists, create new one
+                if (existingContactRequest == null)
                 {
-                    ContactRequestId = Guid.NewGuid().ToString(),
-                    SenderId = user.Id,
-                    ReceiverId = receiver.Id,
-                    Status = status
-                });
+                    var status = existingContact != null ? ContactRequestStatus.Accepted : ContactRequestStatus.Pending;
+
+                    contactRequests.Add(new ContactRequest
+                    {
+                        ContactRequestId = Guid.NewGuid().ToString(),
+                        SenderId = user.Id,
+                        ReceiverId = receiver.Id,
+                        Status = status
+                    });
+                }
             }
 
             // Rotate the shuffled list to ensure a different set of receivers for the next user
