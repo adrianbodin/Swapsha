@@ -19,7 +19,7 @@ public class UserService : IUserService
         _userManager = userManager;
     }
 
-    public async Task<PaginatedResponse<GetAllUsersResponse>> GetAllUsers(GetAllUsersRequest request)
+    public async Task<PaginatedResponse<GetAllUsersResponse>> GetAllUsers(GetAllUsersRequest request, string? loggedInUserId)
     {
         var userQuery = _db.Users.AsNoTracking();
 
@@ -58,6 +58,11 @@ public class UserService : IUserService
             .Skip((request.PageIndex - 1) * request.PageSize)
             .Take(request.PageSize)
             .ToListAsync();
+
+        if (loggedInUserId is not null)
+        {
+            users = users.Where(u => u.UserId != loggedInUserId).ToList();
+        }
 
         return new PaginatedResponse<GetAllUsersResponse>
         (

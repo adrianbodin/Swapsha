@@ -4,7 +4,7 @@ namespace Swapsha.Api.Features.Users.Services;
 
 public interface IUserService
 {
-    Task<PaginatedResponse<GetAllUsersResponse>> GetAllUsers(GetAllUsersRequest request);
+    Task<PaginatedResponse<GetAllUsersResponse>> GetAllUsers(GetAllUsersRequest request, string? loggedInUserId);
 
     Task<GetUserResponse> GetUserById(string id);
 
