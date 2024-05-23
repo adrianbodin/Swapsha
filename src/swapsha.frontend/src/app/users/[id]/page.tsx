@@ -130,15 +130,38 @@ const UserPage: FC<UserPageProps> = ({ params: { id: userId } }) => {
       <div className="flex justify-center gap-4 w-full mb-10">
         {isLoggedIn &&
         <button
-            className="basis-1/3 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black"
+            className="basis-1/3 flex justify-center items-center gap-2 px-4 py-2 bg-light-green text-xl font-bold rounded-xl text-main-white shadow-sm shadow-black"
             onClick={() => {
               if(contactState === 'Contact') sendRequest.mutate(user?.userId || '');
               if(contactState === 'Send Message') router.push('/chat')
               if(contactState === 'Accept Request') approveRequest.mutate(request?.requestId || '')
             }}
             disabled={contactState === 'Request Sent'}>
-          {/* todo fix this to a better text*/}
-          {contactState}
+          {contactState === 'Contact' &&
+              <>
+                  Send Request
+              </> }
+          {contactState === 'Request Sent' &&
+              <>
+                  Pending
+                  <span className="material-symbols-outlined">
+                    pending
+                  </span>
+              </> }
+          {contactState === 'Send Message' &&
+          <>
+            Message
+            <span className="material-symbols-outlined">
+              chat
+            </span>
+          </> }
+          {contactState === 'Accept Request' &&
+              <>
+                  Accept
+                  <span className="material-symbols-outlined">
+                    check
+                  </span>
+              </> }
         </button>}
         <button
           className="basis-1/3  px-4 py-2 bg-main-white text-xl font-bold rounded-xl shadow-sm shadow-gray-400"
