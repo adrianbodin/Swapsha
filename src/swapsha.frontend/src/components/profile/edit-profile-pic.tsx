@@ -86,7 +86,7 @@ const EditProfilePic: FC<EditProfilePicProps> = ({ picUrl, userId }) => {
       </div>
       <button
         onClick={handleButtonClick}
-        className="absolute right-7 bottom-7 shadow-gray-400 shadow-md bg-main-white rounded-full w-1/8 h-10 w-10 flex justify-center items-center">
+        className="absolute right-9 bottom-9 shadow-gray-400 shadow-md bg-main-white rounded-full w-1/8 h-10 w-10 flex justify-center items-center">
         <span className="material-symbols-outlined">edit</span>
       </button>
       <input
