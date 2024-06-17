@@ -68,7 +68,7 @@ public class UserService : IUserService
 
         return new PaginatedResponse<GetAllUsersResponse>
         (
-            request.PageIndex,
+              request.PageIndex,
             request.PageSize,
             count,
             users
