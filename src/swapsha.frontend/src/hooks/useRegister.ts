@@ -140,6 +140,7 @@ const UseRegister = () => {
       });
 
       router.push('/users');
+      toast.success("Welcome to Swapsha!")
 
     }catch(error){
       if (error instanceof Error) {
